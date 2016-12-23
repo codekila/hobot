@@ -11,9 +11,12 @@ var bot = LINEBot.create({
 
 app.use(bot.webhook('/webhook'));
 bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
+    console.log("GOT MESSAGE");
     bot.replyTextMessage(replyToken, 'hello HoHoHo!').then(function(data) {
         // add your code when success.
     }).catch(function(error) {
         // add your code when error.
     });
 });
+
+server.listen(8080);

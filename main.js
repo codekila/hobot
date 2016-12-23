@@ -19,4 +19,4 @@ bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
     });
 });
 
-server.listen(8080);
+server.listen(process.env.PORT || 8080);

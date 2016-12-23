@@ -12,16 +12,35 @@ var bot = LINEBot.create({
 app.use(bot.webhook('/webhook'));
 bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
     console.log("GOT MESSAGE");
-    bot.replyTextMessage(replyToken, 'hello HoHoHo!').then(function(data) {
+    bot.replyTextMessage(replyToken, 'hello HoHoHo!').then(function(message) {
         // add your code when success.
     }).catch(function(error) {
         // add your code when error.
     });
 });
+bot.on(LINEBot.Events.POSTBACK, function(replyToken, message) {
+    console.log("GOT POSTBACK");
+});
+bot.on(LINEBot.Events.FOLLOW, function(replyToken, message) {
+    console.log("GOT FOLLOW");
+});
+bot.on(LINEBot.Events.UNFOLLOW, function(replyToken, message) {
+    console.log("GOT UNFOLLOW");
+});
+bot.on(LINEBot.Events.JOIN, function(replyToken, message) {
+    console.log("GOT JOIN");
+});
+bot.on(LINEBot.Events.LEAVE, function(replyToken, message) {
+    console.log("GOT LEAVE");
+});
+bot.on(LINEBot.Events.BEACON, function(replyToken, message) {
+    console.log("GOT BEACON");
+});
+
 
 var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
 
 server.listen(server_port, server_host, function() {
-    console.log('Listening on port %d', server_port);
+    console.log('hobot listening on port %d', server_port);
 });

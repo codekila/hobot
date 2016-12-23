@@ -20,3 +20,5 @@ bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
 });
 
 server.listen(process.env.PORT || 8080);
+
+console.log("hobot listening to port " + process.env.PORT || 8080);

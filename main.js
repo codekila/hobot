@@ -9,7 +9,7 @@ var bot = LINEBot.create({
     channelToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
 }, server);
 
-app.use(bot.webhook('/webhook'));
+app.use(bot.webhook('/'));
 bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
     console.log("GOT MESSAGE");
     bot.replyTextMessage(replyToken, 'hello HoHoHo!').then(function(message) {

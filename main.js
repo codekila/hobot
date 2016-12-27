@@ -11,9 +11,8 @@ var bot = LINEBot.create({
 
 app.use(bot.webhook('/'));
 bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
-    console.log("HERE~~");
-    console.log("GOT MESSAGE, id" + message.text);
-    bot.replyTextMessage(replyToken, 'hello HoHoHo, Merry Christmas!' + message.text).then(function(data) {
+    console.log("GOT MESSAGE, id" + message.getUserId());
+    bot.replyTextMessage(replyToken, 'hello HoHoHo, Merry Christmas!' + message.getText()).then(function(data) {
         // add your code when success.
     }).catch(function(error) {
         // add your code when error.

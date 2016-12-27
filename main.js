@@ -13,7 +13,7 @@ app.use(bot.webhook('/'));
 bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
     console.log("GOT MESSAGE, UserId=" + message.getUserId() + ", MessageId=" + message.getMessageId());
     bot.getProfile(message.getUserId()).then(function(prof) {
-        bot.replyTextMessage(replyToken, 'HoHoHo, Happy New Year! ' + prof.displayName).then(function(data) {
+        bot.replyTextMessage(replyToken, 'HoHoHo ' + prof.displayName + ', Happy New Year!').then(function(data) {
             // add your code when success.
         }).catch(function(error) {
             // add your code when error.

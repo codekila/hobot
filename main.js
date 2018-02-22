@@ -1,50 +1,50 @@
-var LINEBot = require('line-messaging');
+'use strict';
 
-var app = require('express')();
-var server = require('http').Server(app);
+const line = require('@line/bot-sdk');
+const express = require('express');
 
-var bot = LINEBot.create({
+// create LINE SDK config from env variables
+const config = {
     channelID: '1493482238',
     channelSecret: '5e5ea18cd35b31891f679dea2ce06fe1',
-    channelToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
-}, server);
+    channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
+};
 
-app.use(bot.webhook('/'));
-bot.on(LINEBot.Events.MESSAGE, function(replyToken, message) {
-    console.log("GOT MESSAGE, UserId=" + message.getUserId() + ", MessageId=" + message.getMessageId());
-    bot.getProfile(message.getUserId()).then(function(prof) {
-        bot.replyTextMessage(replyToken, 'HoHoHo ' + prof.displayName + ', Happy New Year!').then(function(data) {
-            // add your code when success.
-        }).catch(function(error) {
-            // add your code when error.
+// create LINE SDK client
+const client = new line.Client(config);
+
+// create Express app
+// about Express itself: https://expressjs.com/
+const app = express();
+
+// register a webhook handler with middleware
+// about the middleware, please refer to doc
+app.post('/callback', line.middleware(config), (req, res) => {
+    Promise
+        .all(req.body.events.map(handleEvent))
+        .then((result) => res.json(result))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).end();
         });
-    }).catch(function(error) {
-        // add your code when error.
-    });
-});
-bot.on(LINEBot.Events.POSTBACK, function(replyToken, message) {
-    console.log("GOT POSTBACK");
-});
-bot.on(LINEBot.Events.FOLLOW, function(replyToken, message) {
-    console.log("GOT FOLLOW");
-});
-bot.on(LINEBot.Events.UNFOLLOW, function(replyToken, message) {
-    console.log("GOT UNFOLLOW");
-});
-bot.on(LINEBot.Events.JOIN, function(replyToken, message) {
-    console.log("GOT JOIN");
-});
-bot.on(LINEBot.Events.LEAVE, function(replyToken, message) {
-    console.log("GOT LEAVE");
-});
-bot.on(LINEBot.Events.BEACON, function(replyToken, message) {
-    console.log("GOT BEACON");
 });
 
+// event handler
+function handleEvent(event) {
+    if (event.type !== 'message' || event.message.type !== 'text') {
+        // ignore non-text-message event
+        return Promise.resolve(null);
+    }
 
-var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
-var server_host = process.env.YOUR_HOST || '0.0.0.0';
+    // create a echoing text message
+    const echo = { type: 'text', text: event.message.text };
 
-server.listen(server_port, server_host, function() {
-    console.log('hobot listening on port %d', server_port);
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+}
+
+// listen on port
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`listening on ${port}`);
 });

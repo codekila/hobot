@@ -22,9 +22,7 @@ const app = express();
 app.post('/callback', line.middleware(config), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
-        .then((result) => {
-            res.json('你說：『' + result + '』！');
-        })
+        .then((result) => res.json(result))
         .catch((err) => {
             console.error(err);
             res.status(500).end();
@@ -39,7 +37,7 @@ function handleEvent(event) {
     }
 
     // create a echoing text message
-    const echo = { type: 'text', text: event.message.text };
+    const echo = { type: 'text', text: '你說：『' + event.message.text + '』！' };
 
     // use reply API
     return client.replyMessage(event.replyToken, echo);

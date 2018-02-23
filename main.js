@@ -35,12 +35,15 @@ function handleEvent(event) {
         // ignore non-text-message event
         return Promise.resolve(null);
     }
-
+    
     // create a echoing text message
-    const echo = { type: 'text', text: '你說：『' + event.message.text + '』！' };
+    const echo = composeReply(event);
 
     // use reply API
-    return client.replyMessage(event.replyToken, echo);
+    if (echo != null)
+        return client.replyMessage(event.replyToken, echo);
+    else
+        return Promise.resolve(null);
 }
 
 // listen on port
@@ -48,3 +51,21 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`hobot listening on ${port}`);
 });
+
+// compose the context-aware reply
+function composeReply(event) {
+    let echoText = null;
+    let queryText = event.message.text;
+
+    // a bit of fun here
+    if (quertyText == 'lol') {
+        echoText = '~~~laugh out loud~~~';
+    } else if (queryText == 'time') {
+        echoText = 'what time is it now?';
+    }
+
+    if (echoText != null)
+        return { type: 'text', text: echoText };
+    else
+        return null;
+}

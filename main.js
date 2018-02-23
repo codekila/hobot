@@ -58,8 +58,8 @@ function composeReply(event) {
     let queryText = event.message.text;
 
     // a bit of fun here
-    console.log('message = \'' + queryText + '\'');
-    if (quertyText == 'lol') {
+    console.log('query message = \'' + queryText + '\'');
+    if (queryText == 'lol') {
         echoText = '~~~laugh out loud~~~';
     } else if (queryText == 'time') {
         echoText = 'what time is it now?';

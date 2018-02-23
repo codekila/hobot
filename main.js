@@ -22,7 +22,9 @@ const app = express();
 app.post('/callback', line.middleware(config), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
-        .then((result) => res.json(result))
+        .then((result) => {
+            res.json('你說：『' + result + '』！');
+        })
         .catch((err) => {
             console.error(err);
             res.status(500).end();

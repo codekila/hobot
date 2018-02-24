@@ -55,7 +55,7 @@ app.listen(port, () => {
 // compose the context-aware reply
 function composeReply(event) {
     let echoText = null;
-    let queryText = event.message.text;
+    let queryText = event.message.text.trim();
 
     // a bit of fun here
     console.log('query message = \'' + queryText + '\'');
@@ -66,8 +66,30 @@ function composeReply(event) {
         echoText = handleQueryTime();
     } else if (queryText.toLowerCase() == 'meowco' || queryText == '妙可') {
         echoText = '誒～我只知道這隻貓很肥！';
-    } else if (queryText.toLowerCase() == 'help' || queryText == '幫忙') {
+    } else if (queryText.toLowerCase() == 'help' || queryText.toLowerCase() == 'hobot' || queryText.toLowerCase() == '何寶' || queryText == '幫忙') {
         echoText = '我也很想啊，但是我目前的智商還差得很遠勒～';
+    } else if (queryText.toLowerCase() == 'morning' || queryText == '早安') {
+        echoText = '何寶在此跟您問個早';
+    } else if (queryText.toLowerCase() == 'good afternoon' || queryText == '午安') {
+        echoText = '我想睡個午覺';
+    }else if (queryText.toLowerCase() == 'good night' || queryText == '晚安') {
+        echoText = '大家一起來睡覺喔';
+    } else if (queryText.includes('肥') || queryText.includes('胖')) {
+        echoText = '我也覺得自己有點肥耶';
+    } else if (queryText.includes('肥') || queryText.includes('胖')) {
+        echoText = '我也覺得自己有點肥耶';
+    } else if (queryText.includes('欠扁') || queryText.includes('欠揍')) {
+        echoText = '嘿嘿，來打我啊～';
+    } else if (queryText.includes('肥') || queryText.includes('胖')) {
+        echoText = '怎摸辦，我也覺得自己有點肥耶～';
+    } else if (queryText.toLowerCase().includes('HSR') || queryText.includes('高鐵')) {
+        echoText = '小心開車，等你回家喔～';
+    } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈哈')) {
+        echoText = '超好笑的！';
+    } else if (queryText.includes('...')) {
+        echoText = '... ... ...';
+    } else if (queryText.toLowerCase().includes('ok')) {
+        echoText = '你ＯＫ我當然也ＯＫ拉，顆顆';
     }
 
     if (echoText != null)

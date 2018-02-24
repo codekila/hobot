@@ -2,7 +2,6 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
-const clock = require('world-clock')();
 
 // create LINE SDK config from env variables
 const config = {
@@ -60,10 +59,13 @@ function composeReply(event) {
 
     // a bit of fun here
     console.log('query message = \'' + queryText + '\'');
-    if (queryText.includes('笨') || queryText.includes('蠢') || queryText.includes('白痴') || queryText.toLowerCase().includes('idiot')) {
+    if (queryText.includes('笨') || queryText.includes('蠢') || queryText.includes('白痴')
+        || queryText.includes('智障') || queryText.includes('白痴') || queryText.toLowerCase().includes('idiot')) {
         echoText = '對不起，我智商比較低～～～><';
-    } else if (queryText.toLowerCase() == 'time') {
+    } else if (queryText.toLowerCase() == 'time' || queryText == '時間' || queryText == 'タイム') {
         echoText = handleQueryTime();
+    } else if (queryText.toLowerCase() == 'meowco' || queryText == '妙可') {
+        echoText = '誒～我只知道這隻貓很肥！';
     }
 
     if (echoText != null)
@@ -71,6 +73,8 @@ function composeReply(event) {
     else
         return null;
 }
+
+const clock = require('world-clock')();
 
 function handleQueryTime() {
     return 'Taiwan: ' + clock.today('Asia/Taipei').toString() + ' ' + clock.localTime('Asia/Taipei').toString().substr(0,5)

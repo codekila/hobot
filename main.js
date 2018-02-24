@@ -2,6 +2,7 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
+const clock = require('world-clock')();
 
 // create LINE SDK config from env variables
 const config = {
@@ -62,11 +63,16 @@ function composeReply(event) {
     if (queryText == 'lol') {
         echoText = '~~~laugh out loud~~~';
     } else if (queryText == 'time') {
-        echoText = 'what time is it now?';
+        echoText = handleQueryTime();
     }
 
     if (echoText != null)
         return { type: 'text', text: echoText };
     else
         return null;
+}
+
+function handleQueryTime() {
+
+    return clock.localTime('Europe/London').toString();             // 15:03:24
 }

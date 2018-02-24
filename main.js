@@ -60,9 +60,9 @@ function composeReply(event) {
 
     // a bit of fun here
     console.log('query message = \'' + queryText + '\'');
-    if (queryText == 'lol') {
-        echoText = '~~~laugh out loud~~~';
-    } else if (queryText == 'time') {
+    if (queryText.includes('笨') || queryText.includes('蠢') || queryText.includes('白痴') || queryText.toLowerCase().includes('idiot')) {
+        echoText = '對不起，我智商比較低～～～><';
+    } else if (queryText.toLowerCase() == 'time') {
         echoText = handleQueryTime();
     }
 
@@ -73,7 +73,7 @@ function composeReply(event) {
 }
 
 function handleQueryTime() {
-    return 'Taiwan: ' + clock.localTime('Asia/Taipei').toString()
-            + '\\nSan Diego: ' + clock.localTime('America/Los_Angeles').toString();
+    return 'Taiwan: ' + clock.today('Asia/Taipei').toString() + ' ' + clock.localTime('Asia/Taipei').toString().substr(0,5)
+            + '\nSan Diego: ' + clock.today('America/Los_Angeles').toString() + ' ' + clock.localTime('America/Los_Angeles').toString().substr(0,5);
 
 }

@@ -73,5 +73,7 @@ function composeReply(event) {
 }
 
 function handleQueryTime() {
-    return clock.localTime('Europe/London').toString();             // 15:03:24
+    return 'Taiwan: ' + clock.localTime('Asia/Taipei').toString()
+            + '\\nSan Diego: ' + clock.localTime('America/Los_Angeles').toString();
+
 }

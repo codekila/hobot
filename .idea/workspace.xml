@@ -2,121 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/CHANGELOG.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/CheatSheet.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/dist/js-joda.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/dist/js-joda.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/dist/js-joda.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/dist/js-joda.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Clock.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/DayOfWeek.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Duration.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Enum.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Instant.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/LocalDate.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/LocalDateTime.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/LocalTime.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/MathUtil.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Month.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/MonthDay.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Period.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/StringUtil.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/Year.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/YearConstants.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/YearMonth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/ZoneId.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/ZoneIdFactory.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/ZoneOffset.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/ZoneRegion.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/ZonedDateTime.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/_init.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/assert.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/chrono/ChronoLocalDate.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/chrono/ChronoLocalDateTime.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/chrono/ChronoZonedDateTime.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/chrono/IsoChronology.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/convert.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/errors.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/DateTimeBuilder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/DateTimeFormatter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/DateTimeFormatterBuilder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/DateTimeParseContext.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/DateTimePrintContext.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/DecimalStyle.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/EnumMap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/ParsePosition.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/ResolverStyle.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/SignStyle.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/StringBuilder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/TextStyle.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/CharLiteralPrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/CompositePrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/FractionPrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/NumberPrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/OffsetIdPrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/PadPrinterParserDecorator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/SettingsParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/StringLiteralPrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/format/parser/ZoneIdPrinterParser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/js-joda.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/license-preamble.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/ChronoField.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/ChronoUnit.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/IsoFields.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/NativeJsTemporal.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/Temporal.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalAccessor.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalAdjuster.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalAdjusters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalAmount.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalField.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalQueries.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalQueriesFactory.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalQuery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/TemporalUnit.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/temporal/ValueRange.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/use.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/zone/SystemDefaultZoneId.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/zone/SystemDefaultZoneRules.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/zone/ZoneOffsetTransition.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/zone/ZoneRules.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/js-joda/src/zone/ZoneRulesProvider.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/jspack.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/jspack/test/int64.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/.codeclimate.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/.eslintignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/.eslintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/CHANGELOG.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/_config.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/joda.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/test/mocha.opts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/world-clock/test/world-clock.test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/countrycodes.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/data/country-codes.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/zoneinfo/test/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="hobot86.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -140,8 +27,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="74" column="28" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+            <state relative-caret-position="339">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -328,12 +215,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
-      <workItem from="1519345260366" duration="4044000" />
+      <workItem from="1519345260366" duration="4477000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6782000" />
+    <option name="totallyTimeSpent" value="7215000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="43" width="1400" height="772" extended-state="0" />
@@ -401,8 +288,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="74" column="28" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+        <state relative-caret-position="339">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
       </provider>

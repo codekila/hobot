@@ -73,6 +73,5 @@ function composeReply(event) {
 }
 
 function handleQueryTime() {
-
     return clock.localTime('Europe/London').toString();             // 15:03:24
 }

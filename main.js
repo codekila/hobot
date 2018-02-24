@@ -66,6 +66,8 @@ function composeReply(event) {
         echoText = handleQueryTime();
     } else if (queryText.toLowerCase() == 'meowco' || queryText == '妙可') {
         echoText = '誒～我只知道這隻貓很肥！';
+    } else if (queryText.toLowerCase() == 'help' || queryText == '幫忙') {
+        echoText = '我也很想啊，但是我目前的智商還差得很遠勒～';
     }
 
     if (echoText != null)

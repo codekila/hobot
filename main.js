@@ -82,7 +82,7 @@ function composeReply(event) {
         echoText = '嘿嘿，來打我啊～';
     } else if (queryText.includes('肥') || queryText.includes('胖')) {
         echoText = '怎摸辦，我也覺得自己有點肥耶～';
-    } else if (queryText.toLowerCase().includes('HSR') || queryText.includes('高鐵')) {
+    } else if (queryText.toLowerCase().includes('hsr') || queryText.includes('高鐵')) {
         echoText = '小心開車，等你回家喔～';
     } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈哈')) {
         echoText = '超好笑的！';

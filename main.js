@@ -60,16 +60,17 @@ function composeReply(event) {
     // a bit of fun here
     console.log('query message = \'' + queryText + '\'');
     if (queryText.includes('笨') || queryText.includes('蠢') || queryText.includes('白痴')
-        || queryText.includes('智障') || queryText.includes('白痴') || queryText.toLowerCase().includes('idiot')) {
-        echoText = '對不起，我智商比較低～～～><';
+        || queryText.includes('智障') || queryText.includes('白痴') || queryText.toLowerCase().includes('idiot')
+        || queryText.toLowerCase().includes('stupid')) {
+        echoText = (Math.random()<0.5)? '對不起，我智商比較低～～～><':'說你笨你不相信';
     } else if (queryText.toLowerCase() == 'time' || queryText == '時間' || queryText == 'タイム') {
         echoText = handleQueryTime();
-    } else if (queryText.toLowerCase() == 'meowco' || queryText == '妙可') {
+    } else if (queryText.toLowerCase() == 'meowco' || queryText.includes('妙可')) {
         echoText = '誒～我只知道這隻貓很肥！';
-    } else if (queryText.toLowerCase() == 'help' || queryText.toLowerCase() == 'hobot' || queryText.toLowerCase() == '何寶' || queryText == '幫忙') {
+    } else if (queryText.toLowerCase() == 'help' || queryText.toLowerCase() == 'hobot' || queryText == '何寶' || queryText == '幫忙') {
         echoText = '我也很想啊，但是我目前的智商還差得很遠勒～';
     } else if (queryText.toLowerCase() == 'morning' || queryText == '早安') {
-        echoText = '何寶在此跟您問個早';
+        echoText = (Math.random()<0.5)?'何寶在此跟您問個早':'早安，要記得吃早餐喔！';
     } else if (queryText.toLowerCase() == 'good afternoon' || queryText == '午安') {
         echoText = '我想睡個午覺';
     }else if (queryText.toLowerCase() == 'good night' || queryText == '晚安') {
@@ -84,12 +85,15 @@ function composeReply(event) {
         echoText = '怎摸辦，我也覺得自己有點肥耶～';
     } else if (queryText.toLowerCase().includes('hsr') || queryText.includes('高鐵')) {
         echoText = '小心開車，等你回家喔～';
-    } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈哈')) {
-        echoText = '超好笑的！';
+    } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈')
+        || queryText.includes('呵')|| queryText.includes('嘿') || queryText.includes('笑')) {
+        echoText = (Math.random()<0.5)?'超好笑的！':'嘿呀，我也覺得很好笑';
     } else if (queryText.includes('...')) {
-        echoText = '... ... ...';
+        echoText = '... ... ... 呼呼';
     } else if (queryText.toLowerCase().includes('ok')) {
         echoText = '你ＯＫ我當然也ＯＫ拉，顆顆';
+    } else if (queryText.includes('讚')) {
+        echoText = '顆顆～';
     }
 
     if (echoText != null)

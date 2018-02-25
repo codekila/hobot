@@ -259,6 +259,33 @@ module.exports = {
                 "queries": [
                     {
                         "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "hobot", "何寶"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "您找我？",
+                            "有事嗎？",
+                            "什麼吩咐？"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
                         "model": "precise",
                         "texts": [
                             "um", "嗯", "m", "en", "恩", "ㄣ", "啊", "呀", "喔"
@@ -429,7 +456,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "...", "無言"
+                            "...", "無言", "沒事", "來亂"
                         ]
                     }
                 ],
@@ -447,6 +474,7 @@ module.exports = {
                             "...?",
                             "真的...無言",
                             "有點兒...",
+                            "有事嗎？"
                             "是不是很OOXX?"
                         ]
                     }

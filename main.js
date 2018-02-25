@@ -69,33 +69,6 @@ function composeReply(event) {
         // a bit more fun here
         if (queryText.toLowerCase() == 'time' || queryText == '時間' || queryText == 'タイム') {
             replyText = handleQueryTime();
-        } else if (queryText.toLowerCase() == 'meowco' || queryText.includes('妙可')) {
-            replyText = '誒～我只知道這隻貓很肥！';
-        } else if (queryText.toLowerCase() == 'help' || queryText.toLowerCase() == 'hobot' || queryText == '何寶' || queryText == '幫忙') {
-            replyText = '我也很想啊，但是我目前的智商還差得很遠勒～';
-        } else if (queryText.toLowerCase() == 'good afternoon' || queryText == '午安') {
-            replyText = '我想睡個午覺';
-        } else if (queryText.toLowerCase() == 'good night' || queryText == '晚安') {
-            replyText = '大家一起來睡覺喔';
-        } else if (queryText.includes('肥') || queryText.includes('胖')) {
-            replyText = '我也覺得自己有點肥耶';
-        } else if (queryText.includes('肥') || queryText.includes('胖')) {
-            replyText = '我也覺得自己有點肥耶';
-        } else if (queryText.includes('欠扁') || queryText.includes('欠揍')) {
-            replyText = '嘿嘿，來打我啊～';
-        } else if (queryText.includes('肥') || queryText.includes('胖')) {
-            replyText = '怎摸辦，我也覺得自己有點肥耶～';
-        } else if (queryText.toLowerCase().includes('hsr') || queryText.includes('高鐵')) {
-            replyText = '小心開車，等你回家喔～';
-        } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈')
-            || queryText.includes('呵') || queryText.includes('嘿') || queryText.includes('笑')) {
-            replyText = (Math.random() < 0.5) ? '超好笑的！' : '嘿呀，我也覺得很好笑';
-        } else if (queryText.includes('...')) {
-            replyText = '... ... ... 呼呼';
-        } else if (queryText.toLowerCase().includes('ok')) {
-            replyText = '你ＯＫ我當然也ＯＫ拉，顆顆';
-        } else if (queryText.includes('讚')) {
-            replyText = '顆顆～';
         }
     }
 

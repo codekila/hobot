@@ -92,7 +92,7 @@ function matchDb(queryText, db) {
         return dbItemMatched;
     }
     else {
-        console.log('not matched');
+        console.log('no match');
         return null;
     }
 }
@@ -100,8 +100,6 @@ function matchDb(queryText, db) {
 function processResponse(matchedItem) {
     let dbResult = null;
     let responseToDo = null;
-
-    console.log('responses to look for:' + JSON.stringify(matchedItem.responses));
 
     // identify the right response to deal with
     for (let response of matchedItem.responses) {

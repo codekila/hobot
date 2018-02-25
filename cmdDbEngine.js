@@ -34,13 +34,13 @@ function responseMatchingModelCanned() {
 
 }
 
-function matchDb(queryText, cmdDb) {
+function matchDb(queryText, db) {
     let dbItem;
     let matched = null;
     let newlyMatched = null;
 
     // try to match a query
-    for (dbItem in cmdDb.db) {
+    for (dbItem in db) {
         for (let query in dbItem.queries) {
             // match based on models
             console.log(query.toString());
@@ -89,6 +89,7 @@ function matchDb(queryText, cmdDb) {
         return dbItem;
     }
     else {
+        console.log('not matched');
         return null;
     }
 }
@@ -123,9 +124,7 @@ function processResponse(matchedItem) {
 
 function processDb(queryText, cmdDb) {
     let dbResult = null;
-    let matchedItem = matchDb(queryText, cmdDb);
-
-    console.log("hihihi~~~");
+    let matchedItem = matchDb(queryText, cmdDb.db);
 
     if (matchedItem) {
 

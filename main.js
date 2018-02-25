@@ -62,7 +62,7 @@ function composeReply(event) {
     console.log('query message = \'' + queryText + '\'');
 
     // search for response in the database
-    if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
+    if ((dbResult = engine.processDb(queryText, JSON.parse(db.cmdDb))) != null) {
         replyText = dbResult;
     }
     else {

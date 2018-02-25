@@ -43,6 +43,7 @@ function matchDb(queryText, cmdDb) {
     for (dbItem in cmdDb.db) {
         for (let query in dbItem.queries) {
             // match based on models
+            console.log(query.toString());
             for (let text in query.texts) {
                 switch (query.model) {
                     case "precise":

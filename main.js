@@ -110,8 +110,8 @@ function composeReply(event) {
 const clock = require('world-clock')();
 
 function handleQueryTime() {
-    return 'Taiwan: ' + clock.today('Asia/Taipei').toString() + ' ' + clock.localTime('Asia/Taipei').toString().substr(0,5)
-            + '\nSan Diego: ' + clock.today('America/Los_Angeles').toString() + ' ' + clock.localTime('America/Los_Angeles').toString().substr(0,5);
+    return 'Taiwan:    ' + clock.localTime('Asia/Taipei').toString().substr(0,5) + ', ' + clock.today('Asia/Taipei').toString() + '\n'
+        +  'San Diego: ' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
 
 }
 

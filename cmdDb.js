@@ -65,11 +65,13 @@ module.exports = {
                     }
                 ],
                 "responses": [
+                    /*
                     {
                         "priority": "first",
                         "model": "smart",
                         "method": ""
                     },
+                    */
                     {
                         "priority": "default",
                         "model": "canned",

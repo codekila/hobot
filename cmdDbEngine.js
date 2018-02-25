@@ -76,7 +76,7 @@ function matchDb(event, userName, queryText, db) {
 function matchUser(userId, userDb) {
     for (let user of userDb.users) {
         console.log(userId + '----' + JSON.stringify(user));
-        if (userId == user.userId) {
+        if (userId.toLowerCase() == user.userId.toLowerCase()) {
             return user.nickNames[Math.floor(Math.random() * user.nickNames.length)];
         }
     }

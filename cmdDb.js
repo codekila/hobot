@@ -7,7 +7,6 @@
 module.exports = {
     userDb: {
         "users": [
-            [
                 {
                     "userId": "Uc173149caaa1f02eb263e113fe154fd0",
                     "nickNames": [
@@ -33,7 +32,6 @@ module.exports = {
                     ]
                 }
             ]
-        ]
     },
     cmdDb: {
         "version": "1.0.0",

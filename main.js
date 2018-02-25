@@ -41,9 +41,6 @@ function handleEvent(event) {
 }
 
 function cbSendReplyMessage(event, replyMsg) {
-
-    console.log('here~~~~~' + replyMsg);
-
     // use reply API
     if (replyMsg != null)
         return client.replyMessage(event.replyToken, { type: 'text', text: replyMsg });
@@ -81,6 +78,6 @@ function composeReply(event, replyCbFunc) {
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`hobot listening on ${port}`);
+    console.log(`hobot listening to port ${port}`);
 });
 

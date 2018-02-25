@@ -15,7 +15,7 @@ function matchDb(event, userName, queryText, db) {
     let matchedQuery = null;
 
     // try to match a query
-    for (let dbItem of db.cmdDb) {
+    for (let dbItem of db.cmdDb.db) {
         let newlyMatchedQuery = null;
 
         for (let query of dbItem.queries) {

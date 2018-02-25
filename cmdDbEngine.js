@@ -73,7 +73,13 @@ function matchDb(event, userName, queryText, db) {
     }
 }
 
-function processResponse(event, userName, queryText, matchedItem) {
+function matchUser(userId, userDb) {
+    for (let user of ) {
+
+    }
+}
+
+function processResponse(event, userName, queryText, matchedItem, db) {
     let dbResult = null;
     let responseToDo = null;
 
@@ -96,8 +102,11 @@ function processResponse(event, userName, queryText, matchedItem) {
                     dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
                     // randomly add the sender's name
                     if (dbResult != null && dbResult != '') {
-                        if (Math.random()>0.4)
-                            dbResult = userName + '，' + dbResult;
+                        if (Math.random()>0.4) {
+                            let name = matchUser(event.source.userId, db.userDb);
+                            if (name)
+                                dbResult = name + '，' + dbResult;
+                        }
                     }
                 break;
             case "smart":
@@ -117,7 +126,7 @@ function processDb(event, userName, queryText, cmdDb) {
 
     if (matchedItem) {
         // react to the matched query
-        dbResult = processResponse(event, userName, queryText, matchedItem);
+        dbResult = processResponse(event, userName, queryText, matchedItem, cmdDb.db);
     }
     
     return dbResult;

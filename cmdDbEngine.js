@@ -74,7 +74,7 @@ function matchDb(event, userName, queryText, db) {
 }
 
 function matchUser(userId, userDb) {
-    for (let user of userDb) {
+    for (let user of userDb.users) {
         if (userId == user.userId) {
             return user.nickNames[Math.floor(Math.random() * user.nickNames.length)];
         }

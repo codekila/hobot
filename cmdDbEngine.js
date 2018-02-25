@@ -39,15 +39,13 @@ function matchDb(queryText, db) {
     let matched = null;
     let newlyMatched = null;
 
-    console.log(JSON.stringify(db));
-
     // try to match a query
     for (dbItem in db) {
-        console.log(JSON.stringify(dbItem));
+        console.log('dbItem=' + JSON.stringify(dbItem));
 
         for (let query in dbItem.queries) {
             // match based on models
-            console.log(JSON.stringify(query));
+            console.log('query=' + JSON.stringify(query));
             for (let text in query.texts) {
                 switch (query.model) {
                     case "precise":
@@ -129,7 +127,7 @@ function processResponse(matchedItem) {
 function processDb(queryText, cmdDb) {
     let dbResult = null;
 
-    console.log(JSON.stringify(cmdDb.db));
+    console.log('db =' + JSON.stringify(cmdDb.db));
     let matchedItem = matchDb(queryText, cmdDb.db);
 
     if (matchedItem) {

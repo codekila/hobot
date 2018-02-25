@@ -62,14 +62,14 @@ function composeReply(event, replyCbFunc) {
             .then((profile) => {
                 userName = profile.displayName;
 
-                console.log('[' + userName + '] query message = \'' + queryText + '\'');
+                console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
 
                 // search for response in the database
                 if ((dbResult = engine.processDb(event, userName, queryText, db)) != null) {
                     replyText = dbResult;
                 }
 
-                console.log('[' + userName + '] response message = \'' + replyText + '\'');
+                console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
 
                 replyCbFunc(event, replyText);
             })

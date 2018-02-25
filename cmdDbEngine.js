@@ -96,7 +96,7 @@ function processResponse(event, userName, queryText, matchedItem, db) {
         }
     }
 
-    console.log('[' + event.source.userId + ']response to do:' + JSON.stringify(responseToDo));
+    console.log('response to do:' + JSON.stringify(responseToDo));
 
     if (responseToDo) {
         switch (responseToDo.model) {

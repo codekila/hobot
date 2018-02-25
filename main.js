@@ -37,26 +37,22 @@ function handleEvent(event) {
         return Promise.resolve(null);
     }
 
-    // create a echoing text message
-    const replyMsg = composeReply(event);
+    composeReply(event, cbSendReplyMessage);
+}
 
-    console.log('here~~~~~' + JSON.stringify(replyMsg));
+function cbSendReplyMessage(event, replyMsg) {
+
+    console.log('here~~~~~' + replyMsg);
 
     // use reply API
     if (replyMsg != null)
-        return client.replyMessage(event.replyToken, replyMsg);
+        return client.replyMessage(event.replyToken, { type: 'text', text: replyText });
     else
         return Promise.resolve(null);
 }
 
-// listen on port
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`hobot listening on ${port}`);
-});
-
 // compose the context-aware reply
-function composeReply(event) {
+function composeReply(event, replyCbFunc) {
     let replyText = null;
     let dbResult = null;
     let userName = '';
@@ -77,11 +73,17 @@ function composeReply(event) {
 
                 console.log('[' + userName + '] response message = \'' + replyText + '\'');
 
-                if (replyText != null)
-                    return { type: 'text', text: replyText };
-                else
-                    return null;
+                replyCbFunc(event, replyText);
+            })
+            .catch((err) => {
+                replyCbFunc(event, null);
             });
     }
 }
+
+// listen on port
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`hobot listening on ${port}`);
+});
 

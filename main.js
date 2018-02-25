@@ -3,6 +3,9 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 
+import * as hobot from './cmdDb.js';
+import * as engine from './cmdDbEngine.js';
+
 // create LINE SDK config from env variables
 const config = {
     //channelID: '1493482238',
@@ -14,11 +17,9 @@ const config = {
 const client = new line.Client(config);
 
 // create Express app
-// about Express itself: https://expressjs.com/
 const app = express();
 
 // register a webhook handler with middleware
-// about the middleware, please refer to doc
 app.post('/callback', line.middleware(config), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
@@ -54,50 +55,54 @@ app.listen(port, () => {
 
 // compose the context-aware reply
 function composeReply(event) {
-    let echoText = null;
-    let queryText = event.message.text.trim();
+    let replyText = null;
+    let dbResult = null;
+    let queryText = event.message.text.trim().toLowerCase();
 
-    // a bit of fun here
     console.log('query message = \'' + queryText + '\'');
-    if (queryText.includes('笨') || queryText.includes('蠢') || queryText.includes('白痴')
-        || queryText.includes('智障') || queryText.includes('白痴') || queryText.toLowerCase().includes('idiot')
-        || queryText.toLowerCase().includes('stupid')) {
-        echoText = (Math.random()<0.5)? '對不起，我智商比較低～～～><':'說你笨你不相信';
-    } else if (queryText.toLowerCase() == 'time' || queryText == '時間' || queryText == 'タイム') {
-        echoText = handleQueryTime();
-    } else if (queryText.toLowerCase() == 'meowco' || queryText.includes('妙可')) {
-        echoText = '誒～我只知道這隻貓很肥！';
-    } else if (queryText.toLowerCase() == 'help' || queryText.toLowerCase() == 'hobot' || queryText == '何寶' || queryText == '幫忙') {
-        echoText = '我也很想啊，但是我目前的智商還差得很遠勒～';
-    } else if (queryText.toLowerCase() == 'morning' || queryText == '早安') {
-        echoText = (Math.random()<0.5)?'何寶在此跟您問個早':'早安，要記得吃早餐喔！';
-    } else if (queryText.toLowerCase() == 'good afternoon' || queryText == '午安') {
-        echoText = '我想睡個午覺';
-    }else if (queryText.toLowerCase() == 'good night' || queryText == '晚安') {
-        echoText = '大家一起來睡覺喔';
-    } else if (queryText.includes('肥') || queryText.includes('胖')) {
-        echoText = '我也覺得自己有點肥耶';
-    } else if (queryText.includes('肥') || queryText.includes('胖')) {
-        echoText = '我也覺得自己有點肥耶';
-    } else if (queryText.includes('欠扁') || queryText.includes('欠揍')) {
-        echoText = '嘿嘿，來打我啊～';
-    } else if (queryText.includes('肥') || queryText.includes('胖')) {
-        echoText = '怎摸辦，我也覺得自己有點肥耶～';
-    } else if (queryText.toLowerCase().includes('hsr') || queryText.includes('高鐵')) {
-        echoText = '小心開車，等你回家喔～';
-    } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈')
-        || queryText.includes('呵')|| queryText.includes('嘿') || queryText.includes('笑')) {
-        echoText = (Math.random()<0.5)?'超好笑的！':'嘿呀，我也覺得很好笑';
-    } else if (queryText.includes('...')) {
-        echoText = '... ... ... 呼呼';
-    } else if (queryText.toLowerCase().includes('ok')) {
-        echoText = '你ＯＫ我當然也ＯＫ拉，顆顆';
-    } else if (queryText.includes('讚')) {
-        echoText = '顆顆～';
+
+    // search for response in the database
+    if ((dbResult = engine.processDb(queryText, hobot.cmdDb)) != null) {
+        replyText = dbResult;
+    }
+    else {
+        // a bit more fun here
+        if (queryText.toLowerCase() == 'time' || queryText == '時間' || queryText == 'タイム') {
+            replyText = handleQueryTime();
+        } else if (queryText.toLowerCase() == 'meowco' || queryText.includes('妙可')) {
+            replyText = '誒～我只知道這隻貓很肥！';
+        } else if (queryText.toLowerCase() == 'help' || queryText.toLowerCase() == 'hobot' || queryText == '何寶' || queryText == '幫忙') {
+            replyText = '我也很想啊，但是我目前的智商還差得很遠勒～';
+        } else if (queryText.toLowerCase() == 'good afternoon' || queryText == '午安') {
+            replyText = '我想睡個午覺';
+        } else if (queryText.toLowerCase() == 'good night' || queryText == '晚安') {
+            replyText = '大家一起來睡覺喔';
+        } else if (queryText.includes('肥') || queryText.includes('胖')) {
+            replyText = '我也覺得自己有點肥耶';
+        } else if (queryText.includes('肥') || queryText.includes('胖')) {
+            replyText = '我也覺得自己有點肥耶';
+        } else if (queryText.includes('欠扁') || queryText.includes('欠揍')) {
+            replyText = '嘿嘿，來打我啊～';
+        } else if (queryText.includes('肥') || queryText.includes('胖')) {
+            replyText = '怎摸辦，我也覺得自己有點肥耶～';
+        } else if (queryText.toLowerCase().includes('hsr') || queryText.includes('高鐵')) {
+            replyText = '小心開車，等你回家喔～';
+        } else if (queryText.toLowerCase().includes('lol') || queryText.toLowerCase().includes('haha') || queryText.includes('哈')
+            || queryText.includes('呵') || queryText.includes('嘿') || queryText.includes('笑')) {
+            replyText = (Math.random() < 0.5) ? '超好笑的！' : '嘿呀，我也覺得很好笑';
+        } else if (queryText.includes('...')) {
+            replyText = '... ... ... 呼呼';
+        } else if (queryText.toLowerCase().includes('ok')) {
+            replyText = '你ＯＫ我當然也ＯＫ拉，顆顆';
+        } else if (queryText.includes('讚')) {
+            replyText = '顆顆～';
+        }
     }
 
-    if (echoText != null)
-        return { type: 'text', text: echoText };
+    console.log('response message = \'' + replyText + '\'');
+
+    if (replyText != null)
+        return { type: 'text', text: replyText };
     else
         return null;
 }
@@ -109,3 +114,4 @@ function handleQueryTime() {
             + '\nSan Diego: ' + clock.today('America/Los_Angeles').toString() + ' ' + clock.localTime('America/Los_Angeles').toString().substr(0,5);
 
 }
+

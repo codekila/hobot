@@ -74,9 +74,6 @@ function composeReply(event, replyCbFunc) {
                 console.log('[' + userName + '] response message = \'' + replyText + '\'');
 
                 replyCbFunc(event, replyText);
-            })
-            .catch((err) => {
-                replyCbFunc(event, null);
             });
     }
 }

@@ -40,8 +40,8 @@ function handleEvent(event) {
     // create a echoing text message
     const replyMsg = composeReply(event);
 
-    console.log(JSON.stringify(replyMsg));
-    
+    console.log('here~~~~~' + JSON.stringify(replyMsg));
+
     // use reply API
     if (replyMsg != null)
         return client.replyMessage(event.replyToken, replyMsg);

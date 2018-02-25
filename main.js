@@ -1,6 +1,6 @@
 'use strict';
 
-const line = require('@line/bot-sdk');
+const lineBotSdk = require('@line/bot-sdk');
 const express = require('express');
 
 const db = require('./cmdDb.js');
@@ -14,13 +14,13 @@ const config = {
 };
 
 // create LINE SDK client
-const client = new line.Client(config);
+const client = new lineBotSdk.Client(config);
 
 // create Express app
 const app = express();
 
 // register a webhook handler with middleware
-app.post('/callback', line.middleware(config), (req, res) => {
+app.post('/callback', lineBotSdk.middleware(config), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))
@@ -36,13 +36,13 @@ function handleEvent(event) {
         // ignore non-text-message event
         return Promise.resolve(null);
     }
-    
+
     // create a echoing text message
-    const echo = composeReply(event);
+    const replyMsg = composeReply(event);
 
     // use reply API
-    if (echo != null)
-        return client.replyMessage(event.replyToken, echo);
+    if (replyMsg != null)
+        return client.replyMessage(event.replyToken, replyMsg);
     else
         return Promise.resolve(null);
 }
@@ -57,9 +57,17 @@ app.listen(port, () => {
 function composeReply(event) {
     let replyText = null;
     let dbResult = null;
+    let userName = '';
     let queryText = event.message.text.trim().toLowerCase();
 
-    console.log('query message = \'' + queryText + '\'');
+    // get user info
+    if (event.source.type == 'user') {
+        client.getProfile(event.source.userId).then((profile) => {
+            userName = profile.displayName;
+        });
+    }
+
+    console.log('[' + userName + '] query message = \'' + queryText + '\'');
 
     // search for response in the database
     if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {

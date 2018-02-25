@@ -3,8 +3,8 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 
-import * as hobot from './cmdDb.js';
-import * as engine from './cmdDbEngine.js';
+const db = require('./cmdDb.js');
+const engine = require('./cmdDbEngine.js');
 
 // create LINE SDK config from env variables
 const config = {
@@ -62,7 +62,7 @@ function composeReply(event) {
     console.log('query message = \'' + queryText + '\'');
 
     // search for response in the database
-    if ((dbResult = engine.processDb(queryText, hobot.cmdDb)) != null) {
+    if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
         replyText = dbResult;
     }
     else {

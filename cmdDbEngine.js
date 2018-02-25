@@ -4,6 +4,10 @@
 
 'use strict';
 
+module.exports = {
+    processDb: processDb
+};
+
 let responseMatchingPriorities = {
     "default": responseMatchingPriorityDefault,
     "first": responseMatchingPriorityFirst
@@ -116,7 +120,7 @@ function processResponse(matchedItem) {
     return dbResult;
 }
 
-export function processDb(queryText, cmdDb) {
+function processDb(queryText, cmdDb) {
     let dbResult = null;
     let matchedItem = matchDb(queryText, cmdDb);
 

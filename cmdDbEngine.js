@@ -10,7 +10,7 @@ module.exports = {
     processDb: processDb
 };
 
-function matchDb(event, queryText, db) {
+function matchDb(event, userName, queryText, db) {
     let dbItemMatched = null;
     let matchedQuery = null;
 
@@ -73,7 +73,7 @@ function matchDb(event, queryText, db) {
     }
 }
 
-function processResponse(event, queryText, matchedItem) {
+function processResponse(event, userName, queryText, matchedItem) {
     let dbResult = null;
     let responseToDo = null;
 
@@ -94,6 +94,11 @@ function processResponse(event, queryText, matchedItem) {
             case "canned":
                 if (responseToDo.texts.length > 0)
                     dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
+                    // randomly add the sender's name
+                    if (dbResult != null && dbResult != '') {
+                        if (Math.random()>0.4)
+                            dbResult += userName + ',' + dbResult;
+                    }
                 break;
             case "smart":
                 dbResult = methods.execute(responseToDo.method, queryText);
@@ -106,13 +111,13 @@ function processResponse(event, queryText, matchedItem) {
     return dbResult;
 }
 
-function processDb(event, queryText, cmdDb) {
+function processDb(event, userName, queryText, cmdDb) {
     let dbResult = null;
-    let matchedItem = matchDb(event, queryText, cmdDb.db);
+    let matchedItem = matchDb(event, userName, queryText, cmdDb.db);
 
     if (matchedItem) {
         // react to the matched query
-        dbResult = processResponse(event, queryText, matchedItem);
+        dbResult = processResponse(event, userName, queryText, matchedItem);
     }
     
     return dbResult;

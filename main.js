@@ -55,7 +55,7 @@ function composeReply(event, replyCbFunc) {
     let userName = '';
     let queryText = event.message.text.trim().toLowerCase();
 
-    // get user info
+    // only deal with msg sent from user
     if (event.source.type == 'user') {
         client.getProfile(event.source.userId)
             .then((profile) => {
@@ -64,7 +64,7 @@ function composeReply(event, replyCbFunc) {
                 console.log('[' + userName + '] query message = \'' + queryText + '\'');
 
                 // search for response in the database
-                if ((dbResult = engine.processDb(event, queryText, db.cmdDb)) != null) {
+                if ((dbResult = engine.processDb(event, userName, queryText, db.cmdDb)) != null) {
                     replyText = dbResult;
                 }
 

@@ -9,25 +9,25 @@ module.exports = {
         "users": [
             [
                 {
-                    "id": "Uc173149caaa1f02eb263e113fe154fd0",
+                    "userId": "Uc173149caaa1f02eb263e113fe154fd0",
                     "nickNames": [
                         "爸爸", "Daddy", "阿爹", "James"
                     ]
                 },
                 {
-                    "id": "",
+                    "userId": "",
                     "nickNames": [
                         "媽媽", "Mom", "媽咪", "綸綸"
                     ]
                 },
                 {
-                    "id": "",
+                    "userId": "",
                     "nickNames": [
                         "姊姊", "阿姊", "Sabby", "Sab", "Sabrina", "阿澧"
                     ]
                 },
                 {
-                    "id": "",
+                    "userId": "",
                     "nickNames": [
                         "妹妹", "小妹", "ＪＪ", "Jocelyn", "Ren", "荷荷"
                     ]

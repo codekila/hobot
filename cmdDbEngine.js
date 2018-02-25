@@ -51,7 +51,7 @@ function matchDb(queryText, db) {
                             newlyMatchedQuery = query;
                         break;
                     case "fuzzy":
-                        if (text.includes(queryText))
+                        if (queryText.includes(text))
                             newlyMatchedQuery = query;
                         break;
                     default:

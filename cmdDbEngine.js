@@ -95,28 +95,32 @@ function matchDb(queryText, db) {
 
 function processResponse(matchedItem) {
     let dbResult = null;
-    let response;
+    let responseToDo = null;
+
+    console.log('responses to look for:' + JSON.stringify(matchedItem.responses));
 
     // identify the right response to deal with
-    for (response of matchedItem.responses) {
+    for (let response of matchedItem.responses) {
         if (response.priority == "first" && response.method != null) {
             break;
+        } else if (response.priority == "default") {
+            responseToDo = response;
         }
     }
 
-    console.log('response to do:' + JSON.stringify(response));
+    console.log('response to do:' + JSON.stringify(responseToDo));
 
-    if (response) {
-        switch (response.model) {
+    if (responseToDo) {
+        switch (responseToDo.model) {
             case "canned":
-                if (response.texts.length > 0)
-                    dbResult = response.texts[Math.floor(Math.random() * response.texts.length)];
+                if (responseToDo.texts.length > 0)
+                    dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
                 break;
             case "smart":
                     dbResult = 'I can\'t do this in a smart way yet';
                 break;
             default:
-                console.log('the response item doesn\'t support \'' + response.model + '\' model');
+                console.log('the response item doesn\'t support \'' + responseToDo.model + '\' model');
         }
     }
 

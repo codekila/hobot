@@ -43,7 +43,7 @@ function matchDb(queryText, db) {
     for (dbItem in db) {
         for (let query in dbItem.queries) {
             // match based on models
-            console.log(query.toString());
+            console.log(JSON.stringify(query));
             for (let text in query.texts) {
                 switch (query.model) {
                     case "precise":
@@ -79,13 +79,13 @@ function matchDb(queryText, db) {
         }
         // stop matching if matched && with first priority
         if (matched && query.priority == "first") {
-            console.log('\'first\' matched:' + matched.toString());
+            console.log('\'first\' matched:' + JSON.stringify(matched));
             return dbItem;
         }
     }
 
     if (matched) {
-        console.log('matched:' + matched.toString());
+        console.log('matched:' + JSON.stringify(matched));
         return dbItem;
     }
     else {

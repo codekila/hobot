@@ -46,7 +46,7 @@ function cbSendReplyMessage(event, replyMsg) {
 
     // use reply API
     if (replyMsg != null)
-        return client.replyMessage(event.replyToken, { type: 'text', text: replyText });
+        return client.replyMessage(event.replyToken, { type: 'text', text: replyMsg });
     else
         return Promise.resolve(null);
 }

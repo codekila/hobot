@@ -47,7 +47,7 @@ module.exports = {
                     },
                     {
                         "priority": "default",
-                        "model": "precise",
+                        "model": "fuzzy",
                         "texts": [
                             "笨", "蠢", "白痴", "白吃", "白癡", "智障"
                         ]
@@ -118,14 +118,14 @@ module.exports = {
                         "priority": "first",
                         "model": "fuzzy",
                         "texts": [
-                            "good afternoon", "nap"
+                            "good afternoon", "nap", "hello", "hihi"
                         ]
                     },
                     {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "午安", "你好", "妳好", "您好"
+                            "午安", "你好", "妳好", "您好", "hi"
                         ]
                     }
                 ],

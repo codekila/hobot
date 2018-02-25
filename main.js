@@ -72,7 +72,12 @@ function composeReply(event, replyCbFunc) {
                 console.log('[' + userName + '] response message = \'' + replyText + '\'');
 
                 replyCbFunc(event, replyText);
+            })
+            .catch((err)=> {
+                console.log('getUserProfileError:' + err.message);
+                replyCbFunc(event, null);
             });
+        
     }
 }
 

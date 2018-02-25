@@ -49,7 +49,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "笨", "蠢", "白痴", "白吃", "白癡", "智障", "傻", "呆"
+                            "笨", "蠢", "白痴", "白吃", "白癡", "智障", "傻", "呆", "聰明"
                         ]
                     }
                 ],
@@ -231,7 +231,7 @@ module.exports = {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "幫忙", "何寶", "?"
+                            "幫忙", "何寶", "?", "什麼", "what", "how"
                         ]
                     }
                 ],

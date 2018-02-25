@@ -109,8 +109,8 @@ function processResponse(matchedItem) {
     if (response) {
         switch (response.model) {
             case "canned":
-                if (response.texts.size > 0)
-                    dbResult = response.texts[Math.floor(Math.random() * response.texts.size)];
+                if (response.texts.length > 0)
+                    dbResult = response.texts[Math.floor(Math.random() * response.texts.length)];
                 break;
             case "smart":
                     dbResult = 'I can\'t do this in a smart way yet';

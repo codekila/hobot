@@ -69,7 +69,7 @@ function composeReply(event) {
                 console.log('[' + userName + '] query message = \'' + queryText + '\'');
 
                 // search for response in the database
-                if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
+                if ((dbResult = engine.processDb(event, userName, queryText, db.cmdDb)) != null) {
                     replyText = dbResult;
                 }
 
@@ -83,7 +83,7 @@ function composeReply(event) {
             .catch((err) => {
                 return null;
             });
-        
+
     }
 }
 

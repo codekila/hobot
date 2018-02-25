@@ -10,7 +10,7 @@ module.exports = {
     processDb: processDb
 };
 
-function matchDb(queryText, db) {
+function matchDb(event, queryText, db) {
     let dbItemMatched = null;
     let matchedQuery = null;
 
@@ -73,7 +73,7 @@ function matchDb(queryText, db) {
     }
 }
 
-function processResponse(queryText, matchedItem) {
+function processResponse(event, queryText, matchedItem) {
     let dbResult = null;
     let responseToDo = null;
 
@@ -106,14 +106,14 @@ function processResponse(queryText, matchedItem) {
     return dbResult;
 }
 
-function processDb(queryText, cmdDb) {
+function processDb(event, queryText, cmdDb) {
     let dbResult = null;
-    let matchedItem = matchDb(queryText, cmdDb.db);
+    let matchedItem = matchDb(event, queryText, cmdDb.db);
 
     if (matchedItem) {
 
         // react to the matched query
-        dbResult = processResponse(queryText, matchedItem);
+        dbResult = processResponse(event, queryText, matchedItem);
     }
     
     return dbResult;

@@ -80,11 +80,3 @@ function composeReply(event) {
         return null;
 }
 
-const clock = require('world-clock')();
-
-function handleQueryTime() {
-    return 'Taiwan:    ' + clock.localTime('Asia/Taipei').toString().substr(0,5) + ', ' + clock.today('Asia/Taipei').toString() + '\n'
-        +  'San Diego: ' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
-
-}
-

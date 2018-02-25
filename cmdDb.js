@@ -218,7 +218,7 @@ module.exports = {
                         "model": "canned",
                         "texts": [
                             "我也很想啊，但是我目前的智商還差得很遠勒～",
-                            "你覺得這是我好在可以做到的嗎？",
+                            "你覺得這是我現在可以做到的嗎？",
                             "可能要很久",
                             "直接找老闆",
                             "等我變聰明一點"
@@ -454,6 +454,69 @@ module.exports = {
                             "好樣的！",
                             "Yeah!"
                         ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "boring"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "無聊", "煩"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "怎麼辦？",
+                            "找點樂子吧",
+                            "去唸書",
+                            "去運動一下？",
+                            "聽聽音樂？",
+                            "一起無聊也許就不無聊了！",
+                            "說說笑？"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "time", "now"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "時間", "現在", "タイム"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": "methodTime"
                     }
                 ]
             }

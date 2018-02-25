@@ -4,35 +4,11 @@
 
 'use strict';
 
+const methods = require('./cmdMethods.js');
+
 module.exports = {
     processDb: processDb
 };
-
-let responseMatchingPriorities = {
-    "default": responseMatchingPriorityDefault,
-    "first": responseMatchingPriorityFirst
-};
-
-let responseMatchingModels = {
-    "smart": responseMatchingModelSmart,
-    "canned": responseMatchingModelCanned
-};
-
-function responseMatchingPriorityDefault() {
-
-}
-
-function responseMatchingPriorityFirst() {
-
-}
-
-function responseMatchingModelSmart() {
-
-}
-
-function responseMatchingModelCanned() {
-
-}
 
 function matchDb(queryText, db) {
     let dbItemMatched = null;
@@ -97,7 +73,7 @@ function matchDb(queryText, db) {
     }
 }
 
-function processResponse(matchedItem) {
+function processResponse(queryText, matchedItem) {
     let dbResult = null;
     let responseToDo = null;
 
@@ -119,7 +95,7 @@ function processResponse(matchedItem) {
                     dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
                 break;
             case "smart":
-                    dbResult = 'I can\'t do this in a smart way yet';
+                dbResult = methods.execute(responseToDo.method, queryText);
                 break;
             default:
                 console.log('the response item doesn\'t support \'' + responseToDo.model + '\' model');
@@ -136,7 +112,7 @@ function processDb(queryText, cmdDb) {
     if (matchedItem) {
 
         // react to the matched query
-        dbResult = processResponse(matchedItem);
+        dbResult = processResponse(queryText, matchedItem);
     }
     
     return dbResult;

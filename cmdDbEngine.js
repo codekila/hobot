@@ -35,57 +35,60 @@ function responseMatchingModelCanned() {
 }
 
 function matchDb(queryText, db) {
-    let dbItem;
-    let matched = null;
-    let newlyMatched = null;
+    let dbItemMatched = null;
+    let matchedQuery = null;
+    let newlyMatchedQuery = null;
 
     // try to match a query
-    for (dbItem of db) {
+    for (let dbItem of db) {
         for (let query of dbItem.queries) {
             // match based on models
             for (let text of query.texts) {
                 switch (query.model) {
                     case "precise":
                         if (text == queryText)
-                            newlyMatched = query;
+                            newlyMatchedQuery = query;
                         break;
                     case "fuzzy":
                         if (text.includes(queryText))
-                            newlyMatched = query;
+                            newlyMatchedQuery = query;
                         break;
                     default:
                         console.log('the query item doesn\'t support \'' + query.model + '\' model');
-                        newlyMatched = null;
+                        newlyMatchedQuery = null;
                 }
-                if (newlyMatched)
+                if (newlyMatchedQuery)
                     break;
             }
 
             //now look at priority
-            if (newlyMatched) {
+            if (newlyMatchedQuery) {
                 if (query.priority == "first") {
                     // overwrtie whatever previously matched and stop matching
-                    matched = newlyMatched;
+                    matchedQuery = newlyMatchedQuery;
+                    dbItemMatched = dbItem;
                     break;
                 } else if  (query.priority == "default") {
                     // update only when there is nothing matched yet
-                    if (matched == null)
-                        matched = newlyMatched;
+                    if (matchedQuery == null) {
+                        matchedQuery = newlyMatchedQuery;
+                        dbItemMatched = dbItem;
+                    }
                 } else {
                     console.log('the query item doesn\'t support \'' + query.model + '\' priority');
                 }
             }
         }
         // stop matching if matched && with first priority
-        if (matched && matched.priority == "first") {
-            console.log('\'first\' matched:' + JSON.stringify(matched));
-            return dbItem;
+        if (matchedQuery && matchedQuery.priority == "first") {
+            console.log('\'first\' matched:' + JSON.stringify(matchedQuery));
+            return dbItemMatched;
         }
     }
 
-    if (matched) {
-        console.log('matched:' + JSON.stringify(matched));
-        return dbItem;
+    if (matchedQuery) {
+        console.log('matched:' + JSON.stringify(matchedQuery));
+        return dbItemMatched;
     }
     else {
         console.log('not matched');

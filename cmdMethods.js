@@ -7,7 +7,7 @@
 module.exports = {
     execute: function(method, queryText) {
         console.log('Executing ' + method);
-        return method(queryText);
+        return eval(method)(queryText);
     }
 };
 

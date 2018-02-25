@@ -66,13 +66,13 @@ function matchDb(queryText, db) {
                 if (query.priority == "first") {
                     // overwrtie whatever previously matched and stop matching
                     matchedQuery = newlyMatchedQuery;
-                    dbItemMatched = dbItem;
+                    dbItemMatched = JSON.parse(JSON.stringify(dbItem));
                     break;
                 } else if  (query.priority == "default") {
                     // update only when there is nothing matched yet
                     if (matchedQuery == null) {
                         matchedQuery = newlyMatchedQuery;
-                        dbItemMatched = dbItem;
+                        dbItemMatched = JSON.parse(JSON.stringify(dbItem));
                     }
                 } else {
                     console.log('the query item doesn\'t support \'' + query.model + '\' priority');

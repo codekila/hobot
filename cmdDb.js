@@ -26,7 +26,7 @@ module.exports = {
                     ]
                 },
                 {
-                    "userId": "",
+                    "userId": "U723a896291d80108cf013c1a628857ea",
                     "nickNames": [
                         "妹妹", "小妹", "ＪＪ", "Jocelyn", "Ren", "荷荷"
                     ]

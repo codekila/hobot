@@ -224,14 +224,14 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "help", "hobot", "蛤"
+                            "help", "hobot", "蛤", "什麼", "等等"
                         ]
                     },
                     {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "幫忙", "何寶", "?", "什麼", "what", "how", "？"
+                            "幫忙", "何寶", "?", "what", "how", "？", "等一下"
                         ]
                     }
                 ],
@@ -251,6 +251,42 @@ module.exports = {
                             "直接找老闆",
                             "等我變聰明一點",
                             "有問題嗎？"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "um", "嗯", "m", "en", "恩", "ㄣ", "啊", "呀", "喔"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "umm", "恩恩", "嗯嗯", "ㄣㄣ", "啊啊", "啊呀", "喔喔", "啊喔", "嗯呀"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "嗯嗯嗯～",
+                            "啊～",
+                            "矮油～",
+                            "嗯呀～",
+                            "ummmmmm..."
                         ]
                     }
                 ]
@@ -325,7 +361,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "hsr", "高鐵"
+                            "hsr", "高鐵", "開車"
                         ]
                     }
                 ],

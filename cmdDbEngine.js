@@ -80,7 +80,7 @@ function matchDb(queryText, db) {
             }
         }
         // stop matching if matched && with first priority
-        if (matched && query.priority == "first") {
+        if (matched && matched.priority == "first") {
             console.log('\'first\' matched:' + JSON.stringify(matched));
             return dbItem;
         }

@@ -62,23 +62,28 @@ function composeReply(event) {
 
     // get user info
     if (event.source.type == 'user') {
-        client.getProfile(event.source.userId).then((profile) => {
-            userName = profile.displayName;
-        });
+        client.getProfile(event.source.userId)
+            .then((profile) => {
+                userName = profile.displayName;
+
+                console.log('[' + userName + '] query message = \'' + queryText + '\'');
+
+                // search for response in the database
+                if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
+                    replyText = dbResult;
+                }
+
+                console.log('response message = \'' + replyText + '\'');
+
+                if (replyText != null)
+                    return { type: 'text', text: replyText };
+                else
+                    return null;
+            })
+            .catch((err) => {
+                return null;
+            });
+        
     }
-
-    console.log('[' + userName + '] query message = \'' + queryText + '\'');
-
-    // search for response in the database
-    if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
-        replyText = dbResult;
-    }
-
-    console.log('response message = \'' + replyText + '\'');
-
-    if (replyText != null)
-        return { type: 'text', text: replyText };
-    else
-        return null;
 }
 

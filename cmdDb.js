@@ -118,14 +118,14 @@ module.exports = {
                         "priority": "first",
                         "model": "fuzzy",
                         "texts": [
-                            "good afternoon", "nap", "hello", "hihi"
+                            "good afternoon", "nap", "hello", "hihi", "hii"
                         ]
                     },
                     {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "午安", "你好", "妳好", "您好", "hi"
+                            "午安", "你好", "妳好", "您好", "hi",
                         ]
                     }
                 ],
@@ -224,14 +224,14 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "help", "hobot"
+                            "help", "hobot", "蛤"
                         ]
                     },
                     {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "幫忙", "何寶", "?", "什麼", "what", "how"
+                            "幫忙", "何寶", "?", "什麼", "what", "how", "？"
                         ]
                     }
                 ],

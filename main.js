@@ -73,17 +73,13 @@ function composeReply(event) {
                     replyText = dbResult;
                 }
 
-                console.log('[' + userName + ']response message = \'' + replyText + '\'');
+                console.log('[' + userName + '] response message = \'' + replyText + '\'');
 
                 if (replyText != null)
                     return { type: 'text', text: replyText };
                 else
                     return null;
-            })
-            .catch((err) => {
-                return null;
             });
-
     }
 }
 

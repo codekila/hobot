@@ -40,13 +40,13 @@ function matchDb(queryText, db) {
     let newlyMatched = null;
 
     // try to match a query
-    for (dbItem in db) {
+    for (dbItem of db) {
         console.log('dbItem=' + JSON.stringify(dbItem));
 
-        for (let query in dbItem.queries) {
+        for (let query of dbItem.queries) {
             // match based on models
             console.log('query=' + JSON.stringify(query));
-            for (let text in query.texts) {
+            for (let text of query.texts) {
                 switch (query.model) {
                     case "precise":
                         if (text == queryText)
@@ -101,7 +101,7 @@ function processResponse(matchedItem) {
     let response;
 
     // identify the right response to deal with
-    for (response in matchedItem.responses) {
+    for (response of matchedItem.responses) {
         if (response.priority == "first") {
             break;
         }
@@ -126,8 +126,6 @@ function processResponse(matchedItem) {
 
 function processDb(queryText, cmdDb) {
     let dbResult = null;
-
-    console.log('db =' + JSON.stringify(cmdDb.db));
     let matchedItem = matchDb(queryText, cmdDb.db);
 
     if (matchedItem) {

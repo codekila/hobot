@@ -41,11 +41,8 @@ function matchDb(queryText, db) {
 
     // try to match a query
     for (dbItem of db) {
-        console.log('dbItem=' + JSON.stringify(dbItem));
-
         for (let query of dbItem.queries) {
             // match based on models
-            console.log('query=' + JSON.stringify(query));
             for (let text of query.texts) {
                 switch (query.model) {
                     case "precise":
@@ -102,10 +99,12 @@ function processResponse(matchedItem) {
 
     // identify the right response to deal with
     for (response of matchedItem.responses) {
-        if (response.priority == "first") {
+        if (response.priority == "first" && response.method != null) {
             break;
         }
     }
+
+    console.log('response to do:' + JSON.stringify(response));
 
     if (response) {
         switch (response.model) {

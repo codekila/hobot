@@ -29,7 +29,7 @@ module.exports = {
                     {
                         "priority": "first",
                         "model": "smart",
-                        "method": ""
+                        "method": null
                     },
                     {
                         "priority": "default",
@@ -65,13 +65,11 @@ module.exports = {
                     }
                 ],
                 "responses": [
-                    /*
                     {
                         "priority": "first",
                         "model": "smart",
-                        "method": ""
+                        "method": null
                     },
-                    */
                     {
                         "priority": "default",
                         "model": "canned",

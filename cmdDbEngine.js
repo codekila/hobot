@@ -80,6 +80,7 @@ function processResponse(queryText, matchedItem) {
     // identify the right response to deal with
     for (let response of matchedItem.responses) {
         if (response.priority == "first" && response.method != null) {
+            responseToDo = response;
             break;
         } else if (response.priority == "default") {
             responseToDo = response;

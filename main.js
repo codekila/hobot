@@ -65,12 +65,6 @@ function composeReply(event) {
     if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
         replyText = dbResult;
     }
-    else {
-        // a bit more fun here
-        if (queryText.toLowerCase() == 'time' || queryText == '時間' || queryText == 'タイム') {
-            replyText = handleQueryTime();
-        }
-    }
 
     console.log('response message = \'' + replyText + '\'');
 

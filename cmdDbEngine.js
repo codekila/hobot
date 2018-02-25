@@ -125,6 +125,8 @@ function processDb(queryText, cmdDb) {
     let dbResult = null;
     let matchedItem = matchDb(queryText, cmdDb);
 
+    console.log("hihihi~~~");
+
     if (matchedItem) {
 
         // react to the matched query

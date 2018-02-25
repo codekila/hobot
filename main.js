@@ -50,8 +50,6 @@ function handleEvent(event) {
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log('--->' + JSON.stringify(db.cmdDb));
-    JSON.parse(JSON.stringify(db.cmdDb));
     console.log(`hobot listening on ${port}`);
 });
 
@@ -63,7 +61,6 @@ function composeReply(event) {
 
     console.log('query message = \'' + queryText + '\'');
 
-    console.log('--->' + JSON.stringify(db.cmdDb));
     // search for response in the database
     if ((dbResult = engine.processDb(queryText, db.cmdDb)) != null) {
         replyText = dbResult;

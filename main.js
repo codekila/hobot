@@ -64,7 +64,7 @@ function composeReply(event, replyCbFunc) {
                 console.log('[' + userName + '] query message = \'' + queryText + '\'');
 
                 // search for response in the database
-                if ((dbResult = engine.processDb(event, userName, queryText, db.cmdDb)) != null) {
+                if ((dbResult = engine.processDb(event, userName, queryText, db)) != null) {
                     replyText = dbResult;
                 }
 

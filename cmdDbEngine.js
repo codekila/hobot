@@ -15,7 +15,7 @@ function matchDb(event, userName, queryText, db) {
     let matchedQuery = null;
 
     // try to match a query
-    for (let dbItem of db) {
+    for (let dbItem of db.cmdDb) {
         let newlyMatchedQuery = null;
 
         for (let query of dbItem.queries) {
@@ -123,13 +123,13 @@ function processResponse(event, userName, queryText, matchedItem, db) {
     return dbResult;
 }
 
-function processDb(event, userName, queryText, cmdDb) {
+function processDb(event, userName, queryText, db) {
     let dbResult = null;
-    let matchedItem = matchDb(event, userName, queryText, cmdDb.db);
+    let matchedItem = matchDb(event, userName, queryText, db);
 
     if (matchedItem) {
         // react to the matched query
-        dbResult = processResponse(event, userName, queryText, matchedItem, cmdDb.db);
+        dbResult = processResponse(event, userName, queryText, matchedItem, db);
     }
     
     return dbResult;

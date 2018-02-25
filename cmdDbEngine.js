@@ -111,7 +111,6 @@ function processDb(event, queryText, cmdDb) {
     let matchedItem = matchDb(event, queryText, cmdDb.db);
 
     if (matchedItem) {
-
         // react to the matched query
         dbResult = processResponse(event, queryText, matchedItem);
     }

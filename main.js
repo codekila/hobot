@@ -56,7 +56,8 @@ function composeReply(event, replyCbFunc) {
     let queryText = event.message.text.trim().toLowerCase();
 
     // only deal with msg sent from user
-    if (event.source.type == 'user') {
+    if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
+        console.log('event.source.type = ' + event.source.type);
         client.getProfile(event.source.userId)
             .then((profile) => {
                 userName = profile.displayName;

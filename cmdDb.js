@@ -188,7 +188,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "meowco", "meow", "妙可"
+                            "meowco", "meow", "妙可", "貓可"
                         ]
                     },
                     {
@@ -231,7 +231,7 @@ module.exports = {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "幫忙", "何寶"
+                            "幫忙", "何寶", "?"
                         ]
                     }
                 ],
@@ -249,7 +249,8 @@ module.exports = {
                             "你覺得這是我現在可以做到的嗎？",
                             "可能要很久",
                             "直接找老闆",
-                            "等我變聰明一點"
+                            "等我變聰明一點",
+                            "有問題嗎？"
                         ]
                     }
                 ]
@@ -352,7 +353,14 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "haha", "lol", "funny", "哈", "呵", "嘿", "笑", "顆顆", "科科", "嘻"
+                            "haha", "lol", "funny", "哈", "呵", "嘿", "笑", "顆顆", "科科", "嘻", "ㄎㄎ"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "ha"
                         ]
                     }
                 ],

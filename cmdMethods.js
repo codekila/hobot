@@ -4,17 +4,20 @@
 
 "use strict";
 
+const clock = require('world-clock')();
+
 module.exports = {
     execute: function(method, queryText) {
-        console.log('Executing ' + method);
-        return eval(method)(queryText);
+        return eval(method)(queryText); // easy and ugly
     }
 };
 
-const clock = require('world-clock')();
-
+/**
+ *
+ * @param queryText
+ * @returns {string}
+ */
 function methodTime(queryText) {
-    console.log('YES! SMART!');
     return 'Taiwan:    ' + clock.localTime('Asia/Taipei').toString().substr(0,5) + ', ' + clock.today('Asia/Taipei').toString() + '\n'
         +  'San Diego: ' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
 }

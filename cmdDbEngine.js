@@ -37,10 +37,11 @@ function responseMatchingModelCanned() {
 function matchDb(queryText, db) {
     let dbItemMatched = null;
     let matchedQuery = null;
-    let newlyMatchedQuery = null;
 
     // try to match a query
     for (let dbItem of db) {
+        let newlyMatchedQuery = null;
+
         for (let query of dbItem.queries) {
             // match based on models
             for (let text of query.texts) {

@@ -97,7 +97,7 @@ function processResponse(event, userName, queryText, matchedItem) {
                     // randomly add the sender's name
                     if (dbResult != null && dbResult != '') {
                         if (Math.random()>0.4)
-                            dbResult += userName + ',' + dbResult;
+                            dbResult = userName + '，' + dbResult;
                     }
                 break;
             case "smart":

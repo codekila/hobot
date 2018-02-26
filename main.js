@@ -77,33 +77,32 @@ function composeReply(event, replyCbFunc) {
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         client.getProfile(event.source.userId)
             .then((profile) => {
-                let msgType = 'text';
                 userName = profile.displayName;
 
                 console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
 
                 // search for response in the database
-                if ((dbResult = engine.processDb(event, userName, queryText, db)) != null) {
-                    replyText = dbResult;
-                }
+                engine.processDb(event, userName, queryText, db, (replyText)=>{
+                    let msgType = 'text';
 
-                console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
+                    console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
 
-                if (replyText) {
-                    switch (replyText.substr(0, 2)) {
-                        case 'i:':
-                            msgType = 'image';
-                            replyText = replyText.substr(2);
-                            break;
-                        case 'v:':
-                            msgType = 'video';
-                            replyText = replyText.substr(2);
-                            break;
-                        default:
-                        //msgType = 'text';
+                    if (replyText) {
+                        switch (replyText.substr(0, 2)) {
+                            case 'i:':
+                                msgType = 'image';
+                                replyText = replyText.substr(2);
+                                break;
+                            case 'v:':
+                                msgType = 'video';
+                                replyText = replyText.substr(2);
+                                break;
+                            default:
+                                //msgType = 'text';
+                        }
                     }
                     replyCbFunc(event, replyText, msgType);
-                }
+                });
             })
             .catch((err)=> {
                 console.log('getUserProfileError:' + err.message);

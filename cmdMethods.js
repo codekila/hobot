@@ -2,16 +2,6 @@
  * Created by jamesho on 25/02/2018.
  */
 
-/**
- * All methods take the same set of parameters:
- *
- * @param event: event body from LINE Messaging API
- * @param userName: display name of the source user
- * @param db: database to look for answers
- * @param queryText: origianl message from the user
- * @returns {string}: result string, null if nothing to respond to
- */
-
 "use strict";
 
 const fs = require('fs');
@@ -22,12 +12,12 @@ const momentTZ = require('moment-timezone');
 
 
 module.exports = {
-    execute: function(method, event, userName, db, queryText) {
-        return eval(method)(event, userName, db, queryText); // easy and ugly
+    execute: function(method, event, userName, db, queryText, cb) {
+        return eval(method)(event, userName, db, queryText, cb); // easy and ugly
     }
 };
 
-function methodUserCheckTime(event, userName, db, queryText) {
+function methodUserCheckTime(event, userName, db, queryText, cb) {
     /* world-clock based
     return 'Taiwan:\t' + clock.localTime('Asia/Taipei').toString().substr(0,5) + ', ' + clock.today('Asia/Taipei').toString() + '\n'
         +  'San Diego:\t' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
@@ -37,8 +27,8 @@ function methodUserCheckTime(event, userName, db, queryText) {
     let SDTime = momentTZ.tz('America/Los_Angeles').format();
 
     // 2018-02-26T16:53:33+08:00
-    return 'Taiwan:\t' + taiwanTime.substr(11, 5) + ' ' + taiwanTime.substr(0, 10) + '\n'
-        +  'San Diego:\t' + SDTime.substr(11, 5) + ' ' + SDTime.substr(0, 10) ;
+    cb('Taiwan:\t' + taiwanTime.substr(11, 5) + ' ' + taiwanTime.substr(0, 10) + '\n'
+        +  'San Diego:\t' + SDTime.substr(11, 5) + ' ' + SDTime.substr(0, 10));
 }
 
 function _methodUserCheckDaysToBirthday(user) {
@@ -54,7 +44,7 @@ function _methodUserCheckDaysToBirthday(user) {
         daysToBDay = tmpDay.year(tmpDay.year()+1).diff(today, 'days')+1;
     }
 
-    return daysToBDay;
+    cb(daysToBDay);
 }
 
 function _methodUserCheckAge(user) {
@@ -66,7 +56,7 @@ function _methodUserCheckAge(user) {
     return age;
 }
 
-function methodUserCheckBirthday(event, userName, db, queryText) {
+function methodUserCheckBirthday(event, userName, db, queryText, cb) {
     let result = '';
     let nextBirthdayInDays = 0;
     let nextBirthday = null;
@@ -87,13 +77,13 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
         result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
     }
 
-    return result;
+    cb(result);
 }
 
-function methodReplyTheImage(event, userName, db, queryText) {
+function methodReplyTheImage(event, userName, db, queryText, cb) {
     fs.readdir("./public/images/store", function(err, items) {
         console.log(items);
 
-        return "i:https://hobot86.herokuapp.com/static/images/store/" + items[Math.floor(Math.random()*items.length)];
+        cb("i:https://hobot86.herokuapp.com/static/images/store/" + items[Math.floor(Math.random()*items.length)]);
     });
 }

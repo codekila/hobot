@@ -82,7 +82,7 @@ function matchUser(userId, userDb) {
     return null;
 }
 
-function processResponse(event, userName, queryText, matchedItem, db) {
+function processResponse(event, userName, queryText, matchedItem, db, cb) {
     let dbResult = null;
     let responseToDo = null;
 
@@ -111,26 +111,25 @@ function processResponse(event, userName, queryText, matchedItem, db) {
                                 dbResult = name + '，' + dbResult;
                         }
                     }
+                cb(dbResult);
                 break;
             case "smart":
-                dbResult = methods.execute(responseToDo.method, event, userName, db, queryText);
+                methods.execute(responseToDo.method, event, userName, db, queryText, (res) => {
+                    cb(res);
+                });
                 break;
             default:
                 console.log('the response item doesn\'t support \'' + responseToDo.model + '\' model');
+                cb(dbResult);
         }
     }
-
-    return dbResult;
 }
 
-function processDb(event, userName, queryText, db) {
-    let dbResult = null;
+function processDb(event, userName, queryText, db, cb) {
     let matchedItem = matchDb(event, userName, queryText, db);
 
     if (matchedItem) {
         // react to the matched query
-        dbResult = processResponse(event, userName, queryText, matchedItem, db);
+        processResponse(event, userName, queryText, matchedItem, db, cb);
     }
-    
-    return dbResult;
 }

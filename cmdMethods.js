@@ -14,8 +14,10 @@
 
 "use strict";
 
-const clock = require('world-clock')();
+//const clock = require('world-clock')();
 const moment = require('moment');
+const momentTZ = require('moment-timezone');
+
 
 module.exports = {
     execute: function(method, event, userName, db, queryText) {
@@ -24,8 +26,13 @@ module.exports = {
 };
 
 function methodUserCheckTime(event, userName, db, queryText) {
+    /* world-clock based
     return 'Taiwan:\t' + clock.localTime('Asia/Taipei').toString().substr(0,5) + ', ' + clock.today('Asia/Taipei').toString() + '\n'
         +  'San Diego:\t' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
+    */
+
+    return 'Taiwan:\t' + momentTZ.tz('Asia/Taipei').format() + '\n'
+        +  'San Diego:\t' + momentTZ.tz('America/Los_Angeles').format();;
 }
 
 function _methodUserCheckDaysToBirthday(user) {
@@ -66,7 +73,7 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
     }
 
     if (result.length>0) {
-        result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！買個蛋糕慶祝一下！';
+        result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
     }
 
     return result;

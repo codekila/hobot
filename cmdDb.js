@@ -538,6 +538,40 @@ module.exports = {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
+                            "e04", "幹", "靠"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "媽的", "fuck", "shit", "fxck", "fxxk", "fuxk"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "我們是文明人～",
+                            "什麼事？",
+                            "矮油"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
                             "ok", "好的", "好", "okok", "可以", "沒問題", "np", "yes"
                         ]
                     },

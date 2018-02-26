@@ -37,14 +37,29 @@ function handleEvent(event) {
         return Promise.resolve(null);
     }
 
-    composeReply(event, cbSendReplyMessage);
+    composeReply(event, cbSendReply);
 }
 
-function cbSendReplyMessage(event, replyMsg) {
+function cbSendReply(event, replyMsg, msgType) {
     // use reply API
-    if (replyMsg != null)
-        return client.replyMessage(event.replyToken, { type: 'text', text: replyMsg });
-    else
+    if (replyMsg != null && msgType != null) {
+        let msgBody = null;
+
+        switch(msgType) {
+            case 'text':
+                msgBody = { type: msgType, text: replyMsg };
+                break;
+            case 'image':
+                msgBody = { type: msgType, originalContentUrl: replyMsg + '/original.jpg', previewImageUrl: replyMsg + '/preview.jpg'};
+                break;
+            case 'video':
+                msgBody = { type: msgType, originalContentUrl: replyMsg + '/original.mp4', previewImageUrl: replyMsg + '/preview.jpg'};
+                break;
+            default:
+                msgBody = { type: 'text', text: 'not supported type of response: ' + msgType };
+        }
+        return client.replyMessage(event.replyToken, msgBody);
+    } else
         return Promise.resolve(null);
 }
 
@@ -59,6 +74,7 @@ function composeReply(event, replyCbFunc) {
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         client.getProfile(event.source.userId)
             .then((profile) => {
+                let msgType;
                 userName = profile.displayName;
 
                 console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
@@ -70,11 +86,24 @@ function composeReply(event, replyCbFunc) {
 
                 console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
 
-                replyCbFunc(event, replyText);
+                switch(replyText.substr(0,2)){
+                    case 'i:':
+                        msgType = 'image';
+                        replyText = replyText.substr(2);
+                        break;
+                    case 'v:':
+                        msgType = 'video';
+                        replyText = replyText.substr(2);
+                        break;
+                    default:
+                        msgType = 'text';
+                }
+
+                replyCbFunc(event, replyText, msgType);
             })
             .catch((err)=> {
                 console.log('getUserProfileError:' + err.message);
-                replyCbFunc(event, '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？');
+                replyCbFunc(event, '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？', 'text');
             });
 
     }

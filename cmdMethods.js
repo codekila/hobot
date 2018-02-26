@@ -56,10 +56,12 @@ function _methodUserCheckDaysToBirthday(user) {
 }
 
 function _methodUserCheckAge(user) {
-    // forever young mom
+    let age = Math.floor((moment().diff(moment(user.birthday,'YYYY-MM-DD'), 'days'))/365);
+    
+    // forever young mom XDDD
     if (user.userId == 'Ua686b3b6f5a0fefb00f7897cef7a58c8')
-        return 22;
-    return Math.floor((moment().diff(moment(user.birthday,'YYYY-MM-DD'), 'days'))/365);
+        return Math.floor(age/2);
+    return age;
 }
 
 function methodUserCheckBirthday(event, userName, db, queryText) {
@@ -82,6 +84,12 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
     if (result.length>0) {
         result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
     }
+
+    return result;
+}
+
+function methodReplyTheImage(event, userName, db, queryText) {
+    let result = "i:images/store/butterfly";
 
     return result;
 }

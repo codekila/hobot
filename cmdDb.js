@@ -80,7 +80,7 @@ module.exports = {
                         "email": "jocelyn.her.ho@gmail.com"
                     },
                     "hobbies": [
-                        "看動漫", "玩電動", "做蛋糕", "畫畫"
+                        "看動漫", "玩電動", "做蛋糕", "畫畫", "看Youtube"
                     ]
                 }
             ]
@@ -240,14 +240,14 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "meowco", "meow", "妙可", "貓可"
+                            "meowco", "meow", "妙可", "貓可", "喵咪", "貓咪"
                         ]
                     },
                     {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "貓"
+                            "貓", "喵"
                         ]
                     }
                 ],
@@ -262,10 +262,12 @@ module.exports = {
                         "model": "canned",
                         "texts": [
                             "誒～我只知道這隻貓很肥！",
-                            "一隻大肥貓",
-                            "在睡覺吧",
-                            "身上油很多",
-                            "不想理你"
+                            "就是一隻大肥貓",
+                            "喵在睡覺吧",
+                            "喵嗚～～～",
+                            "喵的啦",
+                            "喵身上油很多",
+                            "喵不想理你"
                         ]
                     }
                 ]
@@ -768,6 +770,24 @@ module.exports = {
                         "priority": "first",
                         "model": "smart",
                         "method": "methodUserCheckBirthday"
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "image", "picture", "pic", "photo"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": "methodReplyTheImage"
                     }
                 ]
             }

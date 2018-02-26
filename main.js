@@ -20,7 +20,7 @@ const client = new lineBotSdk.Client(config);
 const app = express();
 
 // public data
-app.use(express.static('/public'));
+app.use('/static', express.static(__dirname + '/public'));
 
 // register a webhook handler with middleware
 app.post('/callback', lineBotSdk.middleware(config), (req, res) => {

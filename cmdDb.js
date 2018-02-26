@@ -51,7 +51,7 @@ module.exports = {
                         "姊姊", "阿姊", "Sabby", "Sab", "Sabrina", "阿澧"
                     ],
                     "gender": "female",
-                    "birthday": "1999-02-27",
+                    "birthday": "1999-11-07",
                     "location": {
                         "timezone": "America/Los_Angeles",
                         "place": ""
@@ -70,7 +70,7 @@ module.exports = {
                         "妹妹", "小妹", "ＪＪ", "Jocelyn", "Ren", "荷荷"
                     ],
                     "gender": "female",
-                    "birthday": "2004-02-25",
+                    "birthday": "2004-03-22",
                     "location": {
                         "timezone": "Asia/Taipei",
                         "place": "Taiwan 新竹縣竹北市興隆路一段"

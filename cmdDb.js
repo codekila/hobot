@@ -545,7 +545,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "媽的", "fuck", "shit", "fxck", "fxxk", "fuxk"
+                            "媽的", "fuck", "shit", "fxck", "fxxk", "fuxk", "xxx"
                         ]
                     }
                 ],
@@ -559,9 +559,10 @@ module.exports = {
                         "priority": "default",
                         "model": "canned",
                         "texts": [
-                            "我們是文明人～",
+                            "矮油",
                             "什麼事？",
-                            "矮油"
+                            "我們是文明人～",
+                            "放輕鬆點啦～"
                         ]
                     }
                 ]
@@ -656,7 +657,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "無聊", "煩"
+                            "無聊", "煩", "懶"
                         ]
                     }
                 ],

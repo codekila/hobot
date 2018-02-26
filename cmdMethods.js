@@ -54,7 +54,7 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
     let nextBirthday = null;
 
     for (let user of db.userDb.users) {
-        days =  _methodUserCheckDaysToBirthday(user);
+        let days =  _methodUserCheckDaysToBirthday(user);
         result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + '歲)，還有' + days + '天生日！\n';
 
         // find who's next birthday...

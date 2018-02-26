@@ -36,9 +36,9 @@ function _methodUserCheckDaysToBirthday(user) {
     if (tmpDay.isSame(today))
         daysToBDay = 0;
     else if (tmpDay.isAfter(today))
-        daysToBDay = tmpDay.diff(today, 'days');
+        daysToBDay = tmpDay.diff(today, 'days')+1;
     else {
-        daysToBDay = tmpDay.year(tmpDay.year()+1).diff(today, 'days');
+        daysToBDay = tmpDay.year(tmpDay.year()+1).diff(today, 'days')+1;
     }
 
     return daysToBDay;

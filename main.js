@@ -100,10 +100,10 @@ function composeReply(event, replyCbFunc) {
                             replyText = replyText.substr(2);
                             break;
                         default:
-                            //msgType = 'text';
+                        //msgType = 'text';
                     }
+                    replyCbFunc(event, replyText, msgType);
                 }
-                replyCbFunc(event, replyText, msgType);
             })
             .catch((err)=> {
                 console.log('getUserProfileError:' + err.message);

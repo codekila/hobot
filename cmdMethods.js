@@ -33,5 +33,10 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
     for (let user of db.userDb.users) {
         result += user.nickNames[0] + ' 的生日是 ' + user.birthday + '\n';
     }
+
+    // chop off the last '\n'
+    if (result.length>1)
+        result = result.slice(0,-1);
+    
     return result;
 }

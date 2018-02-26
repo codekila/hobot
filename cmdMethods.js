@@ -28,6 +28,16 @@ function methodUserCheckTime(event, userName, db, queryText) {
         +  'San Diego:\t' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
 }
 
+function _methodUserCheckDaysToBirthday(user) {
+    let today = moment();
+    let daysToBDay = moment(user.birthday,'YYYY-MM-DD').year(today.year()).diff(today, 'days');
+
+    if (daysToBDay<0)
+        daysToBDay = 365 - daysToBDay;
+
+    return daysToBDay;
+}
+
 function _methodUserCheckAge(user) {
     return Math.floor((moment().diff(moment(user.birthday,'YYYY-MM-DD'), 'days'))/365);
 }
@@ -36,7 +46,7 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
     let result = '';
 
     for (let user of db.userDb.users) {
-        result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + ')\n';
+        result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + '歲)，還有' + _methodUserCheckDaysToBirthday(user) + '天生日！\n';
     }
 
     // chop off the last '\n'

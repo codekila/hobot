@@ -29,18 +29,14 @@ function methodUserCheckTime(event, userName, db, queryText) {
 }
 
 function _methodUserCheckAge(user) {
-    let now = moment();
-    let userBDay = moment(user.birthday,'YYYY-MM-DD');
-    let diffDays = userBDay.diff(now, 'days');
-
-    return Math.floor(diffDays/365);
+    return Math.floor((moment().diff(moment(user.birthday,'YYYY-MM-DD'), 'days'))/365);
 }
 
 function methodUserCheckBirthday(event, userName, db, queryText) {
     let result = '';
 
     for (let user of db.userDb.users) {
-        result += user.nickNames[0] + '的生日是 ' + user.birthday + '(' + _methodUserCheckAge(user) + '歲)\n';
+        result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + ')\n';
     }
 
     // chop off the last '\n'

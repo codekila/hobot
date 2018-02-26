@@ -50,14 +50,24 @@ function _methodUserCheckAge(user) {
 
 function methodUserCheckBirthday(event, userName, db, queryText) {
     let result = '';
+    let nextBirthdayInDays = 0;
+    let nextBirthday = null;
 
     for (let user of db.userDb.users) {
-        result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + '歲)，還有' + _methodUserCheckDaysToBirthday(user) + '天生日！\n';
+        days =  _methodUserCheckDaysToBirthday(user);
+        result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + '歲)，還有' + days + '天生日！\n';
+
+        // find who's next birthday...
+        // doesn't deal with same day birthday things
+        if (nextBirthday == null || (nextBirthday != null && nextBirthdayInDays>days)) {
+            nextBirthday = user.nickNames[0];
+            nextBirthdayInDays = days;
+        }
     }
 
-    // chop off the last '\n'
-    if (result.length>1)
-        result = result.slice(0,-1);
+    if (result.length>0) {
+        result += '\n' + nextBirthday + '的生日快到了喔，再' + nextBirthdayInDays + '天！';
+    }
 
     return result;
 }

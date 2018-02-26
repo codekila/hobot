@@ -14,6 +14,8 @@
 
 "use strict";
 
+const fs = require('fs');
+
 //const clock = require('world-clock')();
 const moment = require('moment');
 const momentTZ = require('moment-timezone');
@@ -90,6 +92,14 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
 
 function methodReplyTheImage(event, userName, db, queryText) {
     let result = "i:https://hobot86.herokuapp.com/static/images/store/butterfly";
+
+    fs.readdir("./public/images/store", function(err, items) {
+        console.log(items);
+
+        for (let i=0; i<items.length; i++) {
+            console.log(items[i]);
+        }
+    });
 
     return result;
 }

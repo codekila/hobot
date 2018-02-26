@@ -56,6 +56,9 @@ function _methodUserCheckDaysToBirthday(user) {
 }
 
 function _methodUserCheckAge(user) {
+    // forever young mom
+    if (user.userId == 'Ua686b3b6f5a0fefb00f7897cef7a58c8')
+        return 22;
     return Math.floor((moment().diff(moment(user.birthday,'YYYY-MM-DD'), 'days'))/365);
 }
 

@@ -77,7 +77,7 @@ function composeReply(event, replyCbFunc) {
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         client.getProfile(event.source.userId)
             .then((profile) => {
-                let msgType;
+                let msgType = 'text';
                 userName = profile.displayName;
 
                 console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
@@ -89,19 +89,20 @@ function composeReply(event, replyCbFunc) {
 
                 console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
 
-                switch(replyText.substr(0,2)){
-                    case 'i:':
-                        msgType = 'image';
-                        replyText = replyText.substr(2);
-                        break;
-                    case 'v:':
-                        msgType = 'video';
-                        replyText = replyText.substr(2);
-                        break;
-                    default:
-                        msgType = 'text';
+                if (replyText) {
+                    switch (replyText.substr(0, 2)) {
+                        case 'i:':
+                            msgType = 'image';
+                            replyText = replyText.substr(2);
+                            break;
+                        case 'v:':
+                            msgType = 'video';
+                            replyText = replyText.substr(2);
+                            break;
+                        default:
+                            //msgType = 'text';
+                    }
                 }
-
                 replyCbFunc(event, replyText, msgType);
             })
             .catch((err)=> {

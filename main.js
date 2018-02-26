@@ -19,7 +19,7 @@ const client = new lineBotSdk.Client(config);
 // create Express app
 const app = express();
 
-// public daga
+// public data
 app.use(express.static('/public'));
 
 // register a webhook handler with middleware

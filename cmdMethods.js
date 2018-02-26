@@ -89,7 +89,7 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
 }
 
 function methodReplyTheImage(event, userName, db, queryText) {
-    let result = "i:https://hobot86.herokuapp.com/public/images/store/butterfly";
+    let result = "i:https://hobot86.herokuapp.com/images/store/butterfly";
 
     return result;
 }

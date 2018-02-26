@@ -70,7 +70,7 @@ module.exports = {
                         "妹妹", "小妹", "ＪＪ", "Jocelyn", "Ren", "荷荷"
                     ],
                     "gender": "female",
-                    "birthday": "2004-03-22",
+                    "birthday": "2004-02-27",
                     "location": {
                         "timezone": "Asia/Taipei",
                         "place": "Taiwan 新竹縣竹北市興隆路一段"

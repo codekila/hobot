@@ -31,8 +31,12 @@ function methodUserCheckTime(event, userName, db, queryText) {
         +  'San Diego:\t' + clock.localTime('America/Los_Angeles').toString().substr(0,5) + ', ' + clock.today('America/Los_Angeles').toString();
     */
 
-    return 'Taiwan:\t' + momentTZ.tz('Asia/Taipei').format() + '\n'
-        +  'San Diego:\t' + momentTZ.tz('America/Los_Angeles').format();;
+    let taiwanTime = momentTZ.tz('Asia/Taipei').format();
+    let SDTime = momentTZ.tz('America/Los_Angeles').format();
+
+    // 2018-02-26T16:53:33+08:00
+    return 'Taiwan:\t' + taiwanTime.substr(11, 5) + ' ' + taiwanTime.substr(0, 10) + '\n'
+        +  'San Diego:\t' + SDTime.substr(11, 5) + ' ' + SDTime.substr(0, 10) ;
 }
 
 function _methodUserCheckDaysToBirthday(user) {

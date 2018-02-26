@@ -66,7 +66,7 @@ function methodUserCheckBirthday(event, userName, db, queryText) {
     }
 
     if (result.length>0) {
-        result += '\n' + nextBirthday + '的生日快到了喔，再' + nextBirthdayInDays + '天！';
+        result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！買個蛋糕慶祝一下！';
     }
 
     return result;

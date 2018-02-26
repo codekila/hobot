@@ -468,7 +468,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "haha", "lol", "funny", "哈", "呵", "嘿", "笑", "顆顆", "科科", "嘻", "ㄎㄎ"
+                            "haha", "lol", "funny", "哈", "呵", "嘿", "笑", "顆顆", "科科", "嘻", "ㄎㄎ", "好玩"
                         ]
                     },
                     {
@@ -678,6 +678,45 @@ module.exports = {
                             "聽聽音樂？",
                             "一起無聊也許就不無聊了！",
                             "說說笑？"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "mad", "angry", "nuts", "crazy"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "生氣", "可惡", "討厭", "火大", "去死"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "怎麼辦？",
+                            "找點樂子吧",
+                            "輕鬆一下啦",
+                            "Take it easy",
+                            "聽聽音樂？",
+                            "給你按按摩？",
+                            "clam down and eat cookie",
+                            "let's have a cup of coffee?"
                         ]
                     }
                 ]

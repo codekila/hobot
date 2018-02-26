@@ -106,7 +106,7 @@ function composeReply(event, replyCbFunc) {
             });
         /*
             .catch((err)=> {
-                console.log('getUserProfileError:' + err.message);
+                console.log(':' + err.message);
                 replyCbFunc(event, '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？', 'text');
             });
             */

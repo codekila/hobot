@@ -44,7 +44,7 @@ function _methodUserCheckDaysToBirthday(user) {
         daysToBDay = tmpDay.year(tmpDay.year()+1).diff(today, 'days')+1;
     }
 
-    cb(daysToBDay);
+    return daysToBDay;
 }
 
 function _methodUserCheckAge(user) {

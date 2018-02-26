@@ -113,7 +113,7 @@ function processResponse(event, userName, queryText, matchedItem, db) {
                     }
                 break;
             case "smart":
-                dbResult = methods.execute(responseToDo.method, queryText);
+                dbResult = methods.execute(responseToDo.method, event, userName, db, queryText);
                 break;
             default:
                 console.log('the response item doesn\'t support \'' + responseToDo.model + '\' model');

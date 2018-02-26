@@ -11,24 +11,76 @@ module.exports = {
                     "userId": "Uc173149caaa1f02eb263e113fe154fd0",
                     "nickNames": [
                         "爸爸", "Daddy", "阿爹", "James"
+                    ],
+                    "gender": "male",
+                    "birthday": "1972-06-26",
+                    "location": {
+                        "timezone": "Asia/Taipei",
+                        "place": "Taiwan 新竹縣竹北市興隆路一段"
+                    },
+                    "contacts": {
+                        "phone": "+886988227881",
+                        "email": "jamesho86@gmail.com"
+                    },
+                    "hobbies": [
+                        "釣魚"
                     ]
                 },
                 {
                     "userId": "Ua686b3b6f5a0fefb00f7897cef7a58c8",
                     "nickNames": [
                         "媽媽", "Mom", "媽咪", "綸綸"
+                    ],
+                    "gender": "female",
+                    "birthday": "1972-04-03",
+                    "location": {
+                        "timezone": "Asia/Taipei",
+                        "place": "Taiwan 新竹縣竹北市興隆路一段"
+                    },
+                    "contacts": {
+                        "phone": "+886988227966",
+                        "email": "huang.yulun@gmail.com"
+                    },
+                    "hobbies": [
+                        "udn小說", "玩Zuma"
                     ]
                 },
                 {
                     "userId": "U28ab0fb7603d306cfdf90db017d5489e",
                     "nickNames": [
                         "姊姊", "阿姊", "Sabby", "Sab", "Sabrina", "阿澧"
+                    ],
+                    "gender": "female",
+                    "birthday": "1999-11-07",
+                    "location": {
+                        "timezone": "America/Los_Angeles",
+                        "place": ""
+                    },
+                    "contacts": {
+                        "phone": "+18582262846",
+                        "email": "sabrina.sj.ho@gmail.com"
+                    },
+                    "hobbies": [
+                        "TKD", "跆拳道"
                     ]
                 },
                 {
                     "userId": "U723a896291d80108cf013c1a628857ea",
                     "nickNames": [
                         "妹妹", "小妹", "ＪＪ", "Jocelyn", "Ren", "荷荷"
+                    ],
+                    "gender": "female",
+                    "birthday": "2004-03-22",
+                    "location": {
+                        "timezone": "Asia/Taipei",
+                        "place": "Taiwan 新竹縣竹北市興隆路一段"
+                    },
+                    "contacts": {
+                        "phone": "+886919322773",
+                        "email": "jocelyn.her.ho@gmail.com"
+                    },
+                    "hobbies": [
+                        "看動漫", "玩電動", "做蛋糕", "畫畫"
                     ]
                 }
             ]
@@ -616,7 +668,32 @@ module.exports = {
                     {
                         "priority": "first",
                         "model": "smart",
-                        "method": "methodTime"
+                        "method": "methodUserCheckTime"
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "bday", "birthday"
+                        ]
+                    },
+                    {
+                        "priority": "default",
+                        "model": "precise",
+                        "texts": [
+                            "生日"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": "methodUserCheckBirthday"
                     }
                 ]
             }

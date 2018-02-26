@@ -30,10 +30,16 @@ function methodUserCheckTime(event, userName, db, queryText) {
 
 function _methodUserCheckDaysToBirthday(user) {
     let today = moment();
-    let daysToBDay = moment(user.birthday,'YYYY-MM-DD').year(today.year()).diff(today, 'days');
+    let tmpDay = moment(user.birthday,'YYYY-MM-DD').year(today.year());
+    let daysToBDay = 0;
 
-    if (daysToBDay<0)
-        daysToBDay = 365 - daysToBDay;
+    if (tmpDay.isSame(today))
+        daysToBDay = 0;
+    else if (tmpDay.isAfter(today))
+        daysToBDay = 366 - tmpDay.diff(today, 'days');
+    else {
+        daysToBDay = 366 - tmpDay.year(tmpDay.year()+1).diff(today, 'days');
+    }
 
     return daysToBDay;
 }

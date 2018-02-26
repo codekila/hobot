@@ -51,7 +51,7 @@ module.exports = {
                         "姊姊", "阿姊", "Sabby", "Sab", "Sabrina", "阿澧"
                     ],
                     "gender": "female",
-                    "birthday": "1999-11-07",
+                    "birthday": "1999-02-27",
                     "location": {
                         "timezone": "America/Los_Angeles",
                         "place": ""

@@ -84,6 +84,6 @@ function methodReplyTheImage(event, userName, db, queryText, cb) {
     fs.readdir("./public/images/store", function(err, items) {
         console.log(items);
 
-        cb("i:https://hobot86.herokuapp.com/static/images/store/" + items[Math.floor(Math.random()*items.length)]);
+        cb("@@image https://hobot86.herokuapp.com/static/images/store/" + items[Math.floor(Math.random()*items.length)]);
     });
 }

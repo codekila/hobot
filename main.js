@@ -44,24 +44,9 @@ function handleEvent(event) {
     composeReply(event, cbSendReply);
 }
 
-function cbSendReply(event, replyMsg, msgType) {
+function cbSendReply(event, msgBody) {
     // use reply API
-    if (replyMsg != null && msgType != null) {
-        let msgBody = null;
-
-        switch(msgType) {
-            case 'text':
-                msgBody = { type: msgType, text: replyMsg };
-                break;
-            case 'image':
-                msgBody = { type: msgType, originalContentUrl: replyMsg + '/original.jpg', previewImageUrl: replyMsg + '/preview.jpg'};
-                break;
-            case 'video':
-                msgBody = { type: msgType, originalContentUrl: replyMsg + '/original.mp4', previewImageUrl: replyMsg + '/preview.jpg'};
-                break;
-            default:
-                msgBody = { type: 'text', text: 'not supported type of response: ' + msgType };
-        }
+    if (event != null && msgBody != null) {
         return client.replyMessage(event.replyToken, msgBody);
     } else
         return Promise.resolve(null);
@@ -84,31 +69,32 @@ function composeReply(event, replyCbFunc) {
 
                 // search for response in the database
                 engine.processDb(event, userName, queryText, db, (replyText) => {
-                    let msgType = 'text';
+                    let msgBody = null;
+                    let replyTexts = replyText.split(" ");
 
-                    console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
+                    console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');
 
-                    if (replyText) {
-                        switch (replyText.substr(0, 2)) {
-                            case 'i:':
-                                msgType = 'image';
-                                replyText = replyText.substr(2);
+                    if (replyTexts[0]) {
+                        switch (replyTexts[0]) {
+                            case '@@image':
+                                msgBody = { type: 'image', originalContentUrl: replyTexts[1] + '/original.jpg', previewImageUrl: replyTexts[1]  + '/preview.jpg'};
                                 break;
-                            case 'v:':
-                                msgType = 'video';
-                                replyText = replyText.substr(2);
+                            case '@@video':
+                                msgBody = { type: 'video', originalContentUrl: replyTexts[1] + '/original.mp4', previewImageUrl: replyTexts[1] + '/preview.jpg'};
                                 break;
+                            case '@@sticker':
+                                msgBody = { type: 'sticker', packageId: replyTexts[1], stickerId: replyTexts[2]};
                             default:
-                                //msgType = 'text';
+                                msgBody = { type: 'text', text: replyText };
                         }
                     }
-                    replyCbFunc(event, replyText, msgType);
+                    replyCbFunc(event, msgBody);
                 });
             });
         /*
             .catch((err)=> {
                 console.log(':' + err.message);
-                replyCbFunc(event, '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？', 'text');
+                replyCbFunc(event, { type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？' });
             });
             */
     }

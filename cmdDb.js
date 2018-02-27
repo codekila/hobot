@@ -210,7 +210,7 @@ module.exports = {
                     },
                     {
                         "priority": "default",
-                        "model": "precise",
+                        "model": "fuzzy",
                         "texts": [
                             "晚安", "睡了"
                         ]

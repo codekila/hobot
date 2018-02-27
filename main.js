@@ -47,6 +47,8 @@ function handleEvent(event) {
 function cbSendReply(event, msgBody) {
     // use reply API
     if (event != null && msgBody != null) {
+        // update lastSeen
+        
         return client.replyMessage(event.replyToken, msgBody);
     } else
         return Promise.resolve(null);

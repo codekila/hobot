@@ -10,6 +10,7 @@ const fs = require('fs');
 const moment = require('moment');
 const momentTZ = require('moment-timezone');
 
+const modUsers = require('./Users.js');
 
 module.exports = {
     execute: function(method, event, userName, db, queryText, cb) {
@@ -31,39 +32,14 @@ function methodUserCheckTime(event, userName, db, queryText, cb) {
         +  'San Diego:\t' + SDTime.substr(11, 5) + ' ' + SDTime.substr(0, 10));
 }
 
-function _methodUserCheckDaysToBirthday(user) {
-    let today = moment();
-    let tmpDay = moment(user.birthday,'YYYY-MM-DD').year(today.year());
-    let daysToBDay = 0;
-
-    if (tmpDay.isSame(today))
-        daysToBDay = 0;
-    else if (tmpDay.isAfter(today))
-        daysToBDay = tmpDay.diff(today, 'days')+1;
-    else {
-        daysToBDay = tmpDay.year(tmpDay.year()+1).diff(today, 'days')+1;
-    }
-
-    return daysToBDay;
-}
-
-function _methodUserCheckAge(user) {
-    let age = Math.floor((moment().diff(moment(user.birthday,'YYYY-MM-DD'), 'days'))/365);
-    
-    // forever young mom XDDD
-    if (user.userId == 'Ua686b3b6f5a0fefb00f7897cef7a58c8')
-        return Math.floor(age/2);
-    return age;
-}
-
 function methodUserCheckBirthday(event, userName, db, queryText, cb) {
     let result = '';
     let nextBirthdayInDays = 0;
     let nextBirthday = null;
 
     for (let user of db.userDb.users) {
-        let days =  _methodUserCheckDaysToBirthday(user);
-        result += user.nickNames[0] + '生日' + user.birthday + '(' + _methodUserCheckAge(user) + '歲)，還有' + days + '天生日！\n';
+        let days =  modUsers.findDaysToBirthday(user);
+        result += user.nickNames[0] + '生日' + user.birthday + '(' + modUsers.findAge(user) + '歲)，還有' + days + '天生日！\n';
 
         // find who's next birthday...
         // doesn't deal with same day birthday things

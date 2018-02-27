@@ -24,7 +24,10 @@ module.exports = {
                     },
                     "hobbies": [
                         "釣魚"
-                    ]
+                    ],
+                    "runtime": {
+                        "lastSeen": 0
+                    }
                 },
                 {
                     "userId": "Ua686b3b6f5a0fefb00f7897cef7a58c8",
@@ -43,7 +46,10 @@ module.exports = {
                     },
                     "hobbies": [
                         "udn小說", "玩Zuma"
-                    ]
+                    ],
+                    "runtime": {
+                        "lastSeen": 0
+                    }
                 },
                 {
                     "userId": "U28ab0fb7603d306cfdf90db017d5489e",
@@ -62,7 +68,10 @@ module.exports = {
                     },
                     "hobbies": [
                         "TKD", "跆拳道"
-                    ]
+                    ],
+                    "runtime": {
+                        "lastSeen": 0
+                    }
                 },
                 {
                     "userId": "U723a896291d80108cf013c1a628857ea",
@@ -81,7 +90,10 @@ module.exports = {
                     },
                     "hobbies": [
                         "看動漫", "玩電動", "做蛋糕", "畫畫", "看Youtube"
-                    ]
+                    ],
+                    "runtime": {
+                        "lastSeen": 0
+                    }
                 }
             ]
     },
@@ -752,14 +764,14 @@ module.exports = {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "great", "nice", "爽", "ya", "棒"
+                            "great", "nice", "爽", "ya", "棒", "很好"
                         ]
                     },
                     {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "讚", "yeah"
+                            "讚", "yeah", "很棒"
                         ]
                     }
                 ],
@@ -775,6 +787,10 @@ module.exports = {
                         "texts": [
                             "顆顆～",
                             "就是爽！",
+                            "@@sticker 1 13",
+                            "@@sticker 1 113",
+                            "@@sticker 1 132",
+                            "@@sticker 1 138",
                             "你真棒！",
                             "有夠讚",
                             "好樣的！",

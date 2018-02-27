@@ -104,8 +104,8 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
                 if (responseToDo.texts.length > 0)
                     dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
                     // randomly add the sender's name
-                    if (dbResult != null && dbResult != '') {
-                        if (Math.random()>0.4) {
+                    if (dbResult != null && dbResult != '' && dbResult.substr(0,2) != '@@') {
+                        if (Math.random()>0.5) {
                             let name = matchUser(event.source.userId, db.userDb);
                             if (name)
                                 dbResult = name + '，' + dbResult;

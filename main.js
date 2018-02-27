@@ -134,7 +134,7 @@ app.listen(port, () => {
 
 const defaultTZ = 'Asia/Taipei';
 
-const jobHourly = new CronJob('* * 0-23 * * *', function() {
+const jobHourly = new CronJob('0 0 */1 * * *', function() {
         //
         console.log("hourly housekeeping");
     }, function () {
@@ -144,7 +144,7 @@ const jobHourly = new CronJob('* * 0-23 * * *', function() {
     defaultTZ /* Time zone of this job. */
 );
 
-const jobDaily = new CronJob('* * * 1-31 * *', function() {
+const jobDaily = new CronJob('0 0 7 */1 * *', function() {
         //
         console.log("daily housekeeping");
     }, function () {
@@ -154,7 +154,7 @@ const jobDaily = new CronJob('* * * 1-31 * *', function() {
     defaultTZ /* Time zone of this job. */
 );
 
-const jobWeekly = new CronJob('* * * * * 0-6', function() {
+const jobWeekly = new CronJob('0 0 8 * * 0-6', function() {
         //
         console.log("weekly housekeeping");
     }, function () {
@@ -164,7 +164,7 @@ const jobWeekly = new CronJob('* * * * * 0-6', function() {
     defaultTZ /* Time zone of this job. */
 );
 
-const jobMonthly = new CronJob('* * * * 0-11 *', function() {
+const jobMonthly = new CronJob('0 0 9 1 */1 *', function() {
         //
         console.log("monthly housekeeping");
     }, function () {

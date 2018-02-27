@@ -177,7 +177,7 @@ module.exports = {
                         "priority": "default",
                         "model": "precise",
                         "texts": [
-                            "午安", "你好", "妳好", "您好", "hi",
+                            "午安", "你好", "妳好", "您好", "hi"
                         ]
                     }
                 ],
@@ -494,6 +494,11 @@ module.exports = {
                             "超好笑的～",
                             "嘿呀，我也覺得很好笑",
                             "哈哈哈",
+                            "@@sticker 1 2",
+                            "@@sticker 1 13",
+                            "@@sticker 1 106",
+                            "@@sticker 1 110",
+                            "@@sticker 1 100",
                             "顆顆",
                             "~~lol~~",
                             "笑鼠人了",

@@ -497,12 +497,12 @@ module.exports = {
                             "@@sticker 1 2",
                             "@@sticker 1 13",
                             "@@sticker 1 106",
-                            "@@sticker 1 110",
-                            "@@sticker 1 100",
                             "顆顆",
-                            "~~lol~~",
+                            "lol lol lol",
                             "笑鼠人了",
                             "今天很開心喔",
+                            "@@sticker 1 110",
+                            "@@sticker 1 100",
                             "超想笑的！",
                             "呵，哈哈！"
                         ]
@@ -533,6 +533,8 @@ module.exports = {
                             "...?",
                             "真的...無言",
                             "有點兒...",
+                            "@@sticker 1 109",
+                            "@@sticker 1 100",
                             "有事嗎？",
                             "是不是很OOXX?"
                         ]
@@ -563,6 +565,8 @@ module.exports = {
                             "哪裏有意思?",
                             "totally!",
                             "我也覺得超好玩的啦",
+                            "@@sticker 1 5",
+                            "@@sticker 1 1114",
                             "真的假的～",
                             "agree with you..."
                         ]
@@ -652,6 +656,8 @@ module.exports = {
                             "YEAH!",
                             "超high的啦",
                             "我也替你高興呢",
+                            "@@sticker 1 14",
+                            "@@sticker 1 103",
                             "一起爽啊",
                             "Great!",
                             "Yo!"
@@ -688,6 +694,8 @@ module.exports = {
                         "texts": [
                             "矮油",
                             "什麼事？",
+                            "@@sticker 1 7",
+                            "@@sticker 1 113",
                             "我們是文明人～",
                             "放輕鬆點啦～"
                         ]
@@ -724,8 +732,12 @@ module.exports = {
                             "你ＯＫ我當然也ＯＫ拉，顆顆",
                             "ＯＫＯＫ",
                             "沒問題喔",
+                            "@@sticker 1 13",
+                            "@@sticker 1 13",
                             "No problem!",
                             "ＯＫ的",
+                            "@@sticker 1 106",
+                            "@@sticker 1 114",
                             "好啊",
                             "就這樣子",
                             "-- O K A Y --",

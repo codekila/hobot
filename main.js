@@ -156,8 +156,8 @@ const defaultTZ = 'Asia/Taipei';
 
 const cronJobs = require('./cronJobs.js');
 
-//const jobHourly = new CronJob('0 0 */1 * * *', function() {
-const jobHourly = new CronJob('*/10 * * * * *', function() {
+const jobHourly = new CronJob('0 0 */1 * * *', function() {
+//const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
 
         cronJobs.checkWhoIsIdleTooLong(db, 20*1000, (userList) => {

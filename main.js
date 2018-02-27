@@ -5,6 +5,7 @@ const express = require('express');
 
 const db = require('./cmdDb.js');
 const engine = require('./cmdDbEngine.js');
+const CronJob = require('cron').CronJob;
 
 // create LINE SDK config from env variables
 const config = {
@@ -82,7 +83,7 @@ function composeReply(event, replyCbFunc) {
                 console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
 
                 // search for response in the database
-                engine.processDb(event, userName, queryText, db, (replyText)=>{
+                engine.processDb(event, userName, queryText, db, (replyText) => {
                     let msgType = 'text';
 
                     console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyText + '\'');
@@ -119,3 +120,56 @@ app.listen(port, () => {
     console.log(`hobot listening to port ${port}`);
 });
 
+/*
+    initiate cron jobs
+
+         Seconds: 0-59
+         Minutes: 0-59
+         Hours: 0-23
+         Day of Month: 1-31
+         Months: 0-11 (Jan-Dec)
+         Day of Week: 0-6 (Sun-Sat)
+
+ */
+
+const defaultTZ = 'Asia/Taipei';
+
+const jobHourly = new CronJob('* * */1 * * *', function() {
+        //
+        console.log("hourly housekeeping");
+    }, function () {
+        /* This function is executed when the job stops */
+    },
+    true, /* Start the job right now */
+    defaultTZ /* Time zone of this job. */
+);
+
+const jobDaily = new CronJob('* * * */1 * *', function() {
+        //
+        console.log("daily housekeeping");
+    }, function () {
+        /* This function is executed when the job stops */
+    },
+    true, /* Start the job right now */
+    defaultTZ /* Time zone of this job. */
+);
+
+const jobWeekly = new CronJob('* * * * * 0-6', function() {
+        //
+        console.log("weekly housekeeping");
+    }, function () {
+        /* This function is executed when the job stops */
+    },
+    true, /* Start the job right now */
+    defaultTZ /* Time zone of this job. */
+);
+
+const jobMonthly = new CronJob('* * * * */1 *', function() {
+        //
+        console.log("monthly housekeeping");
+    }, function () {
+        /* This function is executed when the job stops */
+    },
+    true, /* Start the job right now */
+    defaultTZ /* Time zone of this job. */
+);

@@ -470,7 +470,7 @@ module.exports = {
                         "priority": "default",
                         "model": "fuzzy",
                         "texts": [
-                            "haha", "lol", "funny", "哈", "呵", "嘿", "笑", "顆顆", "科科", "嘻", "ㄎㄎ", "好玩"
+                            "haha", "lol", "funny", "哈", "呵", "嘿", "笑", "顆顆", "科科", "嘻", "ㄎㄎ"
                         ]
                     },
                     {
@@ -530,6 +530,126 @@ module.exports = {
                             "有點兒...",
                             "有事嗎？",
                             "是不是很OOXX?"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "好玩", "有趣", "funny", "interesting", "有意思"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "是喔",
+                            "哪裏有意思?",
+                            "totally!",
+                            "我也覺得超好玩的啦",
+                            "真的假的～",
+                            "agree with you..."
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "喜歡", "like", "love", "可愛", "討喜"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "是喔",
+                            "哪裏有意思?",
+                            "totally!",
+                            "是真的嗎？",
+                            "真的假的～",
+                            "好喔"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "討厭", "hate", "dislike", "可惡", "閃啦", "不要"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "是喔",
+                            "怎麼啦?",
+                            "好吧～",
+                            "放輕鬆",
+                            "開心點",
+                            "嗯嗯嗯"
+                        ]
+                    }
+                ]
+            },
+            {
+                "queries": [
+                    {
+                        "priority": "default",
+                        "model": "fuzzy",
+                        "texts": [
+                            "開心", "高興", "爽", " happy", "great", "excellent"
+                        ]
+                    }
+                ],
+                "responses": [
+                    {
+                        "priority": "first",
+                        "model": "smart",
+                        "method": null
+                    },
+                    {
+                        "priority": "default",
+                        "model": "canned",
+                        "texts": [
+                            "YEAH!",
+                            "超high的啦",
+                            "我也替你高興呢",
+                            "一起爽啊",
+                            "Great!",
+                            "Yo!"
                         ]
                     }
                 ]

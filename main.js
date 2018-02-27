@@ -84,6 +84,7 @@ function composeReply(event, replyCbFunc) {
                                 break;
                             case '@@sticker':
                                 msgBody = { type: 'sticker', packageId: replyTexts[1], stickerId: replyTexts[2]};
+                                break;
                             default:
                                 msgBody = { type: 'text', text: replyText };
                         }

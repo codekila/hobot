@@ -11,7 +11,7 @@ module.exports = {
             let diff = now - i.runtime.lastSeen;
             if (diff > maxIdle) {
                 if (i.runtime.displayName != null)
-                    usersTooLong.push({userName: i.runtime.displayName, idle: diff});
+                    usersTooLong.push({userName: i.runtime.displayName.toLowerCase(), idle: diff});
             }
         }
         cb(usersTooLong);

@@ -38,12 +38,21 @@ app.post('/callback', lineBotSdk.middleware(config), (req, res) => {
 
 // event handler
 function handleEvent(event) {
-    if (event.type !== 'message' || event.message.type !== 'text') {
-        // ignore non-text-message event
-        return Promise.resolve(null);
+    switch(event.type) {
+        case 'message':
+            switch (event.message.type) {
+                case 'text':
+                    composeReply(event, cbSendReply);
+                    return;
+                default:
+            }
+            break;
+        case 'join':
+            client.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
+            return;
+        default:
     }
-
-    composeReply(event, cbSendReply);
+    return Promise.resolve(null);
 }
 
 function cbSendReply(event, msgBody) {
@@ -65,8 +74,15 @@ function composeReply(event, replyCbFunc) {
                 let queryText = event.message.text.trim().toLowerCase();
                 let userName = profile.displayName;
                 let user = modUsers.find(db, event.source.userId);
+                let groupInfo;
 
-                console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
+                if (event.source.type == 'group')
+                    groupInfo = ' from group [' + event.source.groupId + ']';
+                else if (event.source.type == 'room')
+                    groupInfo = ' from room [' + event.source.roomId + ']';
+                else
+                    groupInfo = '';
+                console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
 
                 // update runtime info
                 if (user != null) {
@@ -140,12 +156,14 @@ const defaultTZ = 'Asia/Taipei';
 
 const cronJobs = require('./cronJobs.js');
 
-//const jobHourly = new CronJob('0 0 */1 * * *', function() {
-const jobHourly = new CronJob('*/10 * * * * *', function() {
+const jobHourly = new CronJob('0 0 */1 * * *', function() {
         console.log("hourly housekeeping");
 
-        cronJobs.checkWhoIsIdleTooLong(db, 20*1000, (userList) => {
+        cronJobs.checkWhoIsIdleTooLong(db, 60*1000, (userList) => {
             console.log('you are idle too long: ' + JSON.stringify(userList));
+            for (let i of userList) {
+                //client.pushMessage(i.userId, { type: 'text', text: 'hello!!!' });
+            }
         });
     
     }, function () {

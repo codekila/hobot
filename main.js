@@ -156,13 +156,19 @@ const defaultTZ = 'Asia/Taipei';
 
 const cronJobs = require('./cronJobs.js');
 
-const jobHourly = new CronJob('0 0 */1 * * *', function() {
+//const jobHourly = new CronJob('0 0 */1 * * *', function() {
+const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
 
-        cronJobs.checkWhoIsIdleTooLong(db, 60*1000, (userList) => {
-            console.log('you are idle too long: ' + JSON.stringify(userList));
-            for (let i of userList) {
-                //client.pushMessage(i.userId, { type: 'text', text: 'hello!!!' });
+        cronJobs.checkWhoIsIdleTooLong(db, 20*1000, (userList) => {
+            if (userList.length>0) {
+                let reply = '';
+                console.log('you are idle too long: ' + JSON.stringify(userList));
+                for (let i of userList) {
+                    reply += '@' + i.displayName + ' ';
+                }
+                // 3idiots = C9378e378d388296e286f09a39caaa8a8
+                client.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
             }
         });
     

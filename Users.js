@@ -2,6 +2,10 @@
  * Created by jamesho on 27/02/2018.
  */
 
+"use strict";
+
+const moment = require('moment');
+
 module.exports = {
     /**
      *

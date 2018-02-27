@@ -26,6 +26,7 @@ module.exports = {
                         "釣魚"
                     ],
                     "runtime": {
+                        "displayName": null,
                         "lastSeen": 0
                     }
                 },
@@ -48,6 +49,7 @@ module.exports = {
                         "udn小說", "玩Zuma"
                     ],
                     "runtime": {
+                        "displayName": null,
                         "lastSeen": 0
                     }
                 },
@@ -70,6 +72,7 @@ module.exports = {
                         "TKD", "跆拳道"
                     ],
                     "runtime": {
+                        "displayName": null,
                         "lastSeen": 0
                     }
                 },
@@ -92,6 +95,7 @@ module.exports = {
                         "看動漫", "玩電動", "做蛋糕", "畫畫", "看Youtube"
                     ],
                     "runtime": {
+                        "displayName": null,
                         "lastSeen": 0
                     }
                 }

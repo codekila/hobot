@@ -5,6 +5,8 @@ const express = require('express');
 
 const db = require('./cmdDb.js');
 const engine = require('./cmdDbEngine.js');
+const modUsers = require('./Users.js');
+
 const CronJob = require('cron').CronJob;
 
 // create LINE SDK config from env variables
@@ -47,8 +49,6 @@ function handleEvent(event) {
 function cbSendReply(event, msgBody) {
     // use reply API
     if (event != null && msgBody != null) {
-        // update lastSeen
-        
         return client.replyMessage(event.replyToken, msgBody);
     } else
         return Promise.resolve(null);
@@ -56,19 +56,24 @@ function cbSendReply(event, msgBody) {
 
 // compose the context-aware reply
 function composeReply(event, replyCbFunc) {
-    let replyText = null;
-    let dbResult = null;
-    let userName = '';
-    let queryText = event.message.text.trim().toLowerCase();
-
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         client.getProfile(event.source.userId)
             .then((profile) => {
-                userName = profile.displayName;
+                let replyText = null;
+                let dbResult = null;
+                let queryText = event.message.text.trim().toLowerCase();
+                let userName = profile.displayName;
+                let user = modUsers.find(db, event.source.userId);
 
                 console.log('[' + userName + '(' + event.source.userId + ')] query message = \'' + queryText + '\'');
 
+                // update runtime info
+                if (user != null) {
+                    user.runtime.lastSeen = Date.now();
+                    user.runtime.displayName = userName;
+                }
+                
                 // search for response in the database
                 engine.processDb(event, userName, queryText, db, (replyText) => {
                     let msgBody = null;
@@ -103,10 +108,20 @@ function composeReply(event, replyCbFunc) {
     }
 }
 
+var botStartTime = Date.now();
+
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`hobot listening to port ${port}`);
+
+    // update display names
+    for (let i of db.userDb.users) {
+        client.getProfile(i.userId)
+            .then((profile) => {
+                i.runtime.displayName = profile.displayName;
+            });
+    }
 });
 
 /*
@@ -123,9 +138,16 @@ app.listen(port, () => {
 
 const defaultTZ = 'Asia/Taipei';
 
-const jobHourly = new CronJob('0 0 */1 * * *', function() {
-        //
+const cronJobs = require('./cronJobs.js');
+
+//const jobHourly = new CronJob('0 0 */1 * * *', function() {
+const jobHourly = new CronJob('*/5 * * * * *', function() {
         console.log("hourly housekeeping");
+
+        cronJobs.checkWhoIsIdleTooLong(db, 20, (userList) => {
+            console.log('you are idle too long: ' + userList);
+        });
+    
     }, function () {
         /* This function is executed when the job stops */
     },

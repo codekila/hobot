@@ -29,7 +29,7 @@ module.exports = {
      */
     getDaysToBirthday: function (userId) {
         let daysToBDay = -1;
-        let user = find(userId);
+        let user = this.find(userId);
 
         if (user) {
             let today = moment();
@@ -52,7 +52,7 @@ module.exports = {
      */
     getAge: function (userId) {
         let age = -1;
-        let user = find(userId);
+        let user = this.find(userId);
 
         if (user) {
             age = Math.floor((moment().diff(moment(user.birthday, 'YYYY-MM-DD'), 'days')) / 365);

@@ -67,7 +67,7 @@ module.exports = {
      */
     updateAllDisplayNames() {
         for (let userId in dbUsers) {
-            client.getProfile(userId)
+            botClient.getProfile(userId)
                 .then((profile) => {
                     dbUsers[userId].runtime.displayName = profile.displayName;
                 })

@@ -60,8 +60,8 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const CommandModel = new mongoose.model('Commands', CommandSchema);
-const UserModel = new mongoose.model('Users', UserSchema);
+const CommandModel = mongoose.model('Commands', CommandSchema);
+const UserModel = mongoose.model('Users', UserSchema);
 
 // create LINE SDK config from env variables
 const config = {

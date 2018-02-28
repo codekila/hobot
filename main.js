@@ -1,6 +1,11 @@
 'use strict';
 
 const lineBotSdk = require('@line/bot-sdk');
+const HTTPError = require('@line/bot-sdk').HTTPError;
+const JSONParseError = require('@line/bot-sdk').JSONParseError;
+const ReadError = require('@line/bot-sdk').ReadError;
+const RequestError = require('@line/bot-sdk').RequestError;
+
 const express = require('express');
 
 const db = require('./cmdDb.js');
@@ -118,17 +123,18 @@ function composeReply(event, replyCbFunc) {
                     }
                     replyCbFunc(event, msgBody);
                 });
-            });
-        /*
+            }),
             .catch((err) => {
                 if (err instanceof HTTPError) {
                     console.log('composeReply()--> getProfile error:' + err.statusCode);
                     if (err.statusCode == 404) {
                         replyCbFunc(event, { type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？' });
                     }
+                } else {
+                    console.error('composeReply error:' + err.message);
+                    replyCbFunc(event, { type: 'text', text: err.message });
                 }
             });
-            */
     }
 }
 

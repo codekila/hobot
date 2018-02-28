@@ -5,6 +5,7 @@
 'use strict';
 
 const methods = require('./cmdMethods.js');
+const modUsers = require('./Users.js');
 
 module.exports = {
     processDb: processDb
@@ -73,15 +74,6 @@ function matchDb(event, userName, queryText, db) {
     }
 }
 
-function matchUser(userId, userDb) {
-    for (let user of userDb.users) {
-        if (userId.toLowerCase() == user.userId.toLowerCase()) {
-            return user.nickNames[Math.floor(Math.random() * user.nickNames.length)];
-        }
-    }
-    return null;
-}
-
 function processResponse(event, userName, queryText, matchedItem, db, cb) {
     let dbResult = null;
     let responseToDo = null;
@@ -106,9 +98,9 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
                     // randomly add the sender's name
                     if (dbResult != null && dbResult != '' && dbResult.substr(0,2) != '@@') {
                         if (Math.random()>0.5) {
-                            let name = matchUser(event.source.userId, db.userDb);
-                            if (name)
-                                dbResult = name + '，' + dbResult;
+                            let user = modUsers.find(db.userDb, event.source.userId);
+                            if (user)
+                                dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
                         }
                     }
                 cb(dbResult);

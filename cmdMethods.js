@@ -2,8 +2,6 @@
  * Created by jamesho on 25/02/2018.
  */
 
-"use strict";
-
 const fs = require('fs');
 
 //const clock = require('world-clock')();
@@ -36,10 +34,13 @@ function methodUserCheckBirthday(event, userName, db, queryText, cb) {
     let result = '';
     let nextBirthdayInDays = 0;
     let nextBirthday = null;
+    let dbUsers = db.userDb;
 
-    for (let user of db.userDb.users) {
-        let days =  modUsers.findDaysToBirthday(user);
-        result += user.nickNames[0] + '生日' + user.birthday + '(' + modUsers.findAge(user) + '歲)，還有' + days + '天生日！\n';
+    for (let userId in dbUsers) {
+        let days =  modUsers.getDaysToBirthday(dbUsers, userId);
+        let user = dbUsers[userId];
+
+        result += user.nickNames[0] + '生日' + user.birthday + '(' + modUsers.getAge(dbUsers, userId) + '歲)，還有' + days + '天生日！\n';
 
         // find who's next birthday...
         // doesn't deal with same day birthday things

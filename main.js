@@ -58,7 +58,11 @@ function handleEvent(event) {
 function cbSendReply(event, msgBody) {
     // use reply API
     if (event != null && msgBody != null) {
-        return client.replyMessage(event.replyToken, msgBody);
+        return client.replyMessage(event.replyToken, msgBody).catch((err) => {
+            if (err instanceof HTTPError) {
+                console.error('replyMessage error:' + err.statusCode);
+            }
+        });
     } else
         return Promise.resolve(null);
 }
@@ -73,7 +77,7 @@ function composeReply(event, replyCbFunc) {
                 let dbResult = null;
                 let queryText = event.message.text.trim().toLowerCase();
                 let userName = profile.displayName;
-                let user = modUsers.find(db, event.source.userId);
+                let user = modUsers.find(db.userDb, event.source.userId);
                 let groupInfo;
 
                 if (event.source.type == 'group')
@@ -114,13 +118,15 @@ function composeReply(event, replyCbFunc) {
                     }
                     replyCbFunc(event, msgBody);
                 });
+            })
+            .catch((err) => {
+                if (err instanceof HTTPError) {
+                    console.log('composeReply()--> getProfile error:' + err.statusCode);
+                    if (err.statusCode == 404) {
+                        replyCbFunc(event, { type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？' });
+                    }
+                }
             });
-        /*
-            .catch((err)=> {
-                console.log(':' + err.message);
-                replyCbFunc(event, { type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？' });
-            });
-            */
     }
 }
 
@@ -132,12 +138,7 @@ app.listen(port, () => {
     console.log(`hobot listening to port ${port}`);
 
     // update display names
-    for (let i of db.userDb.users) {
-        client.getProfile(i.userId)
-            .then((profile) => {
-                i.runtime.displayName = profile.displayName;
-            });
-    }
+    modUsers.updateAllDisplayNames(db.userDb);
 });
 
 /*
@@ -160,7 +161,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
 
-        cronJobs.checkWhoIsIdleTooLong(db, 20*1000, (userList) => {
+        modUsers.getWhoIsIdleTooLong(db.userDb, 20*1000, (userList) => {
             if (userList.length>0) {
                 let reply = '';
                 console.log('you are idle too long: ' + JSON.stringify(userList));

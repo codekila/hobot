@@ -30,7 +30,7 @@ module.exports = {
      */
     getDaysToBirthday: function (userId) {
         let daysToBDay = -1;
-        let user = find(userId);
+        let user = this.find(userId);
 
         if (user) {
             let today = moment();

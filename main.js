@@ -132,7 +132,7 @@ function composeReply(event, replyCbFunc) {
                     }
                 } else {
                     console.error('composeReply error:' + err.message);
-                    replyCbFunc(event, { type: 'text', text: err.message });
+                    replyCbFunc(event, { type: 'text', text: 'Exception: ' + err.message });
                 }
             });
     }

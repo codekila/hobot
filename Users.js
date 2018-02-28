@@ -88,7 +88,8 @@ module.exports = {
         let now = Date.now();
         let usersTooLong = [];
 
-        for (let user of dbUsers) {
+        for (let userId in dbUsers) {
+            let user = dbUsers[userId];
             let diff = now - user.runtime.lastSeen;
             if (diff > maxIdle) {
                 if (user.runtime.displayName != null)

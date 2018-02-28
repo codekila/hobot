@@ -40,7 +40,7 @@ const CommandSchema = new mongoose.Schema({
     responses: [ResponseSchema]
 });
 
-const UserSchema = new mongodb.Schema({
+const UserSchema = new mongoose.Schema({
     userId: String,
     nickNames: [String],
     gender: String,
@@ -60,8 +60,8 @@ const UserSchema = new mongodb.Schema({
     }
 });
 
-const CommandModel = new mongodb.model('Commands', CommandSchema);
-const UserModel = new mongodb.model('Users', UserSchema);
+const CommandModel = new mongoose.model('Commands', CommandSchema);
+const UserModel = new mongoose.model('Users', UserSchema);
 
 // create LINE SDK config from env variables
 const config = {

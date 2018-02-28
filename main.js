@@ -22,6 +22,47 @@ db.once('open', () => {
     console.log("Database Connected.");
 });
 
+const QuerySchema = new mongoose.Schema({
+    priority: String,
+    model: String,
+    texts: [String]
+});
+
+const ResponseSchema = new mongoose.Schema({
+    priority: String,
+    model: String,
+    method: String,
+    texts: [String]
+});
+
+const CommandSchema = new mongoose.Schema({
+    queries: [QuerySchema],
+    responses: [ResponseSchema]
+});
+
+const UserSchema = new mongodb.Schema({
+    userId: String,
+    nickNames: [String],
+    gender: String,
+    birthday: Date,
+    location: {
+        timeZone: String,
+        place: String
+    },
+    contacts: {
+        phone: String,
+        email: String
+    },
+    hobbies: [String],
+    runtime: {
+        displayName: String,
+        lastSeen: Number
+    }
+});
+
+const CommandModel = new mongodb.model('Commands', CommandSchema);
+const UserModel = new mongodb.model('Users', UserSchema);
+
 // create LINE SDK config from env variables
 const config = {
     //channelID: '1493482238',

@@ -4,6 +4,7 @@
 
 "use strict";
 
+const HTTPError = require('@line/bot-sdk').HTTPError;
 const moment = require('moment');
 
 let botClient = null;
@@ -29,7 +30,7 @@ module.exports = {
      */
     getDaysToBirthday: function (userId) {
         let daysToBDay = -1;
-        let user = this.find(userId);
+        let user = find(userId);
 
         if (user) {
             let today = moment();

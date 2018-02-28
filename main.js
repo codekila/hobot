@@ -123,7 +123,7 @@ function composeReply(event, replyCbFunc) {
                     }
                     replyCbFunc(event, msgBody);
                 });
-            }),
+            })
             .catch((err) => {
                 if (err instanceof HTTPError) {
                     console.log('composeReply()--> getProfile error:' + err.statusCode);

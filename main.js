@@ -8,11 +8,19 @@ const RequestError = require('@line/bot-sdk').RequestError;
 
 const express = require('express');
 
-const db = require('./cmdDb.js');
+const dbStatic = require('./cmdDb.js');
 const engine = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
 
 const CronJob = require('cron').CronJob;
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot');
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'database connection error:'));
+db.once('open', () => {
+    console.log("Database Connected.");
+});
 
 // create LINE SDK config from env variables
 const config = {
@@ -100,7 +108,7 @@ function composeReply(event, replyCbFunc) {
                 }
                 
                 // search for response in the database
-                engine.processDb(event, userName, queryText, db, (replyText) => {
+                engine.processDb(event, userName, queryText, dbStatic, (replyText) => {
                     let msgBody = null;
                     let replyTexts = replyText.split(" ");
 
@@ -141,7 +149,7 @@ function composeReply(event, replyCbFunc) {
 var botStartTime = Date.now();
 
 // init Users
-modUsers.init(client, db.userDb);
+modUsers.init(client, dbStatic.userDb);
 
 // listen on port
 const port = process.env.PORT || 3000;

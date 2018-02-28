@@ -20,7 +20,7 @@ module.exports = {
      * @returns {*}
      */
     find: function (userId) {
-        return dbUsers.indexOf(userId);
+        return dbUsers[userId];
     },
     /**
      *

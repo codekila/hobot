@@ -77,7 +77,7 @@ function composeReply(event, replyCbFunc) {
                 let dbResult = null;
                 let queryText = event.message.text.trim().toLowerCase();
                 let userName = profile.displayName;
-                let user = modUsers.find(db.userDb, event.source.userId);
+                let user = modUsers.find(event.source.userId);
                 let groupInfo;
 
                 if (event.source.type == 'group')
@@ -132,13 +132,16 @@ function composeReply(event, replyCbFunc) {
 
 var botStartTime = Date.now();
 
+// init Users
+modUsers.init(client, db.userDb);
+
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`hobot listening to port ${port}`);
 
     // update display names
-    modUsers.updateAllDisplayNames(db.userDb);
+    modUsers.updateAllDisplayNames();
 });
 
 /*
@@ -161,7 +164,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
 
-        modUsers.getWhoIsIdleTooLong(db.userDb, 20*1000, (userList) => {
+        modUsers.getWhoIsIdleTooLong(20*1000, (userList) => {
             if (userList.length>0) {
                 let reply = '';
                 console.log('you are idle too long: ' + JSON.stringify(userList));

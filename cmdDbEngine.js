@@ -98,7 +98,7 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
                     // randomly add the sender's name
                     if (dbResult != null && dbResult != '' && dbResult.substr(0,2) != '@@') {
                         if (Math.random()>0.5) {
-                            let user = modUsers.find(db.userDb, event.source.userId);
+                            let user = modUsers.find(event.source.userId);
                             if (user)
                                 dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
                         }

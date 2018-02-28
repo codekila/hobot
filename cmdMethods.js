@@ -37,10 +37,10 @@ function methodUserCheckBirthday(event, userName, db, queryText, cb) {
     let dbUsers = db.userDb;
 
     for (let userId in dbUsers) {
-        let days =  modUsers.getDaysToBirthday(dbUsers, userId);
+        let days =  modUsers.getDaysToBirthday(userId);
         let user = dbUsers[userId];
 
-        result += user.nickNames[0] + '生日' + user.birthday + '(' + modUsers.getAge(dbUsers, userId) + '歲)，還有' + days + '天生日！\n';
+        result += user.nickNames[0] + '生日' + user.birthday + '(' + modUsers.getAge(userId) + '歲)，還有' + days + '天生日！\n';
 
         // find who's next birthday...
         // doesn't deal with same day birthday things

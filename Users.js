@@ -6,25 +6,30 @@
 
 const moment = require('moment');
 
+let botClient = null;
+let dbUsers = null;
+
 module.exports = {
+    init: function (bot, db) {
+        botClient = bot;
+        dbUsers = db;
+    },
     /**
      *
-     * @param dbUsers
      * @param userId
      * @returns {*}
      */
-    find: function (dbUsers, userId) {
+    find: function (userId) {
         return dbUsers.indexOf(userId);
     },
     /**
      *
-     * @param dbUsers
      * @param userId
      * @returns {number}: days to next birthday, -1 if user not found
      */
-    getDaysToBirthday: function (dbUsers, userId) {
+    getDaysToBirthday: function (userId) {
         let daysToBDay = -1;
-        let user = find(dbUsers, userId);
+        let user = find(userId);
 
         if (user) {
             let today = moment();
@@ -42,13 +47,12 @@ module.exports = {
     },
     /**
      *
-     * @param dbUsers
      * @param userId
      * @returns {number}: ages, -1 if user not found
      */
-    getAge: function (dbUsers, userId) {
+    getAge: function (userId) {
         let age = -1;
-        let user = find(dbUsers, userId);
+        let user = find(userId);
 
         if (user) {
             age = Math.floor((moment().diff(moment(user.birthday, 'YYYY-MM-DD'), 'days')) / 365);
@@ -60,9 +64,8 @@ module.exports = {
     },
     /**
      * 
-     * @param dbUsers
      */
-    updateAllDisplayNames(dbUsers) {
+    updateAllDisplayNames() {
         for (let userId in dbUsers) {
             client.getProfile(userId)
                 .then((profile) => {
@@ -76,12 +79,11 @@ module.exports = {
         }
     },
     /**
-     * 
-     * @param dbUsers
+     *
      * @param maxIdle
      * @param cb
      */
-    getWhoIsIdleTooLong: function (dbUsers, maxIdle, cb) {
+    getWhoIsIdleTooLong: function (maxIdle, cb) {
         let now = Date.now();
         let usersTooLong = [];
 

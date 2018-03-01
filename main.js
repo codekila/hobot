@@ -171,11 +171,11 @@ app.listen(port, () => {
     // init mongodb
     global.config.mongoose.connect(global.config.mongoURL);
     global.db = global.config.mongoose.connection;
-    modUsers.init(global.config.mongoose);
     global.db.on('error', console.error.bind(console, 'database connection error:'));
     global.db.once('open', () => {
         console.log("Database Connected.");
 
+        modUsers.init(global.config.mongoose);
         //modUsers.createUsers();
 
         // update display names
@@ -209,7 +209,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
                 }
                 // 3idiots = C9378e378d388296e286f09a39caaa8a8
                 // test group = Ced664c11782376a001d6c43c5bb3e850
-                global.config.botClient.pushMessage("C9378e378d388296e286f09a39caaa8a8", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
+                global.config.botClient.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
             }
         });
     

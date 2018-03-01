@@ -125,6 +125,8 @@ module.exports = {
                             }
                         });
                 });
+            } else {
+                console.log('updateAllDisplayNames error: ' + err.message);
             }
         });
     },

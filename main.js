@@ -181,7 +181,7 @@ app.listen(port, () => {
         console.log("Database Connected.");
 
         modUsers.init(global.config.mongoose);
-        //modUsers.createUsers();
+        modUsers.createUsers();
 
         // update display names
         modUsers.updateAllDisplayNames();

@@ -170,7 +170,7 @@ app.listen(port, () => {
 
     // init mongodb
     global.config.mongoose.connect(global.config.mongoURL);
-    global.db = mongoose.connection;
+    global.db = global.config.mongoose.connection;
     modUsers.init(global.config.mongoose);
     global.db.on('error', console.error.bind(console, 'database connection error:'));
     global.db.once('open', () => {
@@ -181,7 +181,7 @@ app.listen(port, () => {
         modUsers.createUsers();
     });
     // create db models
-    global.dbModel.CommandModel = mongoose.model('Commands', CommandSchema);
+    //global.dbModel.CommandModel = global.config.mongoose.model('Commands', CommandSchema);
 });
 
 /*

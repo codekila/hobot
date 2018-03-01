@@ -12,7 +12,7 @@ const CronJob = require('cron').CronJob;
 const engine = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
 const cronJobs = require('./cronJobs.js');
-
+/*
 const QuerySchema = new mongoose.Schema({
     priority: String,
     model: String,
@@ -30,6 +30,7 @@ const CommandSchema = new mongoose.Schema({
     queries: [QuerySchema],
     responses: [ResponseSchema]
 });
+*/
 
 // create LINE SDK configLINE from env variables
 const configLINE = {

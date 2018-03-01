@@ -52,9 +52,6 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const CommandModel = mongoose.model('Commands', CommandSchema);
-const UserModel = mongoose.model('Users', UserSchema);
-
 // create LINE SDK configLINE from env variables
 const configLINE = {
     //channelID: '1493482238',
@@ -69,7 +66,7 @@ global.config = {
     defaultTZ: 'Asia/Taipei',
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
     mongoose: require('mongoose'),
-    dbStatic: require('./cmdDb.js')
+    dbStatic: require('./cmdDb.js'),
 };
 
 // create Express app
@@ -196,11 +193,15 @@ app.listen(port, () => {
 
     // init mongodb
     global.config.mongoose.connect(global.config.mongoURL);
-    global.config.db = mongoose.connection;
-    global.config.db.on('error', console.error.bind(console, 'database connection error:'));
-    global.config.db.once('open', () => {
+    global.db = mongoose.connection;
+    global.db.on('error', console.error.bind(console, 'database connection error:'));
+    global.db.once('open', () => {
         console.log("Database Connected.");
     });
+    // create db models
+    global.dbModel = {};
+    global.dbModel.CommandModel = mongoose.model('Commands', CommandSchema);
+    global.dbModel.UserModel = mongoose.model('Users', UserSchema);
 
     // update display names
     modUsers.updateAllDisplayNames();

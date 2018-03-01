@@ -100,7 +100,7 @@ function handleEvent(event) {
             }
             break;
         case 'join':
-            lineClient.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
+            global.config.lineClient.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
             return;
         default:
     }
@@ -110,7 +110,7 @@ function handleEvent(event) {
 function cbSendReply(event, msgBody) {
     // use reply API
     if (event != null && msgBody != null) {
-        return lineClient.replyMessage(event.replyToken, msgBody).catch((err) => {
+        return global.config.lineClient.replyMessage(event.replyToken, msgBody).catch((err) => {
             if (err instanceof HTTPError) {
                 console.error('replyMessage error:' + err.statusCode);
             }
@@ -123,7 +123,7 @@ function cbSendReply(event, msgBody) {
 function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
-        lineClient.getProfile(event.source.userId)
+        global.config.lineClient.getProfile(event.source.userId)
             .then((profile) => {
                 let replyText = null;
                 let dbResult = null;

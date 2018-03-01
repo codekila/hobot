@@ -56,15 +56,16 @@ const UserSchema = new mongoose.Schema({
 const CommandModel = mongoose.model('Commands', CommandSchema);
 const UserModel = mongoose.model('Users', UserSchema);
 
+// create LINE SDK configLINE from env variables
+const configLINE = {
+    //channelID: '1493482238',
+    channelSecret: '5e5ea18cd35b31891f679dea2ce06fe1',
+        channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
+};
+
 // global config for all
 global.config = {
-// create LINE SDK configLINE from env variables
-    configLINE: {
-        //channelID: '1493482238',
-        channelSecret: '5e5ea18cd35b31891f679dea2ce06fe1',
-        channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
-    },
-    lineClient: (()=> {return new lineBotSdk.Client(global.config.configLINE)})(),
+    lineClient: (()=> {return new lineBotSdk.Client(configLINE)})(),
     botStartTime: (()=>{return Date.now();})(),
     defaultTZ: 'Asia/Taipei',
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot'
@@ -77,7 +78,7 @@ const app = express();
 app.use('/static', express.static(__dirname + '/public'));
 
 // register a webhook handler with middleware
-app.post('/callback', lineBotSdk.middleware(global.config.configLINE), (req, res) => {
+app.post('/callback', lineBotSdk.middleware(configLINE), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))

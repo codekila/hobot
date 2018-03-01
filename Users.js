@@ -2,57 +2,60 @@
  * Created by jamesho on 27/02/2018.
  */
 
-"use strict";
+'use strict';
 
 const HTTPError = require('@line/bot-sdk').HTTPError;
 const moment = require('moment');
 
-let mongoose = global.config.mongoose;
-
-const UserSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        index: true,
-        required: true,
-        unique: true
-    },
-    nickNames: [String],
-    gender: {
-        type: String
-    },
-    birthday: Date,
-    location: {
-        timeZone: {
-            type: String
-        },
-        place: {
-            type: String
-        }
-    },
-    contacts: {
-        phone: {
-            type: String
-        },
-        email: {
-            type: String
-        }
-    },
-    hobbies: [String],
-    runtime: {
-        displayName: {
-            type: String,
-            default: ''
-        },
-        lastSeen: {
-            type: Date,
-            default: Date.now
-        }
-    }
-});
-
-let UsersModel = mongoose.model('Users', UserSchema);
+let mongoose = null;
+let UserSchema = null;
+let UsersModel = null;
 
 module.exports = {
+    init: function (db) {
+        mongoose = db;
+        UserSchema = new mongoose.Schema({
+            userId: {
+                type: String,
+                index: true,
+                required: true,
+                unique: true
+            },
+            nickNames: [String],
+            gender: {
+                type: String
+            },
+            birthday: Date,
+            location: {
+                timeZone: {
+                    type: String
+                },
+                place: {
+                    type: String
+                }
+            },
+            contacts: {
+                phone: {
+                    type: String
+                },
+                email: {
+                    type: String
+                }
+            },
+            hobbies: [String],
+            runtime: {
+                displayName: {
+                    type: String,
+                    default: ''
+                },
+                lastSeen: {
+                    type: Date,
+                    default: Date.now
+                }
+            }
+        });
+        UsersModel = mongoose.model('Users', UserSchema);
+    },
     find: function (userId, cb) {
         UsersModel.findOne({userId : userId}, (err, user) => {
             if (err)

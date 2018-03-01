@@ -170,6 +170,7 @@ app.listen(port, () => {
     // init mongodb
     global.config.mongoose.connect(global.config.mongoURL);
     global.db = mongoose.connection;
+    modUsers.init(global.config.mongoose);
     global.db.on('error', console.error.bind(console, 'database connection error:'));
     global.db.once('open', () => {
         console.log("Database Connected.");

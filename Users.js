@@ -111,8 +111,10 @@ module.exports = {
      */
     updateAllDisplayNames() {
         UsersModel.find({}, (err, users) => {
+            console.log('updateAllDisplayNames:' + users.stringify);
             if (err == null) {
                 users.map(user => {
+                    console.log('map:' + user.stringify);
                     global.config.botClient.getProfile(user.userId)
                         .then((profile) => {
                             UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: profile.displayName }});

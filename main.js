@@ -148,7 +148,7 @@ function composeReply(event, replyCbFunc) {
                 }
                 
                 // search for response in the database
-                engine.processDb(event, userName, queryText, dbStatic, (replyText) => {
+                engine.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
                     let msgBody = null;
                     let replyTexts = replyText.split(" ");
 
@@ -187,7 +187,7 @@ function composeReply(event, replyCbFunc) {
 }
 
 // init Users
-modUsers.init(global.config.lineClient, dbStatic.userDb);
+modUsers.init(global.config.lineClient, global.config.dbStatic.userDb);
 
 // listen on port
 const port = process.env.PORT || 3000;
@@ -195,7 +195,6 @@ app.listen(port, () => {
     console.log(`hobot listening to port ${port}`);
 
     // init mongodb
-
     global.config.mongoose.connect(global.config.mongoURL);
     global.config.db = mongoose.connection;
     global.config.db.on('error', console.error.bind(console, 'database connection error:'));

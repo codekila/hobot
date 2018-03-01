@@ -56,11 +56,9 @@ module.exports = {
         });
         UsersModel = mongoose.model('Users', UserSchema);
     },
-    find: function (userId, callback) {
+    find: function (userId, cb) {
         UsersModel.findOne({userId : userId}, (err, user) => {
-            if (!err) {
-                callback(user);
-            } else callback(null);
+            if (cb) cb(user);
         });
     },
     /**
@@ -132,6 +130,15 @@ module.exports = {
             }
         });
     },
+    updateTimestamp(userId, displayName, cb) {
+        UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: displayName, lastSeen: Date.now() }}, (err, u) => {
+            if (err == null)
+                console.log('updateTimestamp: ' + displayName + ' OK');
+            else
+                console.log('updateTimestamp: ' + displayName + 'Failed, err:' + err.message);
+            if (cb) cb(u);
+        });
+    },
     /**
      *
      * @param maxIdle
@@ -155,7 +162,7 @@ module.exports = {
                         usersTooLong.push({userName: user.nickNames[0], idle: diff});
                 }
             }
-            cb(usersTooLong);
+            if (cb) cb(usersTooLong);
         });
     },
     /**

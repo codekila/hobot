@@ -142,7 +142,9 @@ module.exports = {
             let usersTooLong = [];
 
             if (err) return null;
+            console.log('updateAllDisplayNames:' + users.stringify);
             for (let user of users) {
+                console.log('map:' + user.stringify);
                 let diff = now - user.runtime.lastSeen;
                 if (diff > maxIdle) {
                     /*

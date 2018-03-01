@@ -111,10 +111,10 @@ module.exports = {
      */
     updateAllDisplayNames() {
         UsersModel.find({}, (err, users) => {
-            console.log('updateAllDisplayNames:' + users.stringify);
+            console.log('updateAllDisplayNames:' + JSON.stringify(users));
             if (err == null) {
                 users.map(user => {
-                    console.log('map:' + user.stringify);
+                    console.log('map:' + JSON.stringify(user));
                     global.config.botClient.getProfile(user.userId)
                         .then((profile) => {
                             UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: profile.displayName }});
@@ -142,9 +142,7 @@ module.exports = {
             let usersTooLong = [];
 
             if (err) return null;
-            console.log('updateAllDisplayNames:' + users.stringify);
             for (let user of users) {
-                console.log('map:' + user.stringify);
                 let diff = now - user.runtime.lastSeen;
                 if (diff > maxIdle) {
                     /*

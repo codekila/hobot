@@ -15,12 +15,6 @@ const engine = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
 const cronJobs = require('./cronJobs.js');
 
-mongoose.connect(global.config.mongoURL);
-mongoose.connection.on('error', console.error.bind(console, 'database connection error:'));
-mongoose.connection.once('open', () => {
-    console.log("Database Connected.");
-});
-
 const QuerySchema = new mongoose.Schema({
     priority: String,
     model: String,
@@ -192,6 +186,13 @@ function composeReply(event, replyCbFunc) {
 
 // init Users
 modUsers.init(lineClient, dbStatic.userDb);
+
+// init mongodb
+mongoose.connect(global.config.mongoURL);
+mongoose.connection.on('error', console.error.bind(console, 'database connection error:'));
+mongoose.connection.once('open', () => {
+    console.log("Database Connected.");
+});
 
 // listen on port
 const port = process.env.PORT || 3000;

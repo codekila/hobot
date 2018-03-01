@@ -112,9 +112,7 @@ module.exports = {
                     let age;
                     let today = moment();
                     let tmpDay = moment(user.birthday, 'YYYY-MM-DD').year(today.year());
-
-                    console.log('read :' + JSON.stringify(user));
-
+                    
                     if (tmpDay.isSame(today))
                         daysToBDay = 0;
                     else if (tmpDay.isAfter(today))
@@ -142,7 +140,6 @@ module.exports = {
                     result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
                 }
             }
-            console.log('--->' + result);
 
             if (cb) cb(result);
         });

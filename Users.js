@@ -58,10 +58,9 @@ module.exports = {
     },
     find: function (userId, cb) {
         UsersModel.findOne({userId : userId}, (err, user) => {
-            if (err)
-                cb(null);
-            else
+            if (!err) {
                 cb(user);
+            } else cb(null);
         });
     },
     /**

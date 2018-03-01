@@ -62,51 +62,9 @@ module.exports = {
         });
     },
     /**
-     *
-     * @param userId
-     * @returns {number}: days to next birthday, -1 if user not found
-     */
-    getDaysToBirthday: function (userId) {
-        this.find(userId, user => {
-            let daysToBDay = -1;
-
-            if (user) {
-                let today = moment();
-                let tmpDay = moment(user.birthday, 'YYYY-MM-DD').year(today.year());
-
-                if (tmpDay.isSame(today))
-                    daysToBDay = 0;
-                else if (tmpDay.isAfter(today))
-                    daysToBDay = tmpDay.diff(today, 'days') + 1;
-                else {
-                    daysToBDay = tmpDay.year(tmpDay.year() + 1).diff(today, 'days') + 1;
-                }
-            }
-            return daysToBDay;
-        });
-    },
-    /**
-     *
-     * @param userId
-     * @returns {number}: ages, -1 if user not found
-     */
-    getAge: function (userId) {
-        this.find(userId, user => {
-            let age = -1;
-
-            if (user) {
-                age = Math.floor((moment().diff(moment(user.birthday, 'YYYY-MM-DD'), 'days')) / 365);
-                // forever young mom XDDD
-                if (user.userId == 'Ua686b3b6f5a0fefb00f7897cef7a58c8')
-                    return Math.floor(age / 2);
-            }
-            return age;
-        });
-    },
-    /**
      * 
      */
-    updateAllDisplayNames() {
+    updateAllDisplayNames: function() {
         UsersModel.find({}, (err, users) => {
             if (err == null) {
                 users.map(user => {
@@ -130,13 +88,59 @@ module.exports = {
             }
         });
     },
-    updateTimestamp(userId, displayName, cb) {
+    updateTimestamp: function(userId, displayName, cb) {
         UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: displayName, lastSeen: Date.now() }}, (err, u) => {
             if (err == null)
                 console.log('updateTimestamp: ' + displayName + ' OK');
             else
                 console.log('updateTimestamp: ' + displayName + 'Failed, err:' + err.message);
             if (cb) cb(u);
+        });
+    },
+    checkBirthdays: function(cb) {
+        UsersModel.find({}, (err, users) => {
+            let result = '';
+
+            if (err) {
+                console.log('checkBirthdays error: ' + err.message);
+            } else {
+                let nextBirthdayInDays = 0;
+                let nextBirthday = null;
+
+                for (let user of users) {
+                    let daysToBDay;
+                    let age;
+                    let today = moment();
+                    let tmpDay = moment(user.birthday, 'YYYY-MM-DD').year(today.year());
+
+                    if (tmpDay.isSame(today))
+                        daysToBDay = 0;
+                    else if (tmpDay.isAfter(today))
+                        daysToBDay = tmpDay.diff(today, 'days') + 1;
+                    else {
+                        daysToBDay = tmpDay.year(tmpDay.year() + 1).diff(today, 'days') + 1;
+                    }
+
+                    age = Math.floor((today.diff(moment(user.birthday, 'YYYY-MM-DD'), 'days')) / 365);
+                    // forever young mom XDDD
+                    if (user.userId == 'Ua686b3b6f5a0fefb00f7897cef7a58c8')
+                        age = Math.floor(age / 2);
+
+                    result += user.nickNames[0] + '生日' + user.birthday + '(' + age + '歲)，還有' + daysToBDay + '天生日！\n';
+
+                    // find who's next birthday...
+                    // doesn't deal with same day birthday things
+                    if (nextBirthday == null || (nextBirthday != null && nextBirthdayInDays>days)) {
+                        nextBirthday = user.nickNames[0];
+                        nextBirthdayInDays = days;
+                    }
+                }
+
+                if (result.length>0) {
+                    result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
+                }
+            }
+            if (cb) cb(result);
         });
     },
     /**

@@ -31,30 +31,9 @@ function methodUserCheckTime(event, userName, db, queryText, cb) {
 }
 
 function methodUserCheckBirthday(event, userName, db, queryText, cb) {
-    let result = '';
-    let nextBirthdayInDays = 0;
-    let nextBirthday = null;
-    let dbUsers = db.userDb;
-
-    for (let userId in dbUsers) {
-        let days =  modUsers.getDaysToBirthday(userId);
-        let user = dbUsers[userId];
-
-        result += user.nickNames[0] + '生日' + user.birthday + '(' + modUsers.getAge(userId) + '歲)，還有' + days + '天生日！\n';
-
-        // find who's next birthday...
-        // doesn't deal with same day birthday things
-        if (nextBirthday == null || (nextBirthday != null && nextBirthdayInDays>days)) {
-            nextBirthday = user.nickNames[0];
-            nextBirthdayInDays = days;
-        }
-    }
-
-    if (result.length>0) {
-        result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
-    }
-
-    cb(result);
+    modUsers.checkBirthdays(result => {
+        cb(result);
+    };
 }
 
 function methodReplyTheImage(event, userName, db, queryText, cb) {

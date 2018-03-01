@@ -140,6 +140,8 @@ module.exports = {
                     result += '\n何寶發現' + nextBirthday + '的生日快到了喔，再過' + nextBirthdayInDays + '天！\n\n買個蛋糕慶祝一下！';
                 }
             }
+            console.log('--->' + result);
+
             if (cb) cb(result);
         });
     },

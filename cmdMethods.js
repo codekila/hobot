@@ -32,6 +32,7 @@ function methodUserCheckTime(event, userName, db, queryText, cb) {
 
 function methodUserCheckBirthday(event, userName, db, queryText, cb) {
     modUsers.checkBirthdays(result => {
+        console.log(result);
         cb(result);
     });
 }

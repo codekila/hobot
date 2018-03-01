@@ -33,7 +33,7 @@ function methodUserCheckTime(event, userName, db, queryText, cb) {
 function methodUserCheckBirthday(event, userName, db, queryText, cb) {
     modUsers.checkBirthdays(result => {
         cb(result);
-    };
+    });
 }
 
 function methodReplyTheImage(event, userName, db, queryText, cb) {

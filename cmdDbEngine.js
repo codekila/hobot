@@ -102,7 +102,6 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
                                 if (user)
                                     dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
                                 cb(dbResult);
-                                return;
                             });
                         } else
                             cb(dbResult);

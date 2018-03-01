@@ -56,11 +56,11 @@ module.exports = {
         });
         UsersModel = mongoose.model('Users', UserSchema);
     },
-    find: function (userId, cb) {
+    find: function (userId, callback) {
         UsersModel.findOne({userId : userId}, (err, user) => {
             if (!err) {
-                cb(user);
-            } else cb(null);
+                callback(user);
+            } else callback(null);
         });
     },
     /**

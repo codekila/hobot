@@ -176,9 +176,10 @@ app.listen(port, () => {
     global.db.once('open', () => {
         console.log("Database Connected.");
 
+        //modUsers.createUsers();
+
         // update display names
-        //modUsers.updateAllDisplayNames();
-        modUsers.createUsers();
+        modUsers.updateAllDisplayNames();
     });
     // create db models
     //global.dbModel.CommandModel = global.config.mongoose.model('Commands', CommandSchema);

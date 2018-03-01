@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Users.js" afterPath="$PROJECT_DIR$/Users.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
     <ignored path="hobot86.iws" />
@@ -27,9 +28,21 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1701">
-              <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+            <state relative-caret-position="354">
+              <caret line="177" column="43" selection-start-line="177" selection-start-column="43" selection-end-line="177" selection-end-column="43" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Users.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="156" column="28" selection-start-line="156" selection-start-column="28" selection-end-line="156" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#44#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,11 +74,10 @@
       <file leaf-file-name="cmdDb.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmdDb.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12930">
-              <caret line="862" column="19" selection-start-line="862" selection-start-column="19" selection-end-line="862" selection-end-column="19" />
+            <state relative-caret-position="105">
+              <caret line="7" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
               <folding>
-                <marker date="1519786488274" expanded="true" signature="78:30816" ph="{...}" />
-                <marker date="1519786488274" expanded="true" signature="92:2765" ph="{...}" />
+                <element signature="e#92#2765#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -119,11 +131,11 @@
         <option value="$PROJECT_DIR$/cronJobs.js" />
         <option value="$PROJECT_DIR$/cmdMethods.js" />
         <option value="$PROJECT_DIR$/cmdDbEngine.js" />
-        <option value="$PROJECT_DIR$/Users.js" />
         <option value="$PROJECT_DIR$/cmd.json" />
         <option value="$PROJECT_DIR$/global.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/Users.js" />
       </list>
     </option>
   </component>
@@ -273,12 +285,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
-      <workItem from="1519345260366" duration="98194000" />
+      <workItem from="1519345260366" duration="104867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100932000" />
+    <option name="totallyTimeSpent" value="107605000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -397,27 +409,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1308">
-          <caret line="91" column="39" selection-start-line="91" selection-start-column="39" selection-end-line="91" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmdDb.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12930">
-          <caret line="862" column="19" selection-start-line="862" selection-start-column="19" selection-end-line="862" selection-end-column="19" />
-          <folding>
-            <marker date="1519786488274" expanded="true" signature="78:30816" ph="{...}" />
-            <marker date="1519786488274" expanded="true" signature="92:2765" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@line/bot-sdk/dist/client.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -464,10 +455,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmdDb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding>
+            <element signature="e#92#2765#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="156" column="28" selection-start-line="156" selection-start-column="28" selection-end-line="156" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1701">
-          <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+        <state relative-caret-position="354">
+          <caret line="177" column="43" selection-start-line="177" selection-start-column="43" selection-end-line="177" selection-end-column="43" />
           <folding />
         </state>
       </provider>

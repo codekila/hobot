@@ -8,7 +8,6 @@ const RequestError = require('@line/bot-sdk').RequestError;
 
 const express = require('express');
 const CronJob = require('cron').CronJob;
-const mongoose = require('mongoose');
 
 const engine = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
@@ -32,26 +31,6 @@ const CommandSchema = new mongoose.Schema({
     responses: [ResponseSchema]
 });
 
-const UserSchema = new mongoose.Schema({
-    userId: String,
-    nickNames: [String],
-    gender: String,
-    birthday: Date,
-    location: {
-        timeZone: String,
-        place: String
-    },
-    contacts: {
-        phone: String,
-        email: String
-    },
-    hobbies: [String],
-    runtime: {
-        displayName: String,
-        lastSeen: Number
-    }
-});
-
 // create LINE SDK configLINE from env variables
 const configLINE = {
     //channelID: '1493482238',
@@ -61,8 +40,8 @@ const configLINE = {
 
 // global config for all
 global.config = {
-    lineClient: (()=> {return new lineBotSdk.Client(configLINE)})(),
-    botStartTime: (()=>{return Date.now();})(),
+    botClient: (()=> new lineBotSdk.Client(configLINE))(),
+    botStartTime: (()=> Date.now())(),
     defaultTZ: 'Asia/Taipei',
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
     mongoose: require('mongoose'),
@@ -98,7 +77,7 @@ function handleEvent(event) {
             }
             break;
         case 'join':
-            global.config.lineClient.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
+            global.config.botClient.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
             return;
         default:
     }
@@ -108,7 +87,7 @@ function handleEvent(event) {
 function cbSendReply(event, msgBody) {
     // use reply API
     if (event != null && msgBody != null) {
-        return global.config.lineClient.replyMessage(event.replyToken, msgBody).catch((err) => {
+        return global.config.botClient.replyMessage(event.replyToken, msgBody).catch((err) => {
             if (err instanceof HTTPError) {
                 console.error('replyMessage error:' + err.statusCode);
             }
@@ -121,7 +100,7 @@ function cbSendReply(event, msgBody) {
 function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
-        global.config.lineClient.getProfile(event.source.userId)
+        global.config.botClient.getProfile(event.source.userId)
             .then((profile) => {
                 let replyText = null;
                 let dbResult = null;
@@ -183,9 +162,6 @@ function composeReply(event, replyCbFunc) {
     }
 }
 
-// init Users
-modUsers.init(global.config.lineClient, global.config.dbStatic.userDb);
-
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
@@ -197,14 +173,13 @@ app.listen(port, () => {
     global.db.on('error', console.error.bind(console, 'database connection error:'));
     global.db.once('open', () => {
         console.log("Database Connected.");
+
+        // update display names
+        //modUsers.updateAllDisplayNames();
+        modUsers.createUsers();
     });
     // create db models
-    global.dbModel = {};
     global.dbModel.CommandModel = mongoose.model('Commands', CommandSchema);
-    global.dbModel.UserModel = mongoose.model('Users', UserSchema);
-
-    // update display names
-    modUsers.updateAllDisplayNames();
 });
 
 /*
@@ -223,14 +198,15 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
         console.log("hourly housekeeping");
 
         modUsers.getWhoIsIdleTooLong(20*1000, (userList) => {
-            if (userList.length>0) {
+            if (userList && userList.length>0) {
                 let reply = '';
                 console.log('you are idle too long: ' + JSON.stringify(userList));
                 for (let i of userList) {
                     reply += '@' + i.userName + ' ';
                 }
                 // 3idiots = C9378e378d388296e286f09a39caaa8a8
-                global.config.lineClient.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
+                // test group = Ced664c11782376a001d6c43c5bb3e850
+                global.config.botClient.pushMessage("C9378e378d388296e286f09a39caaa8a8", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
             }
         });
     

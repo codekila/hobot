@@ -98,6 +98,7 @@ module.exports = {
         });
     },
     checkBirthdays: function(cb) {
+        console.log('checkBirthdays --->');
         UsersModel.find({}, (err, users) => {
             let result = '';
 
@@ -107,11 +108,14 @@ module.exports = {
                 let nextBirthdayInDays = 0;
                 let nextBirthday = null;
 
+                console.log('read :' + JSON.stringify(users));
                 for (let user of users) {
                     let daysToBDay;
                     let age;
                     let today = moment();
                     let tmpDay = moment(user.birthday, 'YYYY-MM-DD').year(today.year());
+
+                    console.log('read :' + JSON.stringify(user));
 
                     if (tmpDay.isSame(today))
                         daysToBDay = 0;

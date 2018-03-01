@@ -132,9 +132,9 @@ module.exports = {
 
                     // find who's next birthday...
                     // doesn't deal with same day birthday things
-                    if (nextBirthday == null || (nextBirthday != null && nextBirthdayInDays>days)) {
+                    if (nextBirthday == null || (nextBirthday != null && nextBirthdayInDays>daysToBDay)) {
                         nextBirthday = user.nickNames[0];
-                        nextBirthdayInDays = days;
+                        nextBirthdayInDays = daysToBDay;
                     }
                 }
 

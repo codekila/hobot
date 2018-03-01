@@ -186,7 +186,7 @@ function composeReply(event, replyCbFunc) {
 }
 
 // init Users
-modUsers.init(lineClient, dbStatic.userDb);
+modUsers.init(global.config.lineClient, dbStatic.userDb);
 
 // init mongodb
 mongoose.connect(global.config.mongoURL);

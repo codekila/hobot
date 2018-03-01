@@ -7,18 +7,17 @@ const ReadError = require('@line/bot-sdk').ReadError;
 const RequestError = require('@line/bot-sdk').RequestError;
 
 const express = require('express');
+const CronJob = require('cron').CronJob;
+const mongoose = require('mongoose');
 
 const dbStatic = require('./cmdDb.js');
 const engine = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
+const cronJobs = require('./cronJobs.js');
 
-const CronJob = require('cron').CronJob;
-
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot');
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'database connection error:'));
-db.once('open', () => {
+mongoose.connect(global.config.mongoURL);
+mongoose.connection.on('error', console.error.bind(console, 'database connection error:'));
+mongoose.connection.once('open', () => {
     console.log("Database Connected.");
 });
 
@@ -63,15 +62,19 @@ const UserSchema = new mongoose.Schema({
 const CommandModel = mongoose.model('Commands', CommandSchema);
 const UserModel = mongoose.model('Users', UserSchema);
 
-// create LINE SDK config from env variables
-const config = {
-    //channelID: '1493482238',
-    channelSecret: '5e5ea18cd35b31891f679dea2ce06fe1',
-    channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
+// global config for all
+global.config = {
+// create LINE SDK configLINE from env variables
+    lineConfig: {
+        //channelID: '1493482238',
+        channelSecret: '5e5ea18cd35b31891f679dea2ce06fe1',
+        channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
+    },
+    lineClient: (()=> {return new lineBotSdk.Client(global.config.lineConfig)})(),
+    botStartTime: (()=>{return Date.now();})(),
+    defaultTZ: 'Asia/Taipei',
+    mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot'
 };
-
-// create LINE SDK client
-const client = new lineBotSdk.Client(config);
 
 // create Express app
 const app = express();
@@ -80,7 +83,7 @@ const app = express();
 app.use('/static', express.static(__dirname + '/public'));
 
 // register a webhook handler with middleware
-app.post('/callback', lineBotSdk.middleware(config), (req, res) => {
+app.post('/callback', lineBotSdk.middleware(configLINE), (req, res) => {
     Promise
         .all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))
@@ -102,7 +105,7 @@ function handleEvent(event) {
             }
             break;
         case 'join':
-            client.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
+            lineClient.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
             return;
         default:
     }
@@ -112,7 +115,7 @@ function handleEvent(event) {
 function cbSendReply(event, msgBody) {
     // use reply API
     if (event != null && msgBody != null) {
-        return client.replyMessage(event.replyToken, msgBody).catch((err) => {
+        return lineClient.replyMessage(event.replyToken, msgBody).catch((err) => {
             if (err instanceof HTTPError) {
                 console.error('replyMessage error:' + err.statusCode);
             }
@@ -125,7 +128,7 @@ function cbSendReply(event, msgBody) {
 function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
-        client.getProfile(event.source.userId)
+        lineClient.getProfile(event.source.userId)
             .then((profile) => {
                 let replyText = null;
                 let dbResult = null;
@@ -187,10 +190,8 @@ function composeReply(event, replyCbFunc) {
     }
 }
 
-var botStartTime = Date.now();
-
 // init Users
-modUsers.init(client, dbStatic.userDb);
+modUsers.init(lineClient, dbStatic.userDb);
 
 // listen on port
 const port = process.env.PORT || 3000;
@@ -212,11 +213,6 @@ app.listen(port, () => {
          Day of Week: 0-6 (Sun-Sat)
 
  */
-
-const defaultTZ = 'Asia/Taipei';
-
-const cronJobs = require('./cronJobs.js');
-
 const jobHourly = new CronJob('0 0 */1 * * *', function() {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
@@ -229,7 +225,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
                     reply += '@' + i.userName + ' ';
                 }
                 // 3idiots = C9378e378d388296e286f09a39caaa8a8
-                client.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
+                global.config.lineClient.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
             }
         });
     
@@ -237,7 +233,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
         /* This function is executed when the job stops */
     },
     true, /* Start the job right now */
-    defaultTZ /* Time zone of this job. */
+    global.config.defaultTZ /* Time zone of this job. */
 );
 
 const jobDaily = new CronJob('0 0 7 */1 * *', function() {
@@ -247,7 +243,7 @@ const jobDaily = new CronJob('0 0 7 */1 * *', function() {
         /* This function is executed when the job stops */
     },
     true, /* Start the job right now */
-    defaultTZ /* Time zone of this job. */
+    global.config.defaultTZ /* Time zone of this job. */
 );
 
 const jobWeekly = new CronJob('0 0 8 * * 0-6', function() {
@@ -257,7 +253,7 @@ const jobWeekly = new CronJob('0 0 8 * * 0-6', function() {
         /* This function is executed when the job stops */
     },
     true, /* Start the job right now */
-    defaultTZ /* Time zone of this job. */
+    global.config.defaultTZ /* Time zone of this job. */
 );
 
 const jobMonthly = new CronJob('0 0 9 1 */1 *', function() {
@@ -267,5 +263,5 @@ const jobMonthly = new CronJob('0 0 9 1 */1 *', function() {
         /* This function is executed when the job stops */
     },
     true, /* Start the job right now */
-    defaultTZ /* Time zone of this job. */
+    global.config.defaultTZ /* Time zone of this job. */
 );

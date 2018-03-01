@@ -25,7 +25,7 @@ module.exports = {
             gender: {
                 type: String
             },
-            birthday: Date,
+            birthday: String,
             location: {
                 timeZone: {
                     type: String
@@ -98,7 +98,6 @@ module.exports = {
         });
     },
     checkBirthdays: function(cb) {
-        console.log('checkBirthdays --->');
         UsersModel.find({}, (err, users) => {
             let result = '';
 
@@ -108,7 +107,6 @@ module.exports = {
                 let nextBirthdayInDays = 0;
                 let nextBirthday = null;
 
-                console.log('read :' + JSON.stringify(users));
                 for (let user of users) {
                     let daysToBDay;
                     let age;

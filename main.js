@@ -10,7 +10,6 @@ const express = require('express');
 const CronJob = require('cron').CronJob;
 const mongoose = require('mongoose');
 
-const dbStatic = require('./cmdDb.js');
 const engine = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
 const cronJobs = require('./cronJobs.js');
@@ -68,7 +67,9 @@ global.config = {
     lineClient: (()=> {return new lineBotSdk.Client(configLINE)})(),
     botStartTime: (()=>{return Date.now();})(),
     defaultTZ: 'Asia/Taipei',
-    mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot'
+    mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
+    mongoose: require('mongoose'),
+    dbStatic: require('./cmdDb.js')
 };
 
 // create Express app
@@ -188,17 +189,19 @@ function composeReply(event, replyCbFunc) {
 // init Users
 modUsers.init(global.config.lineClient, dbStatic.userDb);
 
-// init mongodb
-mongoose.connect(global.config.mongoURL);
-mongoose.connection.on('error', console.error.bind(console, 'database connection error:'));
-mongoose.connection.once('open', () => {
-    console.log("Database Connected.");
-});
-
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`hobot listening to port ${port}`);
+
+    // init mongodb
+
+    global.config.mongoose.connect(global.config.mongoURL);
+    global.config.db = mongoose.connection;
+    global.config.db.on('error', console.error.bind(console, 'database connection error:'));
+    global.config.once('open', () => {
+        console.log("Database Connected.");
+    });
 
     // update display names
     modUsers.updateAllDisplayNames();

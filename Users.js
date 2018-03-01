@@ -115,8 +115,12 @@ module.exports = {
                 users.map(user => {
                     global.config.botClient.getProfile(user.userId)
                         .then((profile) => {
-                            console.log('updating: ' + profile.displayName);
-                            UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: profile.displayName }});
+                            UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: profile.displayName }}, (err, u) => {
+                                if (err == null)
+                                    console.log('updating: ' + profile.displayName + ' OK');
+                                else
+                                    console.log('updating: ' + profile.displayName + 'Failed, err:' + err.message);
+                            });
                         })
                         .catch((err) => {
                             if (err instanceof HTTPError) {

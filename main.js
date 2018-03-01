@@ -101,71 +101,70 @@ function cbSendReply(event, msgBody) {
 function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
-        global.config.botClient.getProfile(event.source.userId)
-            .then((profile) => {
-                modUsers.find(event.source.userId, user => {
-                    let groupInfo;
-                    let replyText = null;
-                    let dbResult = null;
-                    let queryText = event.message.text.trim().toLowerCase();
-                    let userName = profile.displayName;
+        global.config.botClient.getProfile(event.source.userId).then((profile) => {
+            modUsers.find(event.source.userId, user => {
+                let groupInfo;
+                let replyText = null;
+                let dbResult = null;
+                let queryText = event.message.text.trim().toLowerCase();
+                let userName = profile.displayName;
 
-                    if (event.source.type == 'group')
-                        groupInfo = ' from group [' + event.source.groupId + ']';
-                    else if (event.source.type == 'room')
-                        groupInfo = ' from room [' + event.source.roomId + ']';
-                    else
-                        groupInfo = '';
-                    console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
+                if (event.source.type == 'group')
+                    groupInfo = ' from group [' + event.source.groupId + ']';
+                else if (event.source.type == 'room')
+                    groupInfo = ' from room [' + event.source.roomId + ']';
+                else
+                    groupInfo = '';
+                console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
 
-                    // update runtime info
-                    if (user) modUsers.updateTimestamp(user.userId, userName);
+                // update runtime info
+                if (user) modUsers.updateTimestamp(user.userId, userName);
 
-                    // search for response in the database
-                    engine.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
-                        let msgBody = null;
-                        let replyTexts = replyText.split(" ");
+                // search for response in the database
+                engine.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
+                    let msgBody = null;
+                    let replyTexts = replyText.split(" ");
 
-                        console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');
+                    console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');
 
-                        if (replyTexts[0]) {
-                            switch (replyTexts[0]) {
-                                case '@@image':
-                                    msgBody = {
-                                        type: 'image',
-                                        originalContentUrl: replyTexts[1] + '/original.jpg',
-                                        previewImageUrl: replyTexts[1] + '/preview.jpg'
-                                    };
-                                    break;
-                                case '@@video':
-                                    msgBody = {
-                                        type: 'video',
-                                        originalContentUrl: replyTexts[1] + '/original.mp4',
-                                        previewImageUrl: replyTexts[1] + '/preview.jpg'
-                                    };
-                                    break;
-                                case '@@sticker':
-                                    msgBody = {type: 'sticker', packageId: replyTexts[1], stickerId: replyTexts[2]};
-                                    break;
-                                default:
-                                    msgBody = {type: 'text', text: replyText};
-                            }
+                    if (replyTexts[0]) {
+                        switch (replyTexts[0]) {
+                            case '@@image':
+                                msgBody = {
+                                    type: 'image',
+                                    originalContentUrl: replyTexts[1] + '/original.jpg',
+                                    previewImageUrl: replyTexts[1] + '/preview.jpg'
+                                };
+                                break;
+                            case '@@video':
+                                msgBody = {
+                                    type: 'video',
+                                    originalContentUrl: replyTexts[1] + '/original.mp4',
+                                    previewImageUrl: replyTexts[1] + '/preview.jpg'
+                                };
+                                break;
+                            case '@@sticker':
+                                msgBody = {type: 'sticker', packageId: replyTexts[1], stickerId: replyTexts[2]};
+                                break;
+                            default:
+                                msgBody = {type: 'text', text: replyText};
                         }
-                        replyCbFunc(event, msgBody);
-                    });
-                })
-                    .catch((err) => {
-                        if (err instanceof HTTPError) {
-                            console.log('composeReply()--> getProfile error:' + err.statusCode);
-                            if (err.statusCode == 404) {
-                                replyCbFunc(event, {type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？'});
-                            }
-                        } else {
-                            console.error('composeReply error:' + err.message);
-                            replyCbFunc(event, {type: 'text', text: 'Exception: ' + err.message});
-                        }
-                    });
-            });
+                    }
+                    replyCbFunc(event, msgBody);
+                });
+            })
+        })
+        .catch((err) => {
+            if (err instanceof HTTPError) {
+                console.log('composeReply()--> getProfile error:' + err.statusCode);
+                if (err.statusCode == 404) {
+                    replyCbFunc(event, {type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？'});
+                }
+            } else {
+                console.error('composeReply error:' + err.message);
+                replyCbFunc(event, {type: 'text', text: 'Exception: ' + err.message});
+            }
+        });
     }
 }
 

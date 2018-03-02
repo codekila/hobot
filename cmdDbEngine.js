@@ -38,9 +38,11 @@ function init(db) {
     CommandSchema = new mongoose.Schema({
         cmd: {
             type: String,
-            required: true
+            required: true,
+            index: true,
+            unique: true
         },
-        cmd: "", queries: [QuerySchema],
+        queries: [QuerySchema],
         responses: [ResponseSchema]
     });
 

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmdDbEngine.js" afterPath="$PROJECT_DIR$/cmdDbEngine.js" />
     </list>
     <ignored path="hobot86.iws" />
@@ -68,8 +69,8 @@
       <file leaf-file-name="cmdDbEngine.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmdDbEngine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12378">
-              <caret line="194" column="12" selection-start-line="194" selection-start-column="12" selection-end-line="194" selection-end-column="12" />
+            <state relative-caret-position="-14658">
+              <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
@@ -257,12 +258,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
-      <workItem from="1519345260366" duration="115302000" />
+      <workItem from="1519345260366" duration="115418000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118040000" />
+    <option name="totallyTimeSpent" value="118156000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -441,8 +442,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmdDbEngine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12378">
-          <caret line="194" column="12" selection-start-line="194" selection-start-column="12" selection-end-line="194" selection-end-column="12" />
+        <state relative-caret-position="-14658">
+          <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
           </folding>

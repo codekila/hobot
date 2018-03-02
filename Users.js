@@ -68,12 +68,16 @@ function init(db) {
 }
 
 function find(userId, cb) {
+    console.log('find:');
+
     UsersModel.findOne({userId: userId}, (err, user) => {
         if (!err && cb) cb(user);
     });
 }
 
 function updateAllDisplayNames() {
+    console.log('updateAllDisplayNames:');
+
     UsersModel.find({}, (err, users) => {
         if (err == null) {
             users.map(user => {
@@ -99,6 +103,8 @@ function updateAllDisplayNames() {
 }
 
 function updateTimestamp(userId, displayName, cb) {
+    console.log('updateTimestamp:');
+
     UsersModel.findOneAndUpdate({userId: user.userId}, {
         runtime: {
             displayName: displayName,
@@ -114,6 +120,8 @@ function updateTimestamp(userId, displayName, cb) {
 }
 
 function checkBirthdays(cb) {
+    console.log('checkBirthdays:');
+
     UsersModel.find({}, (err, users) => {
         let result = '';
 
@@ -162,6 +170,8 @@ function checkBirthdays(cb) {
 }
 
 function getWhoIsIdleTooLong(maxIdle, cb) {
+    console.log('getWhoIsIdleTooLong:');
+
     let now = Date.now();
 
     UsersModel.find({}, (err, users) => {
@@ -187,6 +197,8 @@ function getWhoIsIdleTooLong(maxIdle, cb) {
  * create the default group of users
  */
 function createUsers(users) {
+    console.log('createUsers:');
+    
     if (users == null)
         users = defaultUsers;
     for (let user of users) {

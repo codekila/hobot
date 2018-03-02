@@ -102,7 +102,7 @@ function composeReply(event, replyCbFunc) {
 
                 // update runtime info
                 if (user) modUsers.updateTimestamp(user.userId, userName);
-
+                
                 // search for response in the database
                 modCmds.processDb(event, userName, queryText, (replyText) => {
                     let msgBody = null;

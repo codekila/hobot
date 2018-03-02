@@ -36,7 +36,11 @@ function init(db) {
     });
 
     CommandSchema = new mongoose.Schema({
-        queries: [QuerySchema],
+        cmd: {
+            type: String,
+            required: true
+        },
+        cmd: "", queries: [QuerySchema],
         responses: [ResponseSchema]
     });
 
@@ -56,7 +60,7 @@ function createCommands(cmds) {
                 console.log(err.message);
             }
             else {
-                console.log('cmd save ok:' + user.userId);
+                console.log('cmd save ok:' + cmd.cmd);
             }
         });
     }
@@ -97,7 +101,7 @@ function matchDb(event, userName, queryText, db) {
                     matchedQuery = newlyMatchedQuery;
                     dbItemMatched = JSON.parse(JSON.stringify(dbItem));
                     break;
-                } else if  (query.priority == "default") {
+                } else if (query.priority == "default") {
                     // update only when there is nothing matched yet
                     if (matchedQuery == null) {
                         matchedQuery = newlyMatchedQuery;
@@ -146,18 +150,18 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
             case "canned":
                 if (responseToDo.texts.length > 0)
                     dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
-                    // randomly add the sender's name
-                    if (dbResult != null && dbResult != '' && dbResult.substr(0,2) != '@@') {
-                        if (Math.random()>0.5) {
-                            modUsers.find(event.source.userId, user => {
-                                if (user)
-                                    dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
-                                cb(dbResult);
-                            });
-                        } else
+                // randomly add the sender's name
+                if (dbResult != null && dbResult != '' && dbResult.substr(0, 2) != '@@') {
+                    if (Math.random() > 0.5) {
+                        modUsers.find(event.source.userId, user => {
+                            if (user)
+                                dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
                             cb(dbResult);
+                        });
                     } else
                         cb(dbResult);
+                } else
+                    cb(dbResult);
                 break;
             case "smart":
                 methods.execute(responseToDo.method, event, userName, db, queryText, (res) => {
@@ -182,6 +186,7 @@ function processDb(event, userName, queryText, db, cb) {
 
 let defaultCommands = [
     {
+        cmd: "idiot",
         queries: [
             {
                 priority: "first",
@@ -221,6 +226,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "morning",
         queries: [
             {
                 priority: "first",
@@ -258,6 +264,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "hello",
         queries: [
             {
                 priority: "first",
@@ -293,6 +300,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "night",
         queries: [
             {
                 priority: "first",
@@ -328,6 +336,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "meow",
         queries: [
             {
                 priority: "default",
@@ -366,6 +375,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "help",
         queries: [
             {
                 priority: "default",
@@ -403,6 +413,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "hobot",
         queries: [
             {
                 priority: "default",
@@ -430,6 +441,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "umm",
         queries: [
             {
                 priority: "default",
@@ -466,6 +478,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "fat",
         queries: [
             {
                 priority: "default",
@@ -502,6 +515,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "欠扁",
         queries: [
             {
                 priority: "default",
@@ -530,6 +544,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "hsr",
         queries: [
             {
                 priority: "default",
@@ -558,6 +573,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "lol",
         queries: [
             {
                 priority: "default",
@@ -603,12 +619,13 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "...",
         queries: [
             {
                 priority: "default",
                 model: "fuzzy",
                 texts: [
-                    "...", "無言", "沒事", "來亂"
+                    "...", "無言", "沒事", "來亂", "亂入"
                 ]
             }
         ],
@@ -635,6 +652,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "funny",
         queries: [
             {
                 priority: "default",
@@ -667,6 +685,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "like",
         queries: [
             {
                 priority: "default",
@@ -697,6 +716,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "dislike",
         queries: [
             {
                 priority: "default",
@@ -727,6 +747,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "happy",
         queries: [
             {
                 priority: "default",
@@ -759,6 +780,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "shit",
         queries: [
             {
                 priority: "default",
@@ -796,6 +818,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "ok",
         queries: [
             {
                 priority: "default",
@@ -840,6 +863,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "great",
         queries: [
             {
                 priority: "default",
@@ -881,6 +905,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "boring",
         queries: [
             {
                 priority: "default",
@@ -919,6 +944,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "angry",
         queries: [
             {
                 priority: "default",
@@ -958,6 +984,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "time",
         queries: [
             {
                 priority: "default",
@@ -983,6 +1010,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "birthday",
         queries: [
             {
                 priority: "default",
@@ -1008,6 +1036,7 @@ let defaultCommands = [
         ]
     },
     {
+        cmd: "image",
         queries: [
             {
                 priority: "default",

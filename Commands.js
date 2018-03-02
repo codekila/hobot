@@ -71,46 +71,49 @@ function createCommands(cmds) {
 function matchCommand(event, userName, queryText, cb) {
     let dbItemMatched = null;
     let matchedQuery = null;
+    let o = {};
+
+    o.map = () => {
+        let newlyMatchedQuery = null;
+        console.log('queries: ' + JSON.stringify(this.queries));
+
+        for (let query of this.queries) {
+            console.log('Q: ' + JSON.stringify(query));
+
+            // match based on models
+            for (let text of query.texts) {
+                console.log('T: ' + text);
+                switch (query.model) {
+                    case "precise":
+                        if (text == queryText)
+                            newlyMatchedQuery = query;
+                        break;
+                    case "fuzzy":
+                        if (queryText.includes(text))
+                            newlyMatchedQuery = query;
+                        break;
+                    default:
+                        console.log('the query item doesn\'t support \'' + query.model + '\' model');
+                        newlyMatchedQuery = null;
+                }
+                if (newlyMatchedQuery)
+                    break;
+            }
+
+            if (newlyMatchedQuery) {
+                console.log('map matched:' + JSON.stringify(newlyMatchedQuery));
+                emit(this._id, newlyMatchedQuery);
+            }
+        }
+    };
+
+    o.reduce = (key, matchesQueries) => {
+        return matchesQueries;
+    };
 
     // try to match a query
-    CommandsModel.mapReduce({
-        map: () => {
-            let newlyMatchedQuery = null;
-            console.log('queries: ' + JSON.stringify(this.queries));
-
-            for (let query of this.queries) {
-                console.log('Q: ' + JSON.stringify(query));
-
-                // match based on models
-                for (let text of query.texts) {
-                    console.log('T: ' + text);
-                    switch (query.model) {
-                        case "precise":
-                            if (text == queryText)
-                                newlyMatchedQuery = query;
-                            break;
-                        case "fuzzy":
-                            if (queryText.includes(text))
-                                newlyMatchedQuery = query;
-                            break;
-                        default:
-                            console.log('the query item doesn\'t support \'' + query.model + '\' model');
-                            newlyMatchedQuery = null;
-                    }
-                    if (newlyMatchedQuery)
-                        break;
-                }
-
-                if (newlyMatchedQuery) {
-                    console.log('map matched:' + JSON.stringify(newlyMatchedQuery));
-                    emit(this._id, newlyMatchedQuery);
-                }
-            }
-        },
-        reduce: (key, matchesQueries) => {
-            return matchesQueries;
-        }
-    }, (err, cmds) => {
+    CommandsModel.mapReduce( o, (err, cmds, stat) => {
+        console.log('map reduce took %d ms', stats.processtime)
         if (err)
             console.log('err: ' + err.message);
         else

@@ -75,6 +75,8 @@ function matchCommand(event, userName, queryText, cb) {
 
     o.map = () => {
         let matched = false;
+        emit(this._id, 1);
+
         for (let query of this.queries) {
             // match based on models
             for (let text of query.texts) {

@@ -96,7 +96,7 @@ function composeReply(event, replyCbFunc) {
                     groupInfo = ' from room [' + event.source.roomId + ']';
                 else
                     groupInfo = '';
-                //console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
+                console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
 
                 // update runtime info
                 if (user) modUsers.updateTimestamp(user.userId, userName);

@@ -73,12 +73,12 @@ function matchCommand(event, userName, queryText, cb) {
     let matchedQuery = null;
 
     // try to match a query
-    CommandsModel.find ({ queries: { texts: { $text: { $search: queryText } }}}, (err, cmds) => {
+    CommandsModel.find ({ queries: { $text: { $search: queryText } }}, (err, cmds) => {
         if (err)
             console.log('err: ' + err.message);
         else
             console.log('matched: ' + JSON.stringify(cmds));
-        cn(null);
+        cb(null);
     });
     /*
     for (let dbItem of db.cmdDb.db) {

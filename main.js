@@ -102,13 +102,19 @@ function composeReply(event, replyCbFunc) {
 
                 // update runtime info
                 if (user) modUsers.updateTimestamp(user.userId, userName);
-                
+
+                console.log('calling composeReply.3333..');
+
                 // search for response in the database
                 modCmds.processDb(event, userName, queryText, (replyText) => {
                     let msgBody = null;
 
+                    console.log('calling composeReply.4444..');
+
                     if (replyText == null)
                         return;
+
+                    console.log('calling composeReply.5555..');
 
                     let replyTexts = replyText.split(" ");
 

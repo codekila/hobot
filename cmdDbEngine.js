@@ -40,7 +40,7 @@ function init(db) {
         responses: [ResponseSchema]
     });
 
-    CommandsModel = mongoose.model('Commands', UserSchema);
+    CommandsModel = mongoose.model('Commands', CommandSchema);
 }
 
 /**

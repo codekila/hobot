@@ -79,19 +79,16 @@ function matchCommand(event, userName, queryText, cb) {
         for (let query of this.queries) {
             // match based on models
             for (let text of query.texts) {
-                switch (query.model) {
-                    case "precise":
-                        if (text == queryText)
-                            matched = true;
-                        break;
-                    case "fuzzy":
-                        if (queryText.includes(text))
-                            matched = true;
-                        break;
+                if(query.model == "precise" && text == queryText) {
+                    matched = true;
+                } else if (query.model == "fuzzy" && queryText.includes(text)) {
+                    matched = true;
                 }
                 if (matched)
-                    emit(this._id, 1);
+                    break;
             }
+            if (matched)
+                emit(this._id, 1);
         }
     };
 

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commands.js" afterPath="$PROJECT_DIR$/Commands.js" />
     </list>
     <ignored path="hobot86.iws" />
@@ -69,11 +70,11 @@
       <file leaf-file-name="Commands.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="106" column="37" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
+            <state relative-caret-position="345">
+              <caret line="114" column="71" selection-start-line="114" selection-start-column="71" selection-end-line="114" selection-end-column="71" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#7076#28217#0" expanded="false" />
+                <element signature="e#4975#26116#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -260,12 +261,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
-      <workItem from="1519345260366" duration="123449000" />
+      <workItem from="1519345260366" duration="123790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126187000" />
+    <option name="totallyTimeSpent" value="126528000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -445,11 +446,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="106" column="37" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
+        <state relative-caret-position="345">
+          <caret line="114" column="71" selection-start-line="114" selection-start-column="71" selection-end-line="114" selection-end-column="71" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#7076#28217#0" expanded="false" />
+            <element signature="e#4975#26116#0" expanded="false" />
           </folding>
         </state>
       </provider>

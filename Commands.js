@@ -111,69 +111,11 @@ function matchCommand(event, userName, queryText, cb) {
         //console.log('map reduce took %d ms', stats.processtime);
         if (err)
             console.log('err: ' + err.message);
-        else
-            console.log('matched: ' + JSON.stringify(cmd));
-        cb(null);
+        else {
+            console.log('matched: ' + cmd.results[0]._id + ', detail = ' + JSON.stringify(cmd));
+            cb(cmd.results[0]._id);
+        }
     });
-    /*
-    for (let dbItem of db.cmdDb.db) {
-        let newlyMatchedQuery = null;
-
-        for (let query of dbItem.queries) {
-            // match based on models
-            for (let text of query.texts) {
-                switch (query.model) {
-                    case "precise":
-                        if (text == queryText)
-                            newlyMatchedQuery = query;
-                        break;
-                    case "fuzzy":
-                        if (queryText.includes(text))
-                            newlyMatchedQuery = query;
-                        break;
-                    default:
-                        console.log('the query item doesn\'t support \'' + query.model + '\' model');
-                        newlyMatchedQuery = null;
-                }
-                if (newlyMatchedQuery)
-                    break;
-            }
-
-            //now look at priority
-            if (newlyMatchedQuery) {
-                if (query.priority == "first") {
-                    // overwrtie whatever previously matched and stop matching
-                    matchedQuery = newlyMatchedQuery;
-                    dbItemMatched = JSON.parse(JSON.stringify(dbItem));
-                    break;
-                } else if (query.priority == "default") {
-                    // update only when there is nothing matched yet
-                    if (matchedQuery == null) {
-                        matchedQuery = newlyMatchedQuery;
-                        dbItemMatched = JSON.parse(JSON.stringify(dbItem));
-                    }
-                } else {
-                    console.log('the query item doesn\'t support \'' + query.model + '\' priority');
-                }
-            }
-        }
-        // stop matching if matched && with first priority
-        if (matchedQuery && matchedQuery.priority == "first") {
-            console.log('\'first\' matched:' + JSON.stringify(matchedQuery));
-            return dbItemMatched;
-        }
-    }
-
-
-    if (matchedQuery) {
-        console.log('matched:' + JSON.stringify(matchedQuery));
-        cb(dbItemMatched);
-    }
-    else {
-        console.log('no match');
-        cb(null);
-    }
-*/
 }
 
 function processResponse(event, userName, queryText, matchedItem, cb) {

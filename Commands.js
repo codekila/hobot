@@ -73,7 +73,26 @@ function matchCommand(event, userName, queryText, cb) {
     let matchedQuery = null;
 
     // try to match a query
-    CommandsModel.find ({ queries: { $search: queryText }}, (err, cmds) => {
+    CommandsModel.find ({ $where: function () {
+        for (let query of this.queries) {
+            for (let text of query.texts) {
+                switch (query.model) {
+                    case "precise":
+                        if (text == queryText)
+                            return true;
+                        break;
+                    case "fuzzy":
+                        if (queryText.includes(text))
+                            return true;
+                        break;
+                    default:
+                        console.log('the query item doesn\'t support \'' + query.model + '\' model');
+                        return false;
+                }
+            }
+        }
+        return false;
+    }}, (err, cmds) => {
         if (err)
             console.log('err: ' + err.message);
         else

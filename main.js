@@ -102,12 +102,12 @@ function composeReply(event, replyCbFunc) {
                 if (user) modUsers.updateTimestamp(user.userId, userName);
 
                 // search for response in the database
-                modCmds.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
+                modCmds.processDb(event, userName, queryText, (replyText) => {
                     let msgBody = null;
 
                     if (replyText == null)
                         return;
-                    
+
                     let replyTexts = replyText.split(" ");
 
                     console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');

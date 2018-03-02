@@ -103,7 +103,7 @@ function updateAllDisplayNames() {
 }
 
 function updateTimestamp(userId, displayName, cb) {
-    console.log('updateTimestamp:');
+    console.log('updateTimestamp:' + userId + ' ' + displayName + ' cb=' + cb);
 
     UsersModel.findOneAndUpdate({userId: user.userId}, {
         runtime: {
@@ -198,7 +198,7 @@ function getWhoIsIdleTooLong(maxIdle, cb) {
  */
 function createUsers(users) {
     console.log('createUsers:');
-    
+
     if (users == null)
         users = defaultUsers;
     for (let user of users) {

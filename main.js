@@ -101,7 +101,7 @@ function composeReply(event, replyCbFunc) {
                 console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
 
                 // update runtime info
-                if (user) modUsers.updateTimestamp(user.userId, userName);
+                if (user) modUsers.updateTimestamp(user.userId, userName, null);
 
                 console.log('calling composeReply.3333..');
 

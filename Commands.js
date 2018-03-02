@@ -102,8 +102,8 @@ function matchCommand(event, userName, queryText, cb) {
                 }
 
                 if (newlyMatchedQuery) {
-                    console.log('matched:' + JSON.stringify(matchedQuery));
-                    emit(this._id, dbItemMatched);
+                    console.log('map matched:' + JSON.stringify(newlyMatchedQuery));
+                    emit(this._id, newlyMatchedQuery);
                 }
             }
         },

@@ -105,7 +105,7 @@ function updateAllDisplayNames() {
 function updateTimestamp(userId, displayName, cb) {
     console.log('updateTimestamp:' + userId + ' ' + displayName + ' cb=' + cb);
 
-    UsersModel.findOneAndUpdate({userId: user.userId}, {
+    UsersModel.findOneAndUpdate({userId: userId}, {
         runtime: {
             displayName: displayName,
             lastSeen: Date.now()

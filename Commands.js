@@ -76,10 +76,14 @@ function matchCommand(event, userName, queryText, cb) {
     CommandsModel.mapReduce({
         map: () => {
             let newlyMatchedQuery = null;
+            console.log('queries: ' + JSON.stringify(this.queries));
 
             for (let query of this.queries) {
+                console.log('Q: ' + JSON.stringify(query));
+
                 // match based on models
                 for (let text of query.texts) {
+                    console.log('T: ' + text);
                     switch (query.model) {
                         case "precise":
                             if (text == queryText)

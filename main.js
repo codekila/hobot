@@ -171,7 +171,7 @@ app.listen(port, () => {
         modUsers.updateAllDisplayNames();
     });
 
-    global.config.mongoose('debug', function(coll, method, query, doc, options) {
+    global.config.mongoose.set('debug', function(coll, method, query, doc, options) {
         let set = {
             coll: coll,
             method: method,

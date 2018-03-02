@@ -2,9 +2,10 @@
  * Created by jamesho on 25/02/2018.
  */
 
+'use strict';
+
 const fs = require('fs');
 
-//const clock = require('world-clock')();
 const moment = require('moment');
 const momentTZ = require('moment-timezone');
 

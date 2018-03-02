@@ -4,7 +4,6 @@
 
 'use strict';
 
-//noinspection JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint
 const HTTPError = require('@line/bot-sdk').HTTPError;
 const moment = require('moment');
 
@@ -105,9 +104,7 @@ function updateTimestamp(userId, displayName, cb) {
             lastSeen: Date.now()
         }
     }, (err, u) => {
-        if (err == null)
-            console.log('updateTimestamp: ' + displayName + ' OK');
-        else
+        if (err)
             console.log('updateTimestamp: ' + displayName + 'Failed, err:' + err.message);
         if (cb) cb(u);
     });

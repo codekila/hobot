@@ -73,7 +73,7 @@ function matchCommand(event, userName, queryText, cb) {
     let matchedQuery = null;
     let o = {};
 
-    o.map = () => {
+    o.map = function () {
         let matched = false;
         emit(this._id, 1);
 
@@ -97,7 +97,7 @@ function matchCommand(event, userName, queryText, cb) {
         }
     };
 
-    o.reduce = (key, matchesQueries) => {
+    o.reduce = function(key, matchesQueries) {
         return 1;
     };
 

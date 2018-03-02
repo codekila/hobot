@@ -82,7 +82,7 @@ function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         global.config.botClient.getProfile(event.source.userId).then((profile) => {
-            modUsers.find(event.source.userId, user => {
+                modUsers.find(event.source.userId, user => {
                 let groupInfo;
                 let replyText = null;
                 let dbResult = null;
@@ -96,68 +96,58 @@ function composeReply(event, replyCbFunc) {
                 else
                     groupInfo = '';
 
-                console.log('calling composeReply.2222..');
-
                 console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
 
                 // update runtime info
                 if (user) modUsers.updateTimestamp(user.userId, userName, null);
 
-                console.log('calling composeReply.3333..');
-
                 // search for response in the database
-                modCmds.processDb(event, userName, queryText, (replyText) => {
-                    let msgBody = null;
+                modCmds.processDb(event, userName, queryText, (replyMsg) => {
+                    if (replyMsg) {
+                        let msgBody = null;
+                        let replyTexts = replyMsg.split(" ");
 
-                    console.log('calling composeReply.4444..');
+                        console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');
 
-                    if (replyText == null)
-                        return;
-
-                    console.log('calling composeReply.5555..');
-
-                    let replyTexts = replyText.split(" ");
-
-                    console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');
-
-                    if (replyTexts[0]) {
-                        switch (replyTexts[0]) {
-                            case '@@image':
-                                msgBody = {
-                                    type: 'image',
-                                    originalContentUrl: replyTexts[1] + '/original.jpg',
-                                    previewImageUrl: replyTexts[1] + '/preview.jpg'
-                                };
-                                break;
-                            case '@@video':
-                                msgBody = {
-                                    type: 'video',
-                                    originalContentUrl: replyTexts[1] + '/original.mp4',
-                                    previewImageUrl: replyTexts[1] + '/preview.jpg'
-                                };
-                                break;
-                            case '@@sticker':
-                                msgBody = {type: 'sticker', packageId: replyTexts[1], stickerId: replyTexts[2]};
-                                break;
-                            default:
-                                msgBody = {type: 'text', text: replyText};
+                        if (replyTexts[0]) {
+                            switch (replyTexts[0]) {
+                                case '@@image':
+                                    msgBody = {
+                                        type: 'image',
+                                        originalContentUrl: replyTexts[1] + '/original.jpg',
+                                        previewImageUrl: replyTexts[1] + '/preview.jpg'
+                                    };
+                                    break;
+                                case '@@video':
+                                    msgBody = {
+                                        type: 'video',
+                                        originalContentUrl: replyTexts[1] + '/original.mp4',
+                                        previewImageUrl: replyTexts[1] + '/preview.jpg'
+                                    };
+                                    break;
+                                case '@@sticker':
+                                    msgBody = {type: 'sticker', packageId: replyTexts[1], stickerId: replyTexts[2]};
+                                    break;
+                                default:
+                                    msgBody = {type: 'text', text: replyMsg};
+                            }
                         }
+                        replyCbFunc(event, msgBody);
                     }
-                    replyCbFunc(event, msgBody);
                 });
             })
         })
-            .catch((err) => {
-                if (err instanceof HTTPError) {
-                    console.log('composeReply()--> getProfile error:' + err.statusCode);
-                    if (err.statusCode == 404) {
-                        replyCbFunc(event, {type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？'});
-                    }
-                } else {
-                    console.error('composeReply error:' + err.message);
-                    replyCbFunc(event, {type: 'text', text: 'Exception: ' + err.message});
+        .catch((err) => {
+            if (err instanceof HTTPError) {
+                console.log('composeReply()--> getProfile error:' + err.statusCode);
+                if (err.statusCode == 404) {
+                    replyCbFunc(event, {type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？'});
                 }
-            });
+            } else {
+                console.error('composeReply error:' + err.message);
+                replyCbFunc(event, {type: 'text', text: 'Exception: ' + err.message});
+            }
+        });
     }
 }
 

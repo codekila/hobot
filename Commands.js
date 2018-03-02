@@ -73,7 +73,7 @@ function matchCommand(event, userName, queryText, cb) {
     let matchedQuery = null;
 
     // try to match a query
-    CommandsModel.find ({ $where: function () {
+    CommandsModel.find ({ $where: function (queryText) {
         for (let query of this.queries) {
             for (let text of query.texts) {
                 switch (query.model) {

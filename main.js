@@ -9,7 +9,7 @@ const RequestError = require('@line/bot-sdk').RequestError;
 const express = require('express');
 const CronJob = require('cron').CronJob;
 
-const modCmds = require('./cmdDbEngine.js');
+const modCmds = require('./Commands.js');
 const modUsers = require('./Users.js');
 const cronJobs = require('./cronJobs.js');
 
@@ -17,7 +17,7 @@ const cronJobs = require('./cronJobs.js');
 const configLINE = {
     //channelID: '1493482238',
     channelSecret: '5e5ea18cd35b31891f679dea2ce06fe1',
-        channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
+    channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
 };
 
 // global config for all
@@ -49,7 +49,7 @@ app.post('/callback', lineBotSdk.middleware(configLINE), (req, res) => {
 
 // event handler
 function handleEvent(event) {
-    switch(event.type) {
+    switch (event.type) {
         case 'message':
             switch (event.message.type) {
                 case 'text':
@@ -59,7 +59,7 @@ function handleEvent(event) {
             }
             break;
         case 'join':
-            global.config.botClient.replyMessage(event.replyToken, { type: 'text', text: '您好，我是何寶！' });
+            global.config.botClient.replyMessage(event.replyToken, {type: 'text', text: '您好，我是何寶！'});
             return;
         default:
     }
@@ -135,17 +135,17 @@ function composeReply(event, replyCbFunc) {
                 });
             })
         })
-        .catch((err) => {
-            if (err instanceof HTTPError) {
-                console.log('composeReply()--> getProfile error:' + err.statusCode);
-                if (err.statusCode == 404) {
-                    replyCbFunc(event, {type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？'});
+            .catch((err) => {
+                if (err instanceof HTTPError) {
+                    console.log('composeReply()--> getProfile error:' + err.statusCode);
+                    if (err.statusCode == 404) {
+                        replyCbFunc(event, {type: 'text', text: '矮油，我們好像還不是朋友呢，可以把何寶加成你的好友嗎？'});
+                    }
+                } else {
+                    console.error('composeReply error:' + err.message);
+                    replyCbFunc(event, {type: 'text', text: 'Exception: ' + err.message});
                 }
-            } else {
-                console.error('composeReply error:' + err.message);
-                replyCbFunc(event, {type: 'text', text: 'Exception: ' + err.message});
-            }
-        });
+            });
     }
 }
 
@@ -175,22 +175,22 @@ app.listen(port, () => {
 });
 
 /*
-    initiate cron jobs
+ initiate cron jobs
 
-         Seconds: 0-59
-         Minutes: 0-59
-         Hours: 0-23
-         Day of Month: 1-31
-         Months: 0-11 (Jan-Dec)
-         Day of Week: 0-6 (Sun-Sat)
+ Seconds: 0-59
+ Minutes: 0-59
+ Hours: 0-23
+ Day of Month: 1-31
+ Months: 0-11 (Jan-Dec)
+ Day of Week: 0-6 (Sun-Sat)
 
  */
-const jobHourly = new CronJob('0 0 */1 * * *', function() {
+const jobHourly = new CronJob('0 0 */1 * * *', function () {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
 
-        modUsers.getWhoIsIdleTooLong(20*1000, (userList) => {
-            if (userList && userList.length>0) {
+        modUsers.getWhoIsIdleTooLong(20 * 1000, (userList) => {
+            if (userList && userList.length > 0) {
                 let reply = '';
                 console.log('you are idle too long: ' + JSON.stringify(userList));
                 for (let i of userList) {
@@ -198,10 +198,13 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
                 }
                 // 3idiots = C9378e378d388296e286f09a39caaa8a8
                 // test group = Ced664c11782376a001d6c43c5bb3e850
-                global.config.botClient.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {type: 'text', text: reply + '潛水太久了喔，出來透透氣吧！'});
+                global.config.botClient.pushMessage("Ced664c11782376a001d6c43c5bb3e850", {
+                    type: 'text',
+                    text: reply + '潛水太久了喔，出來透透氣吧！'
+                });
             }
         });
-    
+
     }, function () {
         /* This function is executed when the job stops */
     },
@@ -209,7 +212,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function() {
     global.config.defaultTZ /* Time zone of this job. */
 );
 
-const jobDaily = new CronJob('0 0 7 */1 * *', function() {
+const jobDaily = new CronJob('0 0 7 */1 * *', function () {
         //
         console.log("daily housekeeping");
     }, function () {
@@ -219,7 +222,7 @@ const jobDaily = new CronJob('0 0 7 */1 * *', function() {
     global.config.defaultTZ /* Time zone of this job. */
 );
 
-const jobWeekly = new CronJob('0 0 8 * * 0-6', function() {
+const jobWeekly = new CronJob('0 0 8 * * 0-6', function () {
         //
         console.log("weekly housekeeping");
     }, function () {
@@ -229,7 +232,7 @@ const jobWeekly = new CronJob('0 0 8 * * 0-6', function() {
     global.config.defaultTZ /* Time zone of this job. */
 );
 
-const jobMonthly = new CronJob('0 0 9 1 */1 *', function() {
+const jobMonthly = new CronJob('0 0 9 1 */1 *', function () {
         //
         console.log("monthly housekeeping");
     }, function () {

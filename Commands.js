@@ -68,11 +68,19 @@ function createCommands(cmds) {
     }
 }
 
-function matchDb(event, userName, queryText, db) {
+function matchCommand(event, userName, queryText, cb) {
     let dbItemMatched = null;
     let matchedQuery = null;
 
     // try to match a query
+    CommandsModel.find ({ queries: { texts: { $text: { $search: queryText } }}}, (err, cmds) => {
+        if (err)
+            console.log('err: ' + err.message);
+        else
+            console.log('matched: ' + JSON.stringify(cmds));
+        cn(null);
+    });
+    /*
     for (let dbItem of db.cmdDb.db) {
         let newlyMatchedQuery = null;
 
@@ -121,17 +129,19 @@ function matchDb(event, userName, queryText, db) {
         }
     }
 
+
     if (matchedQuery) {
         console.log('matched:' + JSON.stringify(matchedQuery));
-        return dbItemMatched;
+        cb(dbItemMatched);
     }
     else {
         console.log('no match');
-        return null;
+        cb(null);
     }
+*/
 }
 
-function processResponse(event, userName, queryText, matchedItem, db, cb) {
+function processResponse(event, userName, queryText, matchedItem, cb) {
     let dbResult = null;
     let responseToDo = null;
 
@@ -166,7 +176,7 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
                     cb(dbResult);
                 break;
             case "smart":
-                methods.execute(responseToDo.method, event, userName, db, queryText, (res) => {
+                methods.execute(responseToDo.method, event, userName, queryText, (res) => {
                     cb(res);
                 });
                 break;
@@ -177,13 +187,14 @@ function processResponse(event, userName, queryText, matchedItem, db, cb) {
     }
 }
 
-function processDb(event, userName, queryText, db, cb) {
-    let matchedItem = matchDb(event, userName, queryText, db);
-
-    if (matchedItem) {
-        // react to the matched query
-        processResponse(event, userName, queryText, matchedItem, db, cb);
-    }
+function processDb(event, userName, queryText, cb) {
+    // match a command based on the query
+    matchCommand(event, userName, queryText, matchedItem => {
+        if (matchedItem) {
+            // react to the matched query
+            processResponse(event, userName, queryText, matchedItem, cb);
+        }
+    });
 }
 
 let defaultCommands = [

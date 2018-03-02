@@ -88,23 +88,31 @@ function matchCommand(event, userName, queryText, cb) {
                     break;
             }
             if (matched)
-                emit(this._id, 1);
+                emit(this._id, query);
         }
     };
 
     o.reduce = function(key, matchesQueries) {
-        return 1;
+        let deft = null;
+        for (let query of matchesQueries) {
+            if (query.priority = 'first') {
+                return query;
+            }
+            if (deft == null)
+                deft = query;
+        }
+        return deft;
     };
 
     o.scope = {queryText: queryText};
 
     // try to match a query
-    CommandsModel.mapReduce( o, (err, cmds) => {
+    CommandsModel.mapReduce( o, (err, cmd) => {
         //console.log('map reduce took %d ms', stats.processtime);
         if (err)
             console.log('err: ' + err.message);
         else
-            console.log('matched: ' + JSON.stringify(cmds));
+            console.log('matched: ' + JSON.stringify(cmd));
         cb(null);
     });
     /*

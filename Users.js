@@ -69,7 +69,7 @@ function init(db) {
 
 function find(userId, cb) {
     UsersModel.findOne({userId: userId}, (err, user) => {
-        if (cb) cb(user);
+        if (!err && cb) cb(user);
     });
 }
 

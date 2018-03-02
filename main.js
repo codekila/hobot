@@ -82,7 +82,6 @@ function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         global.config.botClient.getProfile(event.source.userId).then((profile) => {
-            console.log('calling composeReply.1111..');
             modUsers.find(event.source.userId, user => {
                 let groupInfo;
                 let replyText = null;

@@ -97,28 +97,10 @@ function matchCommand(event, userName, queryText, cb) {
                         break;
                 }
 
-                //now look at priority
                 if (newlyMatchedQuery) {
-                    if (query.priority == "first") {
-                        // overwrtie whatever previously matched and stop matching
-                        matchedQuery = newlyMatchedQuery;
-                        dbItemMatched = this.responses;
-                        break;
-                    } else if (query.priority == "default") {
-                        // update only when there is nothing matched yet
-                        if (matchedQuery == null) {
-                            matchedQuery = newlyMatchedQuery;
-                            dbItemMatched = this.responses;
-                        }
-                    } else {
-                        console.log('the query item doesn\'t support \'' + query.model + '\' priority');
-                    }
+                    console.log('matched:' + JSON.stringify(matchedQuery));
+                    emit(this._id, dbItemMatched);
                 }
-            }
-            // stop matching if matched && with first priority
-            if (matchedQuery && matchedQuery.priority == "first") {
-                console.log('\'first\' matched:' + JSON.stringify(matchedQuery));
-                emit(this._id, dbItemMatched);
             }
         },
         reduce: (key, dbItemMatched) => {

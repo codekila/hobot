@@ -4,6 +4,7 @@
 
 'use strict';
 
+//noinspection JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint,JSLint
 const HTTPError = require('@line/bot-sdk').HTTPError;
 const moment = require('moment');
 

@@ -26,8 +26,7 @@ global.config = {
     botStartTime: (()=> Date.now())(),
     defaultTZ: 'Asia/Taipei',
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
-    mongoose: require('mongoose'),
-    dbStatic: require('./cmdDb.js'),
+    mongoose: require('mongoose')
 };
 
 // create Express app
@@ -81,6 +80,7 @@ function cbSendReply(event, msgBody) {
 // compose the context-aware reply
 function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
+    console.log('calling composeReply...');
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
         global.config.botClient.getProfile(event.source.userId).then((profile) => {
             modUsers.find(event.source.userId, user => {

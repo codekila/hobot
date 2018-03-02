@@ -73,27 +73,58 @@ function matchCommand(event, userName, queryText, cb) {
     let matchedQuery = null;
 
     // try to match a query
-    let str = "{ $where: function () {\
-        for (let query of this.queries) {\
-            for (let text of query.texts) {\
-                switch (query.model) {\
-                    case \"precise\":\
-                        if (text ==" + queryText + " )\
-                            return true;\
-                        break;\
-                    case \"fuzzy\":\
-                        if (" + queryText + ".includes(text))\
-                            return true;\
-                        break;\
-                    default:\
-                        console.log('the query item doesn\'t support \'' + query.model + '\' model');\
-                        return false;\
-                }\
-            }\
-        }\
-        return false;\
-    }}";
-    CommandsModel.find (str, (err, cmds) => {
+    CommandsModel.mapReduce({
+        map: () => {
+            let newlyMatchedQuery = null;
+
+            for (let query of this.queries) {
+                // match based on models
+                for (let text of query.texts) {
+                    switch (query.model) {
+                        case "precise":
+                            if (text == queryText)
+                                newlyMatchedQuery = query;
+                            break;
+                        case "fuzzy":
+                            if (queryText.includes(text))
+                                newlyMatchedQuery = query;
+                            break;
+                        default:
+                            console.log('the query item doesn\'t support \'' + query.model + '\' model');
+                            newlyMatchedQuery = null;
+                    }
+                    if (newlyMatchedQuery)
+                        break;
+                }
+
+                //now look at priority
+                if (newlyMatchedQuery) {
+                    if (query.priority == "first") {
+                        // overwrtie whatever previously matched and stop matching
+                        matchedQuery = newlyMatchedQuery;
+                        dbItemMatched = this.responses;
+                        break;
+                    } else if (query.priority == "default") {
+                        // update only when there is nothing matched yet
+                        if (matchedQuery == null) {
+                            matchedQuery = newlyMatchedQuery;
+                            dbItemMatched = this.responses;
+                        }
+                    } else {
+                        console.log('the query item doesn\'t support \'' + query.model + '\' priority');
+                    }
+                }
+            }
+            // stop matching if matched && with first priority
+            if (matchedQuery && matchedQuery.priority == "first") {
+                console.log('\'first\' matched:' + JSON.stringify(matchedQuery));
+                emit(queryText, dbItemMatched);
+            }
+        },
+        reduce: (key, dbItemMatched) => {
+            return dbItemMatched;
+        }
+    }, (err, cmds) => {
         if (err)
             console.log('err: ' + err.message);
         else

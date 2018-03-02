@@ -118,7 +118,7 @@ function matchCommand(event, userName, queryText, cb) {
             // stop matching if matched && with first priority
             if (matchedQuery && matchedQuery.priority == "first") {
                 console.log('\'first\' matched:' + JSON.stringify(matchedQuery));
-                emit(queryText, dbItemMatched);
+                emit(this._id, dbItemMatched);
             }
         },
         reduce: (key, dbItemMatched) => {

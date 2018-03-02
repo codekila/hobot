@@ -112,64 +112,72 @@ function matchCommand(event, userName, queryText, cb) {
         if (err)
             console.log('err: ' + err.message);
         else {
-            console.log('matched: ' + cmd.results[0]._id + ', detail = ' + JSON.stringify(cmd));
+            console.log('matched: ' + cmd.results[0]._id);
             cb(cmd.results[0]._id);
         }
     });
 }
 
-function processResponse(event, userName, queryText, matchedItem, cb) {
+function processResponse(event, userName, queryText, matchedId, cb) {
     let dbResult = null;
     let responseToDo = null;
 
     // identify the right response to deal with
-    for (let response of matchedItem.responses) {
-        if (response.priority == "first" && response.method != null) {
-            responseToDo = response;
-            break;
-        } else if (response.priority == "default") {
-            responseToDo = response;
+    CommandsModel.findOne({_id: matchedId}, (err, cmd) => {
+        if (err) {
+            console.log('processResponse:' + err.message);
+            cb(null);
+            return;
         }
-    }
 
-    console.log('response to do:' + JSON.stringify(responseToDo));
+        for (let response of cmd.responses) {
+            if (response.priority == "first" && response.method != null) {
+                responseToDo = response;
+                break;
+            } else if (response.priority == "default") {
+                responseToDo = response;
+            }
+        }
 
-    if (responseToDo) {
-        switch (responseToDo.model) {
-            case "canned":
-                if (responseToDo.texts.length > 0)
-                    dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
-                // randomly add the sender's name
-                if (dbResult != null && dbResult != '' && dbResult.substr(0, 2) != '@@') {
-                    if (Math.random() > 0.5) {
-                        modUsers.find(event.source.userId, user => {
-                            if (user)
-                                dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
+        console.log('response to do:' + JSON.stringify(responseToDo));
+
+        if (responseToDo) {
+            switch (responseToDo.model) {
+                case "canned":
+                    if (responseToDo.texts.length > 0)
+                        dbResult = responseToDo.texts[Math.floor(Math.random() * responseToDo.texts.length)];
+                    // randomly add the sender's name
+                    if (dbResult != null && dbResult != '' && dbResult.substr(0, 2) != '@@') {
+                        if (Math.random() > 0.5) {
+                            modUsers.find(event.source.userId, user => {
+                                if (user)
+                                    dbResult = user.nickNames[Math.floor(Math.random() * user.nickNames.length)] + '，' + dbResult;
+                                cb(dbResult);
+                            });
+                        } else
                             cb(dbResult);
-                        });
                     } else
                         cb(dbResult);
-                } else
+                    break;
+                case "smart":
+                    methods.execute(responseToDo.method, event, userName, queryText, (res) => {
+                        cb(res);
+                    });
+                    break;
+                default:
+                    console.log('the response item doesn\'t support \'' + responseToDo.model + '\' model');
                     cb(dbResult);
-                break;
-            case "smart":
-                methods.execute(responseToDo.method, event, userName, queryText, (res) => {
-                    cb(res);
-                });
-                break;
-            default:
-                console.log('the response item doesn\'t support \'' + responseToDo.model + '\' model');
-                cb(dbResult);
+            }
         }
-    }
+    });
 }
 
 function processDb(event, userName, queryText, cb) {
     // match a command based on the query
-    matchCommand(event, userName, queryText, matchedItem => {
-        if (matchedItem) {
+    matchCommand(event, userName, queryText, matchedId => {
+        if (matchedId) {
             // react to the matched query
-            processResponse(event, userName, queryText, matchedItem, cb);
+            processResponse(event, userName, queryText, matchedId, cb);
         }
     });
 }

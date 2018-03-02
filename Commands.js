@@ -112,7 +112,7 @@ function matchCommand(event, userName, queryText, cb) {
     };
 
     // try to match a query
-    CommandsModel.mapReduce( o, (err, cmds, stat) => {
+    CommandsModel.mapReduce( o, (err, cmds, stats) => {
         console.log('map reduce took %d ms', stats.processtime)
         if (err)
             console.log('err: ' + err.message);

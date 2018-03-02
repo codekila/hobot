@@ -9,28 +9,9 @@ const RequestError = require('@line/bot-sdk').RequestError;
 const express = require('express');
 const CronJob = require('cron').CronJob;
 
-const engine = require('./cmdDbEngine.js');
+const modCmds = require('./cmdDbEngine.js');
 const modUsers = require('./Users.js');
 const cronJobs = require('./cronJobs.js');
-/*
-const QuerySchema = new mongoose.Schema({
-    priority: String,
-    model: String,
-    texts: [String]
-});
-
-const ResponseSchema = new mongoose.Schema({
-    priority: String,
-    model: String,
-    method: String,
-    texts: [String]
-});
-
-const CommandSchema = new mongoose.Schema({
-    queries: [QuerySchema],
-    responses: [ResponseSchema]
-});
-*/
 
 // create LINE SDK configLINE from env variables
 const configLINE = {
@@ -121,7 +102,7 @@ function composeReply(event, replyCbFunc) {
                 if (user) modUsers.updateTimestamp(user.userId, userName);
 
                 // search for response in the database
-                engine.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
+                modCmds.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
                     let msgBody = null;
                     let replyTexts = replyText.split(" ");
 
@@ -180,7 +161,10 @@ app.listen(port, () => {
     global.db.once('open', () => {
         console.log("Database Connected.");
 
+        modCmds.init(global.config.mongoose);
         modUsers.init(global.config.mongoose);
+
+        modCmds.createCommands();
         modUsers.createUsers();
 
         // update display names

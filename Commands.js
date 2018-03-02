@@ -107,8 +107,8 @@ function matchCommand(event, userName, queryText, cb) {
                 }
             }
         },
-        reduce: (key, dbItemMatched) => {
-            return dbItemMatched;
+        reduce: (key, matchesQueries) => {
+            return matchesQueries;
         }
     }, (err, cmds) => {
         if (err)

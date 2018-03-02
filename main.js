@@ -170,6 +170,21 @@ app.listen(port, () => {
         // update display names
         modUsers.updateAllDisplayNames();
     });
+
+    global.config.mongoose('debug', function(coll, method, query, doc, options) {
+        let set = {
+            coll: coll,
+            method: method,
+            query: query,
+            doc: doc,
+            options: options
+        };
+
+        log.info({
+            dbQuery: set
+        });
+    });
+
     // create db models
     //global.dbModel.CommandModel = global.config.mongoose.model('Commands', CommandSchema);
 });

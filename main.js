@@ -104,6 +104,10 @@ function composeReply(event, replyCbFunc) {
                 // search for response in the database
                 modCmds.processDb(event, userName, queryText, global.config.dbStatic, (replyText) => {
                     let msgBody = null;
+
+                    if (replyText == null)
+                        return;
+                    
                     let replyTexts = replyText.split(" ");
 
                     console.log('[' + userName + '(' + event.source.userId + ')] response message = \'' + replyTexts + '\'');

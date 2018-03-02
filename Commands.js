@@ -125,8 +125,7 @@ function processResponse(event, userName, queryText, matchedId, cb) {
     // identify the right response to deal with
     CommandsModel.findOne({_id: matchedId}, (err, cmd) => {
         if (err) {
-            console.log('processResponse:' + err.message);
-            cb(null);
+            console.log('processResponse findOne:' + err.message);
             return;
         }
 

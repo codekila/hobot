@@ -75,12 +75,10 @@ function matchCommand(event, userName, queryText, cb) {
 
     o.map = function () {
         let matched = false;
-        emit(this._id, 1);
 
         for (let query of this.queries) {
             // match based on models
             for (let text of query.texts) {
-                console.log('T: ' + text);
                 switch (query.model) {
                     case "precise":
                         if (text == queryText)

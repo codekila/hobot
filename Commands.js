@@ -74,41 +74,29 @@ function matchCommand(event, userName, queryText, cb) {
     let o = {};
 
     o.map = () => {
-        let newlyMatchedQuery = null;
-        console.log('queries: ' + JSON.stringify(this.queries));
-
+        let matched = false;
         for (let query of this.queries) {
-            console.log('Q: ' + JSON.stringify(query));
-
             // match based on models
             for (let text of query.texts) {
                 console.log('T: ' + text);
                 switch (query.model) {
                     case "precise":
                         if (text == queryText)
-                            newlyMatchedQuery = query;
+                            matched = true;
                         break;
                     case "fuzzy":
                         if (queryText.includes(text))
-                            newlyMatchedQuery = query;
+                            matched = true;
                         break;
-                    default:
-                        console.log('the query item doesn\'t support \'' + query.model + '\' model');
-                        newlyMatchedQuery = null;
                 }
-                if (newlyMatchedQuery)
-                    break;
-            }
-
-            if (newlyMatchedQuery) {
-                console.log('map matched:' + JSON.stringify(newlyMatchedQuery));
-                emit(this._id, newlyMatchedQuery);
+                if (matched)
+                    emit(this._id, 1);
             }
         }
     };
 
     o.reduce = (key, matchesQueries) => {
-        return matchesQueries;
+        return 1;
     };
 
     o.scope = {queryText: queryText};

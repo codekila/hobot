@@ -80,8 +80,8 @@ function cbSendReply(event, msgBody) {
 // compose the context-aware reply
 function composeReply(event, replyCbFunc) {
     // only deal with msg sent from user
-    console.log('calling composeReply...');
     if (event.source.type == 'user' || event.source.type == 'group' || event.source.type == 'room') {
+        console.log('calling composeReply.1111..');
         global.config.botClient.getProfile(event.source.userId).then((profile) => {
             modUsers.find(event.source.userId, user => {
                 let groupInfo;
@@ -96,6 +96,9 @@ function composeReply(event, replyCbFunc) {
                     groupInfo = ' from room [' + event.source.roomId + ']';
                 else
                     groupInfo = '';
+
+                console.log('calling composeReply.2222..');
+
                 console.log('[' + userName + '(' + event.source.userId + ')]' + groupInfo + ', query message = \'' + queryText + '\'');
 
                 // update runtime info

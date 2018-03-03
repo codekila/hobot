@@ -16,6 +16,7 @@ let CommandsModel = null;
 module.exports = {
     init: init,
     createCommands: createCommands,
+    add: add,
     processDb: processDb
 };
 

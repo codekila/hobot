@@ -23,15 +23,33 @@ function init(db) {
     mongoose = db;
 
     QuerySchema = new mongoose.Schema({
-        priority: String,
-        model: String,
-        texts: [String]
+        priority: {
+            type: String,
+            default: 'default'
+        },
+        model: {
+            type: String,
+            default: 'fuzzy'
+        },
+        texts: {
+            type: [String],
+            required: true
+        }
     });
 
     ResponseSchema = new mongoose.Schema({
-        priority: String,
-        model: String,
-        method: String,
+        priority: {
+            type: String,
+            default: 'default'
+        },
+        model: {
+            type: String,
+            default: 'canned'
+        },
+        method: {
+            type: String,
+            default: null
+        },
         texts: [String]
     });
 
@@ -66,6 +84,39 @@ function createCommands(cmds) {
             }
         });
     }
+}
+
+/**
+ * add a command/response to db
+ *
+ * add cmd:'', queries:[texts:[fuzzy-queries]], responses:[texts:[canned-responses]]
+ *
+ */
+function add(queryText, cb) {
+    let cmdStr = queryText.substr(queryText.indexOf(' ')+1); // skip 'add'
+    let cmd = null;
+
+    try {
+        cmd = JSON.parse('{' + cmdStr + '}');
+    } catch (e) {
+        cb(null);
+    }
+    if (cmd) {
+        console.log('cmd to add: ' + JSON.stringify(cmd));
+        const cmdObj = new CommandsModel(cmd);
+        cmdObj.save(err => {
+            if (err) {
+                console.log(err.message);
+                cb(null);
+            }
+            else {
+                console.log('cmd save ok:' + cmd.cmd);
+                cb(cmd);
+            }
+        });
+    }
+    else
+        cb(null);
 }
 
 function matchCommand(event, userName, queryText, cb) {
@@ -108,9 +159,8 @@ function matchCommand(event, userName, queryText, cb) {
 
     // try to match a query
     CommandsModel.mapReduce( o, (err, cmd) => {
-        //console.log('map reduce took %d ms', stats.processtime);
         if (err)
-            console.log('err: ' + err.message);
+            console.log('CommandsModel.mapReduce err: ' + err.message);
         else {
             console.log('matched: ' + cmd.results[0]._id);
             cb(cmd.results[0]._id);
@@ -1037,7 +1087,7 @@ let defaultCommands = [
         queries: [
             {
                 priority: "default",
-                model: "precise",
+                model: "command",
                 texts: [
                     "image", "picture", "pic", "photo"
                 ]
@@ -1048,6 +1098,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodReplyTheImage"
+            }
+        ]
+    },
+    {
+        cmd: "add",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "add", "teach", "learn"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodAdd"
             }
         ]
     }

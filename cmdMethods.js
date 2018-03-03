@@ -10,6 +10,8 @@ const moment = require('moment');
 const momentTZ = require('moment-timezone');
 
 const modUsers = require('./Users.js');
+const modCmds = require('./Commands.js');
+
 
 module.exports = {
     execute: function (method, event, userName, queryText, cb) {
@@ -37,5 +39,11 @@ function methodReplyTheImage(event, userName, queryText, cb) {
         console.log(items);
 
         cb("@@image https://hobot86.herokuapp.com/static/images/store/" + items[Math.floor(Math.random() * items.length)]);
+    });
+}
+
+function methodAdd(event, userName, queryText, cb) {
+    modCmds.add(queryText , result => {
+        cb(result);
     });
 }

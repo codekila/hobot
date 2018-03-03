@@ -134,6 +134,8 @@ function matchCommand(event, userName, queryText, cb) {
                     matched = true;
                 } else if (query.model == "fuzzy" && queryText.includes(text)) {
                     matched = true;
+                } else if (query.model == "command" && queryText.substr(0, queryText.indexOf(' ')) == text) {
+                    matched = true;
                 }
                 if (matched)
                     break;
@@ -162,9 +164,10 @@ function matchCommand(event, userName, queryText, cb) {
         if (err)
             console.log('CommandsModel.mapReduce err: ' + err.message);
         else {
-            console.log('matched result=' + JSON.stringify(cmd));
-            console.log('matched: ' + cmd.results[0]._id);
-            cb(cmd.results[0]._id);
+            if (cmd.result.length>0) {
+                console.log('matched: ' + cmd.results[0]._id);
+                cb(cmd.results[0]._id);
+            }
         }
     });
 }

@@ -94,6 +94,7 @@ function createCommands(cmds) {
  *
  */
 function add(queryText, cb) {
+    console.log('add~~~');
     let cmdStr = queryText.substr(queryText.indexOf(' ')+1); // skip 'add'
     let cmd = null;
 

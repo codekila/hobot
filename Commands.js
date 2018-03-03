@@ -1122,7 +1122,7 @@ let defaultCommands = [
             {
                 priority: "first",
                 model: "smart",
-                method: "methodAdd"
+                method: "methodAddCommand"
             }
         ]
     }

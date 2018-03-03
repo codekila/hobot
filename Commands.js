@@ -265,7 +265,7 @@ function methodReplyTheImage(event, userName, queryText, cb) {
 
 function methodAddCommand(event, userName, queryText, cb) {
     console.log('calling methodAdd~~~');
-    modCmds.addCommand(queryText , result => {
+    addCommand(queryText , result => {
         cb(result);
     });
 }

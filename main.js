@@ -173,7 +173,7 @@ app.listen(port, () => {
         modUsers.updateAllDisplayNames();
     });
 
-    global.config.mongoose.set('debug', false);
+    global.config.mongoose.set('debug', true);
 
     // create db models
     //global.dbModel.CommandModel = global.config.mongoose.model('Commands', CommandSchema);

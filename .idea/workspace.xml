@@ -55,10 +55,10 @@
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
-              <caret line="106" column="32" selection-start-line="106" selection-start-column="32" selection-end-line="106" selection-end-column="32" />
+              <caret line="110" column="63" selection-start-line="110" selection-start-column="63" selection-end-line="110" selection-end-column="63" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#7701#29260#0" expanded="false" />
+                <element signature="e#7414#28973#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -266,12 +266,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
-      <workItem from="1519345260366" duration="135679000" />
+      <workItem from="1519345260366" duration="136863000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138417000" />
+    <option name="totallyTimeSpent" value="139601000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -455,10 +455,10 @@
     <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="106" column="32" selection-start-line="106" selection-start-column="32" selection-end-line="106" selection-end-column="32" />
+          <caret line="110" column="63" selection-start-line="110" selection-start-column="63" selection-end-line="110" selection-end-column="63" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#7701#29260#0" expanded="false" />
+            <element signature="e#7414#28973#0" expanded="false" />
           </folding>
         </state>
       </provider>

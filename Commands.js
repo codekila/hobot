@@ -93,38 +93,27 @@ function createCommands(cmds) {
 /**
  * add a command/response to db
  *
- * add cmd:'', queries:[texts:[fuzzy-queries]], responses:[texts:[canned-responses]]
+ * add cmd query response
  *
  */
 function addCommand(queryText, cb) {
-    let cmdStr = queryText.substr(queryText.indexOf(' ')+1); // skip 'add'
-    let cmd = null;
+    let cmdStr = queryText.split(' ');
 
     console.log('cmdstr = ' + cmdStr);
-    try {
-        cmd = JSON.parse('{' + cmdStr + '}');
-    } catch (e) {
-        console.log('parse error = ' + cmdStr);
-        cb(null);
-    }
-    console.log('cmd = ' + cmd);
-
-    if (cmd) {
-        console.log('cmd to add: ' + JSON.stringify(cmd));
-        const cmdObj = new CommandsModel(cmd);
-        cmdObj.save(err => {
+    if (cmdStr.length == 4) {
+        CommandsModel.findOne({cmd: cmdStr[1]}, (err, cmd) => {
             if (err) {
-                console.log(err.message);
-                cb(null);
+                // not found, add it
+                console.log('not fonud, adding it');
             }
             else {
-                console.log('cmd save ok:' + cmd.cmd);
-                cb(cmd);
+                // found one, update it
+                console.log('found one, updating the data...');
             }
         });
     }
     else
-        cb(null);
+        cb('command format error');
 }
 
 function matchCommand(event, userName, queryText, cb) {
@@ -1162,3 +1151,4 @@ let defaultCommands = [
         ]
     }
 ];
+

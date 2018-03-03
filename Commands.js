@@ -106,10 +106,32 @@ function addCommand(queryText, cb) {
                 cb('db error');
             }
             else {
-                if (cmd)
-                    cb('new command, adding it');
-                else
+                if (cmd) {
                     cb('found one, updating the data...');
+                } else {
+                    cmd = {
+                        cmd: cmdStr[1],
+                        queries: [
+                            {
+                                priority: "default",
+                                model: "fuzzy",
+                                texts: [
+                                    cmdStr[2]
+                                ]
+                            }
+                        ],
+                        responses: [
+                            {
+                                priority: "default",
+                                model: "canned",
+                                texts: [
+                                    cmdStr[3]
+                                ]
+                            }
+                        ]
+                    };
+                    cb('new command, adding it: ' + JSON.stringify(cmd) );
+                }
             }
         });
     }

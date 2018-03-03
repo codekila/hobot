@@ -130,8 +130,15 @@ function addCommand(queryText, cb) {
                             }
                         ]
                     };
-                    cb('new command, adding it: ' + JSON.stringify(cmd) );
                 }
+                cmd.save(err => {
+                    if (err) {
+                        cb(err.message);
+                    }
+                    else {
+                        cb('cmd added:' + cmd.cmd);
+                    }
+                });
             }
         });
     }

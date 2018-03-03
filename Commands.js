@@ -103,12 +103,13 @@ function addCommand(queryText, cb) {
     if (cmdStr.length == 4) {
         CommandsModel.findOne({cmd: cmdStr[1]}, (err, cmd) => {
             if (err) {
-                // not found, add it
-                console.log('not fonud, adding it');
+                cb('db error');
             }
             else {
-                // found one, update it
-                console.log('found one, updating the data...');
+                if (cmd)
+                    cb('new command, adding it');
+                else
+                    cb('found one, updating the data...');
             }
         });
     }

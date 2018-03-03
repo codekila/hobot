@@ -164,7 +164,7 @@ function matchCommand(event, userName, queryText, cb) {
         if (err)
             console.log('CommandsModel.mapReduce err: ' + err.message);
         else {
-            if (cmd.result.length>0) {
+            if (cmd.results.length>0) {
                 console.log('matched: ' + cmd.results[0]._id);
                 cb(cmd.results[0]._id);
             }

@@ -131,7 +131,8 @@ function addCommand(queryText, cb) {
                         ]
                     };
                 }
-                cmd.save(err => {
+                const cmdObj = new CommandsModel(cmd);
+                cmdObj.save(err => {
                     if (err) {
                         cb(err.message);
                     }

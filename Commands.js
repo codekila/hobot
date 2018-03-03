@@ -4,7 +4,10 @@
 
 'use strict';
 
-const methods = require('./cmdMethods.js');
+const fs = require('fs');
+const moment = require('moment');
+const momentTZ = require('moment-timezone');
+
 const modUsers = require('./Users.js');
 
 let mongoose = null;
@@ -215,7 +218,7 @@ function processResponse(event, userName, queryText, matchedId, cb) {
                         cb(dbResult);
                     break;
                 case "smart":
-                    methods.execute(responseToDo.method, event, userName, queryText, (res) => {
+                    eval(responseToDo.method)(event, userName, queryText, (res) => {
                         cb(res);
                     });
                     break;
@@ -234,6 +237,36 @@ function processDb(event, userName, queryText, cb) {
             // react to the matched query
             processResponse(event, userName, queryText, matchedId, cb);
         }
+    });
+}
+
+function methodUserCheckTime(event, userName, queryText, cb) {
+    let taiwanTime = momentTZ.tz('Asia/Taipei').format();
+    let SDTime = momentTZ.tz('America/Los_Angeles').format();
+
+    // 2018-02-26T16:53:33+08:00
+    cb('Taiwan:\t' + taiwanTime.substr(11, 5) + ' ' + taiwanTime.substr(0, 10) + '\n'
+        + 'San Diego:\t' + SDTime.substr(11, 5) + ' ' + SDTime.substr(0, 10));
+}
+
+function methodUserCheckBirthday(event, userName, queryText, cb) {
+    modUsers.checkBirthdays(result => {
+        cb(result);
+    });
+}
+
+function methodReplyTheImage(event, userName, queryText, cb) {
+    fs.readdir("./public/images/store", function (err, items) {
+        console.log(items);
+
+        cb("@@image https://hobot86.herokuapp.com/static/images/store/" + items[Math.floor(Math.random() * items.length)]);
+    });
+}
+
+function methodAddCommand(event, userName, queryText, cb) {
+    console.log('calling methodAdd~~~');
+    modCmds.addCommand(queryText , result => {
+        cb(result);
     });
 }
 

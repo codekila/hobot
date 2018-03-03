@@ -162,6 +162,7 @@ function matchCommand(event, userName, queryText, cb) {
         if (err)
             console.log('CommandsModel.mapReduce err: ' + err.message);
         else {
+            console.log('matched result=' + JSON.stringify(cmd));
             console.log('matched: ' + cmd.results[0]._id);
             cb(cmd.results[0]._id);
         }

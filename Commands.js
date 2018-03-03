@@ -97,15 +97,18 @@ function createCommands(cmds) {
  *
  */
 function addCommand(queryText, cb) {
-    console.log('add~~~');
     let cmdStr = queryText.substr(queryText.indexOf(' ')+1); // skip 'add'
     let cmd = null;
 
+    console.log('cmdstr = ' + cmdStr);
     try {
         cmd = JSON.parse('{' + cmdStr + '}');
     } catch (e) {
+        console.log('parse error = ' + cmdStr);
         cb(null);
     }
+    console.log('cmd = ' + cmd);
+
     if (cmd) {
         console.log('cmd to add: ' + JSON.stringify(cmd));
         const cmdObj = new CommandsModel(cmd);
@@ -264,7 +267,6 @@ function methodReplyTheImage(event, userName, queryText, cb) {
 }
 
 function methodAddCommand(event, userName, queryText, cb) {
-    console.log('calling methodAdd~~~');
     addCommand(queryText , result => {
         cb(result);
     });

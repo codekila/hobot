@@ -16,7 +16,7 @@ let CommandsModel = null;
 module.exports = {
     init: init,
     createCommands: createCommands,
-    add: add,
+    addCommand: addCommand,
     processDb: processDb
 };
 
@@ -93,7 +93,7 @@ function createCommands(cmds) {
  * add cmd:'', queries:[texts:[fuzzy-queries]], responses:[texts:[canned-responses]]
  *
  */
-function add(queryText, cb) {
+function addCommand(queryText, cb) {
     console.log('add~~~');
     let cmdStr = queryText.substr(queryText.indexOf(' ')+1); // skip 'add'
     let cmd = null;

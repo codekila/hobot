@@ -103,7 +103,7 @@ function addCommand(queryText, cb) {
     if (cmdStr.length == 4) {
         CommandsModel.findOne({cmd: cmdStr[1]}, (err, cmd) => {
             if (err) {
-                cb('db error');
+                cb('db error:' + err.message);
             }
             else {
                 let needUpdateQ = false;

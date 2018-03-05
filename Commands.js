@@ -237,7 +237,7 @@ function matchCommand(event, userName, queryText, cb) {
     let o = {};
 
     o.map = function () {
-        let matchedIndex = matchQuery(queryText, this.queries);
+        let matchedIndex = this.matchQuery(queryText, this.queries);
         if (matchedIndex != -1)
             emit(this._id, this.queries[matchedIndex]);
     };

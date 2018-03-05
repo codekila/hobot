@@ -106,9 +106,43 @@ function addCommand(queryText, cb) {
                 cb('db error');
             }
             else {
+                let needUpdateQ = false;
+                let needUpdateR = false;
+
                 if (cmd) {
-                    cb('found one, updating the data...');
+                    console.log('cmd found, updating the data...');
+                    for (let t of cmd.queries.texts) {
+                        if (t == cmdStr[2]) {
+                            needUpdateQ = true;
+                            break;
+                        }
+                    }
+                    if (needUpdateQ)
+                        cmd.queries.texts.push(cmdStr[2]);
+                    for (let t of cmd.responses.texts) {
+                        if (t == cmdStr[3]) {
+                            needUpdateR = true;
+                            break;
+                        }
+                    }
+                    if (needUpdateR)
+                        cmd.responses.texts.push(cmdStr[3]);
+                    if (needUpdateQ || needUpdateR) {
+                        const cmdObj = new CommandsModel(cmd);
+                        cmdObj.save(err => {
+                            if (err) {
+                                cb(err.message);
+                            }
+                            else {
+                                cb('cmd updated: ' + cmd.cmd);
+                            }
+                        });
+                    }
+                    else {
+                        cb('no update is needed');
+                    }
                 } else {
+                    console.log('not found, inserting the data...');
                     cmd = {
                         cmd: cmdStr[1],
                         queries: [
@@ -130,16 +164,17 @@ function addCommand(queryText, cb) {
                             }
                         ]
                     };
+
+                    const cmdObj = new CommandsModel(cmd);
+                    cmdObj.save(err => {
+                        if (err) {
+                            cb(err.message);
+                        }
+                        else {
+                            cb('cmd inserted: ' + cmd.cmd);
+                        }
+                    });
                 }
-                const cmdObj = new CommandsModel(cmd);
-                cmdObj.save(err => {
-                    if (err) {
-                        cb(err.message);
-                    }
-                    else {
-                        cb('cmd added:' + cmd.cmd);
-                    }
-                });
             }
         });
     }

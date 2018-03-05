@@ -20,6 +20,7 @@ module.exports = {
     init: init,
     createCommands: createCommands,
     addCommand: addCommand,
+    deleteCommand: deleteCommand,
     processDb: processDb
 };
 
@@ -187,6 +188,31 @@ function addCommand(queryText, cb) {
                         }
                     });
                 }
+            }
+        });
+    }
+    else
+        cb('command format error');
+}
+
+/**
+ * delete a command/response from db
+ *
+ * del cmd-name
+ *
+ */
+function deleteCommand(queryText, cb) {
+    let cmdStr = queryText.split(' ');
+
+    console.log('cmdstr = ' + cmdStr);
+    if (cmdStr.length == 2) {
+        CommandsModel.findOne({cmd: cmdStr[1]}, (err, cmd) => {
+            if (err) {
+                cb('deleteCommand db error:' + err.message);
+            }
+            else {
+                // delete it
+                cmd.remove();
             }
         });
     }
@@ -1230,6 +1256,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodAddCommand"
+            }
+        ]
+    },
+    {
+        cmd: "del",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "del"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodDeleteCommand"
             }
         ]
     }

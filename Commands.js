@@ -237,9 +237,24 @@ function matchCommand(event, userName, queryText, cb) {
     let o = {};
 
     o.map = function () {
-        let matchedIndex = this.matchQuery(queryText, this.queries);
-        if (matchedIndex != -1)
-            emit(this._id, this.queries[matchedIndex]);
+        let matched = false;
+
+        for (let query of this.queries) {
+            // match based on models
+            for (let text of query.texts) {
+                if (query.model == "precise" && text == queryText) {
+                    matched = true;
+                } else if (query.model == "fuzzy" && queryText.includes(text)) {
+                    matched = true;
+                } else if (query.model == "command" && queryText.substr(0, queryText.indexOf(' ')) == text) {
+                    matched = true;
+                }
+                if (matched)
+                    break;
+            }
+        }
+        if (matched)
+            emit(this._id, query);
     };
 
     o.reduce = function(key, matchesQueries) {

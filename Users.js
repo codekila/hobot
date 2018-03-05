@@ -79,7 +79,8 @@ function updateAllDisplayNames() {
             users.map(user => {
                 global.config.botClient.getProfile(user.userId)
                     .then((profile) => {
-                        UsersModel.findOneAndUpdate({userId: user.userId}, {runtime: {displayName: profile.displayName}}, (err, u) => {
+                        UsersModel.findOneAndUpdate({userId: user.userId},
+                                {runtime: {displayName: profile.displayName, lastSeen: Date.now()}}, (err, u) => {
                             if (err == null)
                                 console.log('updating: ' + profile.displayName + ' OK');
                             else
@@ -191,7 +192,7 @@ function showIdle(cb) {
         for (let user of users) {
             let idleMinutes = Math.round((now - user.runtime.lastSeen)/(60*1000));
             if (user.nickNames[0] != null) {
-                idleList += user.nickNames[0] + ' 潛水了 ' + Math.floor(idleMinutes / 60) + '小時 '
+                idleList += user.nickNames[0] + '潛水了 ' + Math.floor(idleMinutes / 60) + '小時'
                     + idleMinutes % 60 + ' 分鐘\n';
             }
         }

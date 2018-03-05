@@ -111,22 +111,25 @@ function addCommand(queryText, cb) {
 
                 if (cmd) {
                     console.log('cmd found, updating the data...' + JSON.stringify(cmd));
-                    for (let i in cmd.queries.texts) {
-                        if (cmd.queries.texts[i] == cmdStr[2]) {
-                            needUpdateQ = true;
-                            break;
-                        }
-                    }
-                    if (needUpdateQ)
+                    // check if we need to update queries
+                    let matchedIndex = matchQuery(cmdStr[2], cmd.queries);
+                    if (matchedIndex == -1) {
+                        needUpdateQ = true;
                         cmd.queries.texts.push(cmdStr[2]);
-                    for (let i in cmd.responses.texts) {
-                        if (cmd.responses.texts[i] == cmdStr[3]) {
-                            needUpdateR = true;
-                            break;
+                    }
+                    // check if we need to update canned responses
+                    for (let i in cmd.responses) {
+                        let res = cmd.responses[i];
+                        // match based on models
+                        for (let text of res.texts) {
+                            if (res.model == "canned" && cmdStr[3] == text) {
+                                needUpdateR = true;
+                                cmd.responses.texts.push(cmdStr[3]);
+                                break;
+                            }
                         }
                     }
-                    if (needUpdateR)
-                        cmd.responses.texts.push(cmdStr[3]);
+                    // update to db
                     if (needUpdateQ || needUpdateR) {
                         const cmdObj = new CommandsModel(cmd);
                         cmdObj.save(err => {
@@ -143,6 +146,7 @@ function addCommand(queryText, cb) {
                     }
                 } else {
                     console.log('not found, inserting the data...');
+                    // generate the record
                     cmd = {
                         cmd: cmdStr[1],
                         queries: [
@@ -164,7 +168,7 @@ function addCommand(queryText, cb) {
                             }
                         ]
                     };
-
+                    // insert a record into db
                     const cmdObj = new CommandsModel(cmd);
                     cmdObj.save(err => {
                         if (err) {
@@ -182,30 +186,62 @@ function addCommand(queryText, cb) {
         cb('command format error');
 }
 
+/**
+ *
+ * @param queryText: input to be matched
+ * @param queries: queries
+ * @returns {matchedIndex}: matched query index or -1 if not matchecd
+ */
+function matchQuery(queryText, queries) {
+    let matchedIndex = -1;
+
+    for (let i in queries) {
+        let query = queries[i];
+        // match based on models
+        for (let text of query.texts) {
+            if (query.model == "precise" && text == queryText) {
+                matchedIndex = i;
+            } else if (query.model == "fuzzy" && queryText.includes(text)) {
+                matchedIndex = i;
+            } else if (query.model == "command" && queryText.substr(0, queryText.indexOf(' ')) == text) {
+                matchedIndex = i;
+            }
+            if (matchedIndex != -1)
+                break;
+        }
+    }
+    return matchedIndex;
+}
+
+function matchCannedResponse(response, responses) {
+    for (let i in responses) {
+        let res = responses[i];
+        // match based on models
+        for (let text of res.texts) {
+            if (res.model == "canned" && text == response) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+/**
+ *
+ * @param event: incoming event
+ * @param userName: display name of the user
+ * @param queryText: input text
+ * @param cb: callback function of the result
+ */
 function matchCommand(event, userName, queryText, cb) {
     let dbItemMatched = null;
     let matchedQuery = null;
     let o = {};
 
     o.map = function () {
-        let matched = false;
-
-        for (let query of this.queries) {
-            // match based on models
-            for (let text of query.texts) {
-                if(query.model == "precise" && text == queryText) {
-                    matched = true;
-                } else if (query.model == "fuzzy" && queryText.includes(text)) {
-                    matched = true;
-                } else if (query.model == "command" && queryText.substr(0, queryText.indexOf(' ')) == text) {
-                    matched = true;
-                }
-                if (matched)
-                    break;
-            }
-            if (matched)
-                emit(this._id, query);
-        }
+        let matchedIndex = matchedQuery(queryText, this.queries);
+        if (matchedIndex != -1)
+            emit(this._id, this.queries[matchedIndex]);
     };
 
     o.reduce = function(key, matchesQueries) {

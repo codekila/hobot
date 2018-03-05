@@ -111,16 +111,16 @@ function addCommand(queryText, cb) {
 
                 if (cmd) {
                     console.log('cmd found, updating the data...');
-                    for (let t of cmd.queries.texts) {
-                        if (t == cmdStr[2]) {
+                    for (let i in cmd.queries.texts) {
+                        if (cmd.queries.texts[i] == cmdStr[2]) {
                             needUpdateQ = true;
                             break;
                         }
                     }
                     if (needUpdateQ)
                         cmd.queries.texts.push(cmdStr[2]);
-                    for (let t of cmd.responses.texts) {
-                        if (t == cmdStr[3]) {
+                    for (let i in cmd.responses.texts) {
+                        if (cmd.responses.texts[i] == cmdStr[3]) {
                             needUpdateR = true;
                             break;
                         }

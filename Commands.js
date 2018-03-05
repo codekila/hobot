@@ -234,12 +234,10 @@ function matchCannedResponse(response, responses) {
  * @param cb: callback function of the result
  */
 function matchCommand(event, userName, queryText, cb) {
-    let dbItemMatched = null;
-    let matchedQuery = null;
     let o = {};
 
     o.map = function () {
-        let matchedIndex = matchedQuery(queryText, this.queries);
+        let matchedIndex = matcheQuery(queryText, this.queries);
         if (matchedIndex != -1)
             emit(this._id, this.queries[matchedIndex]);
     };

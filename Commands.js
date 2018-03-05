@@ -370,6 +370,12 @@ function methodAddCommand(event, userName, queryText, cb) {
     });
 }
 
+function methodDeleteCommand(event, userName, queryText, cb) {
+    deleteCommand(queryText , result => {
+        cb(result);
+    });
+}
+
 let defaultCommands = [
     {
         cmd: "idiot",

@@ -381,6 +381,12 @@ function methodDeleteCommand(event, userName, queryText, cb) {
     });
 }
 
+function methodShowIdle(event, userName, queryText, cb) {
+    modUsers.showIdle(result => {
+        cb(result);
+    });
+}
+
 let defaultCommands = [
     {
         cmd: "idiot",
@@ -1286,6 +1292,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodDeleteCommand"
+            }
+        ]
+    },
+    {
+        cmd: "idle",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "idle"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodShowIdle"
             }
         ]
     }

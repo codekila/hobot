@@ -18,6 +18,7 @@ module.exports = {
     updateTimestamp: updateTimestamp,
     checkBirthdays: checkBirthdays,
     getWhoIsIdleTooLong: getWhoIsIdleTooLong,
+    showidle: showIdle,
     createUsers: createUsers
 };
 
@@ -177,6 +178,26 @@ function getWhoIsIdleTooLong(maxIdle, cb) {
             }
         }
         if (cb) cb(usersTooLong);
+    });
+}
+
+function showIdle(cb) {
+    let now = Date.now();
+
+    UsersModel.find({}, (err, users) => {
+        let idleList = '';
+
+        if (err) return null;
+        for (let user of users) {
+            let min = (now - user.runtime.lastSeen)/(60*1000);
+            if (user.nickNames[0] != null) {
+                idleList += user.nickNames[0] + ' 潛水了 ' + Math.floor(min / 60) + '小時 '
+                    + min % 60 + ' 分鐘';
+            }
+        }
+        if (idleList.length>0)
+            idleList.substr(0, idleList.length -1);
+        if (cb) cb(idleList);
     });
 }
 

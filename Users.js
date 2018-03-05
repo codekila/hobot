@@ -195,9 +195,7 @@ function showIdle(cb) {
                     + idleMinutes % 60 + ' 分鐘\n';
             }
         }
-        if (idleList.length>0)
-            idleList.substr(0, idleList.length -1);
-        if (cb) cb(idleList);
+        if (cb) cb(idleList.trim());
     });
 }
 

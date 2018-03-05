@@ -103,7 +103,7 @@ function addCommand(queryText, cb) {
     if (cmdStr.length == 4) {
         CommandsModel.findOne({cmd: cmdStr[1]}, (err, cmd) => {
             if (err) {
-                cb('db error:' + err.message);
+                cb('addCommand db error:' + err.message);
             }
             else {
                 let needUpdateQ = false;
@@ -112,10 +112,14 @@ function addCommand(queryText, cb) {
                 if (cmd) {
                     console.log('cmd found, updating the data...' + JSON.stringify(cmd));
                     // check if we need to update queries
-                    let matchedIndex = matchQuery(cmdStr[2], cmd.queries);
-                    if (matchedIndex == -1) {
-                        needUpdateQ = true;
-                        cmd.queries.texts.push(cmdStr[2]);
+                    for (let query of cmd.queries) {
+                        // match based on models
+                        for (let text of query.texts) {
+                            if (query.model != "command" && text == cmdStr[2]) {
+                                needUpdateQ = true;
+                                cmd.queries[matchedIndex].texts.push(cmdStr[2]);
+                            }
+                        }
                     }
                     // check if we need to update canned responses
                     for (let i in cmd.responses) {
@@ -124,7 +128,7 @@ function addCommand(queryText, cb) {
                         for (let text of res.texts) {
                             if (res.model == "canned" && cmdStr[3] == text) {
                                 needUpdateR = true;
-                                cmd.responses.texts.push(cmdStr[3]);
+                                cmd.responses[i].texts.push(cmdStr[3]);
                                 break;
                             }
                         }
@@ -184,46 +188,6 @@ function addCommand(queryText, cb) {
     }
     else
         cb('command format error');
-}
-
-/**
- *
- * @param queryText: input to be matched
- * @param queries: queries
- * @returns {matchedIndex}: matched query index or -1 if not matchecd
- */
-function matchQuery(queryText, queries) {
-    let matchedIndex = -1;
-
-    for (let i in queries) {
-        let query = queries[i];
-        // match based on models
-        for (let text of query.texts) {
-            if (query.model == "precise" && text == queryText) {
-                matchedIndex = i;
-            } else if (query.model == "fuzzy" && queryText.includes(text)) {
-                matchedIndex = i;
-            } else if (query.model == "command" && queryText.substr(0, queryText.indexOf(' ')) == text) {
-                matchedIndex = i;
-            }
-            if (matchedIndex != -1)
-                break;
-        }
-    }
-    return matchedIndex;
-}
-
-function matchCannedResponse(response, responses) {
-    for (let i in responses) {
-        let res = responses[i];
-        // match based on models
-        for (let text of res.texts) {
-            if (res.model == "canned" && text == response) {
-                return i;
-            }
-        }
-    }
-    return -1;
 }
 
 /**

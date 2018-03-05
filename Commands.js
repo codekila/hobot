@@ -106,31 +106,35 @@ function addCommand(queryText, cb) {
                 cb('addCommand db error:' + err.message);
             }
             else {
-                let needUpdateQ = false;
-                let needUpdateR = false;
+                let needUpdateQ = true;
+                let needUpdateR = true;
 
                 if (cmd) {
+                    let query, res;
                     console.log('cmd found, updating the data...' + JSON.stringify(cmd));
                     // check if we need to update queries
-                    for (let query of cmd.queries) {
+                    for (query of cmd.queries) {
                         // match based on models
                         for (let text of query.texts) {
                             if (query.model != "command" && text == cmdStr[2]) {
-                                needUpdateQ = true;
-                                query.texts.push(cmdStr[2]);
-                            }
-                        }
-                    }
-                    // check if we need to update canned responses
-                    for (let res of cmd.responses) {
-                        // match based on models
-                        for (let text of res.texts) {
-                            if (res.model == "canned" && cmdStr[3] == text) {
-                                needUpdateR = true;
-                                res.texts.push(cmdStr[3]);
+                                needUpdateQ = false;
                                 break;
                             }
                         }
+                        if (needUpdateQ)
+                            query.texts.push(cmdStr[2]);
+                    }
+                    // check if we need to update canned responses
+                    for (res of cmd.responses) {
+                        // match based on models
+                        for (let text of res.texts) {
+                            if (res.model == "canned" && cmdStr[3] == text) {
+                                needUpdateR = false;
+                                break;
+                            }
+                        }
+                        if (needUpdateR)
+                            res.texts.push(cmdStr[3]);
                     }
                     console.log('cmd found, updating the data..NEW: ' + JSON.stringify(cmd));
                     // update to db

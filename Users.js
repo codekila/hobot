@@ -18,7 +18,7 @@ module.exports = {
     updateTimestamp: updateTimestamp,
     checkBirthdays: checkBirthdays,
     getWhoIsIdleTooLong: getWhoIsIdleTooLong,
-    showidle: showIdle,
+    showIdle: showIdle,
     createUsers: createUsers
 };
 

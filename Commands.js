@@ -212,7 +212,12 @@ function deleteCommand(queryText, cb) {
             }
             else {
                 // delete it
-                cmd.remove();
+                if (cmd) {
+                    cmd.remove();
+                    cb('ok');
+                } else {
+                    cb(cmdStr[1] + ' not found');
+                }
             }
         });
     }

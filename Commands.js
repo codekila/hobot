@@ -117,22 +117,22 @@ function addCommand(queryText, cb) {
                         for (let text of query.texts) {
                             if (query.model != "command" && text == cmdStr[2]) {
                                 needUpdateQ = true;
-                                cmd.queries[matchedIndex].texts.push(cmdStr[2]);
+                                query.texts.push(cmdStr[2]);
                             }
                         }
                     }
                     // check if we need to update canned responses
-                    for (let i in cmd.responses) {
-                        let res = cmd.responses[i];
+                    for (let res of cmd.responses) {
                         // match based on models
                         for (let text of res.texts) {
                             if (res.model == "canned" && cmdStr[3] == text) {
                                 needUpdateR = true;
-                                cmd.responses[i].texts.push(cmdStr[3]);
+                                res.texts.push(cmdStr[3]);
                                 break;
                             }
                         }
                     }
+                    console.log('cmd found, updating the data..NEW: ' + JSON.stringify(cmd));
                     // update to db
                     if (needUpdateQ || needUpdateR) {
                         const cmdObj = new CommandsModel(cmd);

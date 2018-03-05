@@ -189,7 +189,7 @@ function showIdle(cb) {
 
         if (err) return null;
         for (let user of users) {
-            let min = (now - user.runtime.lastSeen)/(60*1000);
+            let min = Math.round(now - user.runtime.lastSeen)/(60*1000);
             if (user.nickNames[0] != null) {
                 idleList += user.nickNames[0] + ' 潛水了 ' + Math.floor(min / 60) + '小時 '
                     + min % 60 + ' 分鐘';

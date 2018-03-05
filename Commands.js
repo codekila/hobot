@@ -1217,14 +1217,14 @@ let defaultCommands = [
         queries: [
             {
                 priority: "default",
-                model: "precise",
+                model: "command",
                 texts: [
                     "bday", "birthday"
                 ]
             },
             {
                 priority: "default",
-                model: "precise",
+                model: "command",
                 texts: [
                     "生日"
                 ]
@@ -1300,7 +1300,7 @@ let defaultCommands = [
         queries: [
             {
                 priority: "default",
-                model: "precise",
+                model: "command",
                 texts: [
                     "idle"
                 ]

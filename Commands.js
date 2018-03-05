@@ -110,7 +110,7 @@ function addCommand(queryText, cb) {
                 let needUpdateR = false;
 
                 if (cmd) {
-                    console.log('cmd found, updating the data...');
+                    console.log('cmd found, updating the data...' + JSON.stringify(cmd));
                     for (let i in cmd.queries.texts) {
                         if (cmd.queries.texts[i] == cmdStr[2]) {
                             needUpdateQ = true;

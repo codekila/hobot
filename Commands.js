@@ -245,7 +245,7 @@ function matchCommand(event, userName, queryText, cb) {
                     matched = query;
                 } else if (query.model == "fuzzy" && queryText.includes(text)) {
                     matched = query;
-                } else if (query.model == "command" && queryText.substr(0, queryText.indexOf(' ')) == text) {
+                } else if (query.model == "command" && (text == queryText || queryText.substr(0, queryText.indexOf(' ')) == text)) {
                     matched = query;
                 }
                 if (matched)
@@ -1300,7 +1300,7 @@ let defaultCommands = [
         queries: [
             {
                 priority: "default",
-                model: "command",
+                model: "precise",
                 texts: [
                     "idle"
                 ]

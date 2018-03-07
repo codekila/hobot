@@ -239,7 +239,7 @@ function deleteCommand(queryText, cb) {
 function matchCommand(event, userName, queryText, cb) {
     let o = {};
 
-    console.log('\'' + queryText.substr(0, queryText.indexOf(' ')) + '\'');
+    console.log('\'' + queryText + '\' --- ' \'' + queryText.substr(0, queryText.indexOf(' ')) + '\'');
     o.map = function () {
         let matched = null;
 

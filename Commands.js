@@ -241,11 +241,11 @@ function matchCommand(event, userName, queryText, cb) {
         for (let query of this.queries) {
             // match based on models
             for (let text of query.texts) {
-                if (query.model == "precise" && text == queryText) {
+                if (query.model == "command" && (text == queryText || queryText.substr(0, queryText.indexOf(' ')) == text)) {
+                    matched = query;
+                } else if (query.model == "precise" && text == queryText) {
                     matched = query;
                 } else if (query.model == "fuzzy" && queryText.includes(text)) {
-                    matched = query;
-                } else if (query.model == "command" && (text == queryText || queryText.substr(0, queryText.indexOf(' ')) == text)) {
                     matched = query;
                 }
                 if (matched)
@@ -545,7 +545,7 @@ let defaultCommands = [
                 priority: "default",
                 model: "fuzzy",
                 texts: [
-                    "meowco", "meow", "妙可", "貓可", "喵咪", "貓咪"
+                    "meowco", "meow", "妙可", "貓可", "喵咪", "貓咪", "喵可"
                 ]
             },
             {

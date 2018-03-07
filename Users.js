@@ -192,8 +192,8 @@ function showIdle(cb) {
         for (let user of users) {
             let idleMinutes = Math.round((now - user.runtime.lastSeen)/(60*1000));
             if (user.nickNames[0] != null) {
-                idleList += user.nickNames[0] + '潛水了 ' + Math.floor(idleMinutes / 60) + '小時'
-                    + idleMinutes % 60 + ' 分鐘\n';
+                idleList += user.nickNames[0] + '潛水了' + Math.floor(idleMinutes / 60) + '小時'
+                    + idleMinutes % 60 + '分鐘\n';
             }
         }
         if (cb) cb(idleList.trim());

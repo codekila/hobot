@@ -101,7 +101,7 @@ function addCommand(queryText, cb) {
     let cmdStr = queryText.split(' ');
 
     console.log('cmdstr = ' + cmdStr);
-    if (cmdStr.length == 4) {
+    if (cmdStr.length > 2) {
         CommandsModel.findOne({cmd: cmdStr[1]}, (err, cmd) => {
             if (err) {
                 cb('addCommand db error:' + err.message);
@@ -126,16 +126,18 @@ function addCommand(queryText, cb) {
                             query.texts.push(cmdStr[2]);
                     }
                     // check if we need to update canned responses
-                    for (res of cmd.responses) {
-                        // match based on models
-                        for (let text of res.texts) {
-                            if (res.model == "canned" && cmdStr[3] == text) {
-                                needUpdateR = false;
-                                break;
+                    if (cmdStr.length > 3) {
+                        for (res of cmd.responses) {
+                            // match based on models
+                            for (let text of res.texts) {
+                                if (res.model == "canned" && cmdStr[3] == text) {
+                                    needUpdateR = false;
+                                    break;
+                                }
                             }
+                            if (needUpdateR)
+                                res.texts.push(cmdStr[3]);
                         }
-                        if (needUpdateR)
-                            res.texts.push(cmdStr[3]);
                     }
                     console.log('cmd found, updating the data..NEW: ' + JSON.stringify(cmd));
                     // update to db
@@ -153,6 +155,8 @@ function addCommand(queryText, cb) {
                     else {
                         cb('no update is needed');
                     }
+                } else if (cmdStr.length != 4) {
+                    cb('command format error');
                 } else {
                     console.log('not found, inserting the data...');
                     // generate the record
@@ -241,6 +245,7 @@ function matchCommand(event, userName, queryText, cb) {
         for (let query of this.queries) {
             // match based on models
             for (let text of query.texts) {
+                console.log(queryText.substr(0, queryText.indexOf(' ')) + '  --- ' + text);
                 if (query.model == "command" && (text == queryText || queryText.substr(0, queryText.indexOf(' ')) == text)) {
                     matched = query;
                 } else if (query.model == "precise" && text == queryText) {

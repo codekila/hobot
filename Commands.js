@@ -239,13 +239,13 @@ function deleteCommand(queryText, cb) {
 function matchCommand(event, userName, queryText, cb) {
     let o = {};
 
+    console.log('\'' + queryText.substr(0, queryText.indexOf(' ')) + '\'');
     o.map = function () {
         let matched = null;
 
         for (let query of this.queries) {
             // match based on models
             for (let text of query.texts) {
-                console.log(queryText.substr(0, queryText.indexOf(' ')) + '  --- ' + text);
                 if (query.model == "command" && (text == queryText || queryText.substr(0, queryText.indexOf(' ')) == text)) {
                     matched = query;
                 } else if (query.model == "precise" && text == queryText) {

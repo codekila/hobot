@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commands.js" afterPath="$PROJECT_DIR$/Commands.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Users.js" afterPath="$PROJECT_DIR$/Users.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
     <ignored path="hobot86.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="101" column="29" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="29" />
+            <state relative-caret-position="360">
+              <caret line="172" column="17" selection-start-line="172" selection-start-column="17" selection-end-line="172" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -39,25 +41,24 @@
       <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1965">
-              <caret line="194" column="54" selection-start-line="194" selection-start-column="54" selection-end-line="194" selection-end-column="54" />
+            <state relative-caret-position="180">
+              <caret line="16" column="12" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="25" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
                 <element signature="e#572#1400#0" expanded="false" />
-                <element signature="e#6480#8083#0" expanded="false" />
+                <element signature="e#6754#8357#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commands.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Commands.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
+            <state relative-caret-position="-1872">
               <caret line="242" column="25" selection-start-line="242" selection-start-column="25" selection-end-line="242" selection-end-column="25" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#12156#34524#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -91,10 +92,10 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/cmdDb.js" />
         <option value="$PROJECT_DIR$/cmdDbEngine.js" />
-        <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/cmdMethods.js" />
-        <option value="$PROJECT_DIR$/Users.js" />
         <option value="$PROJECT_DIR$/Commands.js" />
+        <option value="$PROJECT_DIR$/Users.js" />
+        <option value="$PROJECT_DIR$/main.js" />
       </list>
     </option>
   </component>
@@ -265,12 +266,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
-      <workItem from="1519345260366" duration="149367000" />
+      <workItem from="1519345260366" duration="150502000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152105000" />
+    <option name="totallyTimeSpent" value="153240000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -431,34 +432,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.js">
+    <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="101" column="29" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="-1872">
+          <caret line="242" column="25" selection-start-line="242" selection-start-column="25" selection-end-line="242" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1965">
-          <caret line="194" column="54" selection-start-line="194" selection-start-column="54" selection-end-line="194" selection-end-column="54" />
+        <state relative-caret-position="180">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="25" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
             <element signature="e#572#1400#0" expanded="false" />
-            <element signature="e#6480#8083#0" expanded="false" />
+            <element signature="e#6754#8357#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Commands.js">
+    <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="242" column="25" selection-start-line="242" selection-start-column="25" selection-end-line="242" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#12156#34524#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="360">
+          <caret line="172" column="17" selection-start-line="172" selection-start-column="17" selection-end-line="172" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

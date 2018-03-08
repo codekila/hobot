@@ -194,7 +194,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function () {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
 
-        modUsers.getWhoIsIdleTooLong(20 * 1000, (userList) => {
+        modUsers.getWhoIsIdleTooLong(60 * 1000, (userList) => {
             if (userList && userList.length > 0) {
                 let reply = '';
                 console.log('you are idle too long: ' + JSON.stringify(userList));

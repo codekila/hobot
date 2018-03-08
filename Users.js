@@ -79,8 +79,14 @@ function updateAllDisplayNames() {
             users.map(user => {
                 global.config.botClient.getProfile(user.userId)
                     .then((profile) => {
-                        UsersModel.findOneAndUpdate({userId: user.userId},
-                                {runtime: {displayName: profile.displayName, lastSeen: Date.now()}}, (err, u) => {
+                        let changeSet;
+
+                        if (user.runtime.lastSeen)
+                            changeSet = {runtime: {displayName: profile.displayName}};
+                        else
+                            changeSet = {runtime: {displayName: profile.displayName, lastSeen: Date.now()}}; // initialize lastseen
+                        
+                        UsersModel.findOneAndUpdate({userId: user.userId}, changeSet, (err, u) => {
                             if (err == null)
                                 console.log('updating: ' + profile.displayName + ' OK');
                             else

@@ -217,6 +217,17 @@ const jobHourly = new CronJob('0 0 */1 * * *', function () {
             }
         });
 
+        modConfigs.get("sabreturndate", value => {
+            if (value != null) {
+                let today = moment();
+                let days = Math.floor(today.diff(moment(value, 'YYYY-MM-DD'), 'days'));
+                global.config.botClient.pushMessage(global.config.sendMsgChannel, {
+                    type: 'text',
+                    text: '姊姊還有' + value + '天就要回來了喔！'
+                });
+            }
+        });
+
     }, function () {
         /* This function is executed when the job stops */
     },
@@ -228,16 +239,6 @@ const jobDaily = new CronJob('0 0 7 */1 * *', function () {
         //
         console.log("daily housekeeping");
 
-        modConfigs.get("sabreturndate", value => {
-            if (value != null) {
-                let today = moment();
-                let days = Math.floor(today.diff(moment(value, 'YYYY-MM-DD'), 'days'));
-                global.config.botClient.pushMessage(global.config.sendMsgChannel, {
-                    type: 'text',
-                    text: '姊姊還有' + value + '天就要回來了喔！'
-                });
-            }
-        });
     }, function () {
         /* This function is executed when the job stops */
     },

@@ -69,7 +69,7 @@ function init(db) {
 
 function find(userId, cb) {
     UsersModel.findOne({userId: userId}, (err, user) => {
-        if (!err && cb) cb(user);
+        if (cb) cb(user);
     });
 }
 
@@ -85,7 +85,7 @@ function updateAllDisplayNames() {
                             changeSet = {runtime: {displayName: profile.displayName}};
                         else
                             changeSet = {runtime: {displayName: profile.displayName, lastSeen: Date.now()}}; // initialize lastseen
-                        
+
                         UsersModel.findOneAndUpdate({userId: user.userId}, changeSet, (err, u) => {
                             if (err == null)
                                 console.log('updating: ' + profile.displayName + ' OK');

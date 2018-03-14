@@ -9,6 +9,7 @@ const moment = require('moment');
 const momentTZ = require('moment-timezone');
 
 const modUsers = require('./Users.js');
+const modConfigs = require('./Configs.js');
 
 let mongoose = null;
 let QuerySchema = null;
@@ -391,6 +392,16 @@ function methodShowIdle(event, userName, queryText, cb) {
     modUsers.showIdle(result => {
         cb(result);
     });
+}
+
+function methodSetConfig(event, userName, queryText, cb) {
+    let cmdStr = queryText.split(' ');
+    if (cmdStr.length == 3) {
+        modConfigs.set(cmdStr[1], cmdStr[2], err => {
+            if (err) cb(err.message);
+            cb('OK');
+        });
+    }
 }
 
 let defaultCommands = [
@@ -1317,6 +1328,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodShowIdle"
+            }
+        ]
+    },
+    {
+        cmd: "@set",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "@set"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodSetConfig"
             }
         ]
     }

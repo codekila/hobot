@@ -42,22 +42,27 @@ function get(key, cb) {
  */
 function set(key, value, cb) {
     ConfigModel.findOneAndUpdate({key: key}, {vale: value}, (err, r) => {
-        if (err == null) {
-            console.log('updating: ' + r.key + '=' + r.value + ' OK');
-            cb(null);
+        if (err) {
+            cb(err);
         } else {
-            console.log('updating: ' + key + 'Failed, err:' + err.message);
-            const obj = new ConfigModel({key: key, value: value});
-            obj.save(err => {
-                if (err) {
-                    console.log(err.message);
-                    cb(err);
-                }
-                else {
-                    console.log('set insert ok:' + key);
-                    cb(null);
-                }
-            });
+            if (r) {
+                console.log('updating: ' + r.key + '=' + r.value + ' OK');
+                cb(null);
+            }
+            else {
+                console.log('adding: ' + key);
+                const obj = new ConfigModel({key: key, value: value});
+                obj.save(err => {
+                    if (err) {
+                        console.log(err.message);
+                        cb(err);
+                    }
+                    else {
+                        console.log('adding ok:' + key);
+                        cb(null);
+                    }
+                });
+            }
         }
     });
 }

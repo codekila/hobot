@@ -228,7 +228,7 @@ const jobDaily = new CronJob('0 0 7 */1 * *', function () {
         //
         console.log("daily housekeeping");
 
-        modConfigs.get("SabReturnDate", value => {
+        modConfigs.get("sabreturndate", value => {
             if (value != null) {
                 let today = moment();
                 let days = Math.floor(today.diff(moment(value, 'YYYY-MM-DD'), 'days'));

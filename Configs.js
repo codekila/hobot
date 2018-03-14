@@ -46,11 +46,10 @@ function set(key, value, cb) {
             cb(err);
         } else {
             if (r) {
-                console.log('updating: ' + r.key + '=' + r.value + ' OK');
+                console.log('config set: ' + r.key + '=' + r.value + ' OK');
                 cb(null);
             }
             else {
-                console.log('adding: ' + key);
                 const obj = new ConfigModel({key: key, value: value});
                 obj.save(err => {
                     if (err) {
@@ -58,7 +57,7 @@ function set(key, value, cb) {
                         cb(err);
                     }
                     else {
-                        console.log('adding ok:' + key);
+                        console.log('config add ok:' + key);
                         cb(null);
                     }
                 });

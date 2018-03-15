@@ -198,13 +198,14 @@ app.listen(port, () => {
 
  */
 //const jobHourly = new CronJob('0 0 */1 * * *', function () {
-const jobHourly = new CronJob('*/20 * * * * *', function() {
+const jobHourly = new CronJob('*/10 * * * * *', function() {
         let now = Date.now();
         console.log("hourly housekeeping:" + now.toString());
 
         modConfigs.get('lastOneHourTime', last => {
             // real cron jobs here
-            if (last && (now - parseInt(last)) >= 19000) {
+            if (last && (now - parseInt(last)) >= 9000) {
+                console.log('triggering');
                 jobs.checkWhoIsIdling(0);
                 //jobs.checkWhenSabReturns();
             }

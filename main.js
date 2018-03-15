@@ -204,7 +204,7 @@ const jobHourly = new CronJob('*/20 * * * * *', function() {
 
         modConfigs.get('lastOneHourTime', last => {
             // real cron jobs here
-            if (last && now.diff(moment(last), 'minutes') >= 1) {
+            if (last && now.diff(moment(last), 'seconds') >= 30) {
                 jobs.checkWhoIsIdling(0);
                 //jobs.checkWhenSabReturns();
             }

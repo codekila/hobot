@@ -223,7 +223,7 @@ const jobHourly = new CronJob('0 0 */1 * * *', function () {
                 let days = Math.floor(today.diff(moment(value, 'YYYY-MM-DD'), 'days'));
                 global.config.botClient.pushMessage(global.config.sendMsgChannel, {
                     type: 'text',
-                    text: '姊姊還有' + value + '天就要回來了喔！'
+                    text: '姊姊還有' + days + '天就要回來了喔！'
                 });
             }
         });

@@ -171,6 +171,7 @@ app.listen(port, () => {
         modConfigs.init(global.config.mongoose);
         modCmds.init(global.config.mongoose);
         modUsers.init(global.config.mongoose);
+        jobs.init();
 
         modCmds.createCommands();
         modUsers.createUsers();
@@ -198,10 +199,23 @@ app.listen(port, () => {
  */
 const jobHourly = new CronJob('0 0 */1 * * *', function () {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
+        let now = moment();
         console.log("hourly housekeeping");
-    
-        jobs.checkWhoIsIdling(12);
 
+        modConfigs.get('lastOneHourTime', last => {
+            // initialize it if the timestamp doesn't exist
+            if (last == null) {
+                modConfigs.set('lastOneHourTime', now.toString());
+                return;
+            }
+            // real cron jobs here
+            if (now.diff(moment(last), 'minutes') >= 1) {
+                jobs.checkWhoIsIdling(12);
+                jobs.checkWhenSabReturns();
+
+            }
+            // otherwise it may be restarted within an hour
+        });
     }, function () {
         /* This function is executed when the job stops */
     },

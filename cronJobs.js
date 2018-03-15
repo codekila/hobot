@@ -7,9 +7,14 @@ const modCmds = require('./Commands.js');
 const modUsers = require('./Users.js');
 
 module.exports = {
+    init: init,
     checkWhoIsIdling: jobCheckWhoIsIdling,
     checkWhenSabReturns: jobCheckWhenSabReturns
 };
+
+function init() {
+
+}
 
 function jobCheckWhoIsIdling(hours) {
     modUsers.getWhoIsIdleTooLong(hours * 60 * 60 * 1000, (userList) => {

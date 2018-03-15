@@ -220,11 +220,14 @@ const jobHourly = new CronJob('0 0 */1 * * *', function () {
         modConfigs.get("sabreturndate", value => {
             if (value != null) {
                 let today = moment();
-                let days = Math.floor(today.diff(moment(value, 'YYYY-MM-DD'), 'days'));
-                global.config.botClient.pushMessage(global.config.sendMsgChannel, {
-                    type: 'text',
-                    text: '姊姊還有' + days + '天(' + value + ')就要回來了喔！'
-                });
+                let days = Math.floor(moment(value, 'YYYY-MM-DD').diff(today, 'days'));
+
+                if (days > 0) {
+                    global.config.botClient.pushMessage(global.config.sendMsgChannel, {
+                        type: 'text',
+                        text: '姊姊還有' + days + '天(' + value + ')就要回來了喔！'
+                    });
+                }
             }
         });
 

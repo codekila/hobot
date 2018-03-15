@@ -30,7 +30,7 @@ function init(db) {
 
 function get(key, cb) {
     ConfigModel.findOne({key: key}, (err, r) => {
-        if (cb) cb(r.value);
+        if (cb) cb(r ? r.value : null);
     });
 }
 

@@ -25,7 +25,7 @@ function jobCheckWhoIsIdling(hours) {
                 reply += '@' + i.userName + ' ';
             }
 
-            global.config.botClient.pushMessage(global.config.channel3idiots, {
+            global.config.botClient.pushMessage(global.config.channelTest, {
                 type: 'text',
                 text: reply + '潛水太久了喔，出來透透氣吧！'
             });
@@ -40,7 +40,7 @@ function jobCheckWhenSabReturns() {
             let days = Math.floor(moment(value, 'YYYY-MM-DD').diff(today, 'days'));
 
             if (days > 0) {
-                global.config.botClient.pushMessage(global.config.channel3idiots, {
+                global.config.botClient.pushMessage(global.config.channelTest, {
                     type: 'text',
                     text: '姊姊還有' + days + '天(' + value + ')就要回來了喔！'
                 });

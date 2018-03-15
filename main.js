@@ -200,7 +200,7 @@ app.listen(port, () => {
 //const jobHourly = new CronJob('0 0 */1 * * *', function () {
 const jobHourly = new CronJob('*/20 * * * * *', function() {
         let now = moment();
-        console.log("hourly housekeeping");
+        console.log("hourly housekeeping:" + now.toLocaleString());
 
         modConfigs.get('lastOneHourTime', last => {
             // real cron jobs here
@@ -209,7 +209,7 @@ const jobHourly = new CronJob('*/20 * * * * *', function() {
                 //jobs.checkWhenSabReturns();
             }
             // update timestamp
-            modConfigs.set('lastOneHourTime', now.format());
+            modConfigs.set('lastOneHourTime', now.toLocaleString());
             // otherwise it may be restarted within an hour
         });
     }, function () {

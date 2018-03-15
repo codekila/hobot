@@ -13,7 +13,7 @@ const moment = require('moment');
 const modConfigs = require('./Configs.js');
 const modCmds = require('./Commands.js');
 const modUsers = require('./Users.js');
-const cronJobs = require('./cronJobs.js');
+const jobs = require('./cronJobs.js');
 
 
 // create LINE SDK configLINE from env variables
@@ -23,9 +23,6 @@ const configLINE = {
     channelAccessToken: '21+xqrIqnH+vF+SEu3B/LqBkOrVmxUs76SkfplRgKVAFGPvtYBQLS++Zs4LraPtMKfE/ukTr8r4xYnwCGNo9IA5yWBT430TK3wqWjLyZ39KGkprX4XHZj2xtc+rQJwDYx2LdMK+znHoZQc7L4TBwzAdB04t89/1O/w1cDnyilFU='
 };
 
-const channel3idiots = 'C9378e378d388296e286f09a39caaa8a8';
-const channelTest = 'Ced664c11782376a001d6c43c5bb3e850';
-
 // global config for all
 global.config = {
     botClient: (()=> new lineBotSdk.Client(configLINE))(),
@@ -33,7 +30,8 @@ global.config = {
     defaultTZ: 'Asia/Taipei',
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
     mongoose: require('mongoose'),
-    sendMsgChannel: channelTest
+    channel3idiots: 'C9378e378d388296e286f09a39caaa8a8',
+    channelTest: 'Ced664c11782376a001d6c43c5bb3e850'
 };
 
 // create Express app
@@ -201,35 +199,8 @@ app.listen(port, () => {
 const jobHourly = new CronJob('0 0 */1 * * *', function () {
 //const jobHourly = new CronJob('*/10 * * * * *', function() {
         console.log("hourly housekeeping");
-
-        modUsers.getWhoIsIdleTooLong(60 * 60 * 1000, (userList) => {
-            if (userList && userList.length > 0) {
-                let reply = '';
-                console.log('you are idle too long: ' + JSON.stringify(userList));
-                for (let i of userList) {
-                    reply += '@' + i.userName + ' ';
-                }
-
-                global.config.botClient.pushMessage(global.config.sendMsgChannel, {
-                    type: 'text',
-                    text: reply + '潛水太久了喔，出來透透氣吧！'
-                });
-            }
-        });
-
-        modConfigs.get("sabreturndate", value => {
-            if (value != null) {
-                let today = moment();
-                let days = Math.floor(moment(value, 'YYYY-MM-DD').diff(today, 'days'));
-
-                if (days > 0) {
-                    global.config.botClient.pushMessage(global.config.sendMsgChannel, {
-                        type: 'text',
-                        text: '姊姊還有' + days + '天(' + value + ')就要回來了喔！'
-                    });
-                }
-            }
-        });
+    
+        jobs.checkWhoIsIdling(12);
 
     }, function () {
         /* This function is executed when the job stops */
@@ -241,6 +212,8 @@ const jobHourly = new CronJob('0 0 */1 * * *', function () {
 const jobDaily = new CronJob('0 0 7 */1 * *', function () {
         //
         console.log("daily housekeeping");
+
+        jobs.checkWhenSabReturns();
 
     }, function () {
         /* This function is executed when the job stops */

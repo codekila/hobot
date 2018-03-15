@@ -211,7 +211,7 @@ const jobHourly = new CronJob('*/10 * * * * *', function() {
             // real cron jobs here
             if (now.diff(moment(last), 'minutes') >= 1) {
                 jobs.checkWhoIsIdling(12);
-                jobs.checkWhenSabReturns();
+                //jobs.checkWhenSabReturns();
 
             }
             // otherwise it may be restarted within an hour

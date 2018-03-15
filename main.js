@@ -198,22 +198,18 @@ app.listen(port, () => {
 
  */
 //const jobHourly = new CronJob('0 0 */1 * * *', function () {
-const jobHourly = new CronJob('*/10 * * * * *', function() {
+const jobHourly = new CronJob('*/20 * * * * *', function() {
         let now = moment();
         console.log("hourly housekeeping");
 
         modConfigs.get('lastOneHourTime', last => {
-            // initialize it if the timestamp doesn't exist
-            if (last == null) {
-                modConfigs.set('lastOneHourTime', now.toString());
-                return;
-            }
             // real cron jobs here
-            if (now.diff(moment(last), 'minutes') >= 1) {
-                jobs.checkWhoIsIdling(12);
+            if (last && now.diff(moment(last), 'minutes') >= 1) {
+                jobs.checkWhoIsIdling(0);
                 //jobs.checkWhenSabReturns();
-
             }
+            // update timestamp
+            modConfigs.set('lastOneHourTime', now.format());
             // otherwise it may be restarted within an hour
         });
     }, function () {

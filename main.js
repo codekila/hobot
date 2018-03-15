@@ -197,55 +197,37 @@ app.listen(port, () => {
  Day of Week: 0-6 (Sun-Sat)
 
  */
-//const jobHourly = new CronJob('0 0 */1 * * *', function () {
-const jobHourly = new CronJob('*/10 * * * * *', function() {
-        let now = Date.now();
-        console.log("hourly housekeeping:" + now.toString());
+const cronjob1 = new CronJob('0 */5 * * * *', function () {
+//const cronjob1 = new CronJob('*/10 * * * * *', function () {
+        modConfigs.get('lastCronTime', last => {
+            let now = Date.now();
+            if (last) {
+                let diff = now - parseInt(last);
+                // hourly jobs
+                if (diff >= (60 * 60 * 1000 - 100)) {
+                    console.log("hourly housekeeping:" + now.toString());
 
-        modConfigs.get('lastOneHourTime', last => {
-            // real cron jobs here
-            if (last && (now - parseInt(last)) >= 9000) {
-                console.log('triggering');
-                jobs.checkWhoIsIdling(0);
-                //jobs.checkWhenSabReturns();
+                    // real cron jobs start here
+                    jobs.checkWhoIsIdling(12);
+                }
+                // daily jobs
+                if (diff >= (24 * 60 * 60 * 1000 - 100)) {
+                    console.log("daily housekeeping:" + now.toString());
+
+                    // real cron jobs start here
+                    jobs.checkWhenSabReturns();
+                }
+                // weekly jobs
+                if (diff >= (7* 24 * 60 * 60 * 1000 - 100)) {
+                    console.log("weekly housekeeping:" + now.toString());
+
+                    // real cron jobs start here
+                }
             }
             // update timestamp
-            modConfigs.set('lastOneHourTime', now.toString());
+            modConfigs.set('lastCronTime', now.toString());
             // otherwise it may be restarted within an hour
         });
-    }, function () {
-        /* This function is executed when the job stops */
-    },
-    true, /* Start the job right now */
-    global.config.defaultTZ /* Time zone of this job. */
-);
-
-const jobDaily = new CronJob('0 0 7 */1 * *', function () {
-        //
-        console.log("daily housekeeping");
-
-        jobs.checkWhenSabReturns();
-
-    }, function () {
-        /* This function is executed when the job stops */
-    },
-    true, /* Start the job right now */
-    global.config.defaultTZ /* Time zone of this job. */
-);
-
-const jobWeekly = new CronJob('0 0 8 * * 0-6', function () {
-        //
-        console.log("weekly housekeeping");
-    }, function () {
-        /* This function is executed when the job stops */
-    },
-    true, /* Start the job right now */
-    global.config.defaultTZ /* Time zone of this job. */
-);
-
-const jobMonthly = new CronJob('0 0 9 1 */1 *', function () {
-        //
-        console.log("monthly housekeeping");
     }, function () {
         /* This function is executed when the job stops */
     },

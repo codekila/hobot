@@ -30,6 +30,9 @@ function init(db) {
 
 function get(key, cb) {
     ConfigModel.findOne({key: key}, (err, r) => {
+        if (err) {
+            console.log('config get error:' + err.message);
+        }
         if (cb) cb(r ? r.value : null);
     });
 }
@@ -41,7 +44,7 @@ function get(key, cb) {
  * @param cb --> null if update success, err otherwise
  */
 function set(key, value, cb) {
-    ConfigModel.findOneAndUpdate({key: key}, {vale: value}, (err, r) => {
+    ConfigModel.findOneAndUpdate({key: key}, {value: value}, (err, r) => {
         if (err) {
             if (cb) cb(err);
         } else {

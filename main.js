@@ -197,8 +197,8 @@ app.listen(port, () => {
  Day of Week: 0-6 (Sun-Sat)
 
  */
-const jobHourly = new CronJob('0 0 */1 * * *', function () {
-//const jobHourly = new CronJob('*/10 * * * * *', function() {
+//const jobHourly = new CronJob('0 0 */1 * * *', function () {
+const jobHourly = new CronJob('*/10 * * * * *', function() {
         let now = moment();
         console.log("hourly housekeeping");
 

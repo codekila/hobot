@@ -40,7 +40,7 @@ function jobCheckWhenSabReturns() {
             let days = Math.floor(moment(value, 'YYYY-MM-DD').diff(today, 'days'));
 
             if (days > 0) {
-                global.config.botClient.pushMessage(global.config.channelTest, {
+                global.config.botClient.pushMessage(global.config.channel3idiots, {
                     type: 'text',
                     text: '姊姊還有' + days + '天(' + value + ')就要回來了喔！'
                 });

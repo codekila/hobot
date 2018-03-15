@@ -8,8 +8,9 @@ const fs = require('fs');
 const moment = require('moment');
 const momentTZ = require('moment-timezone');
 
-const modUsers = require('./Users.js');
 const modConfigs = require('./Configs.js');
+const modUsers = require('./Users.js');
+const jobs = require('./cronJobs.js');
 
 let mongoose = null;
 let QuerySchema = null;
@@ -360,6 +361,8 @@ function methodUserCheckTime(event, userName, queryText, cb) {
     // 2018-02-26T16:53:33+08:00
     cb('Taiwan:\t' + taiwanTime.substr(11, 5) + ' ' + taiwanTime.substr(0, 10) + '\n'
         + 'San Diego:\t' + SDTime.substr(11, 5) + ' ' + SDTime.substr(0, 10));
+
+    jobs.checkWhenSabReturns();
 }
 
 function methodUserCheckBirthday(event, userName, queryText, cb) {

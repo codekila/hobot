@@ -43,22 +43,22 @@ function get(key, cb) {
 function set(key, value, cb) {
     ConfigModel.findOneAndUpdate({key: key}, {vale: value}, (err, r) => {
         if (err) {
-            cb(err);
+            if (cb) cb(err);
         } else {
             if (r) {
                 console.log('config set: ' + r.key + '=' + r.value + ' OK');
-                cb(null);
+                if (cb) cb(null);
             }
             else {
                 const obj = new ConfigModel({key: key, value: value});
                 obj.save(err => {
                     if (err) {
                         console.log(err.message);
-                        cb(err);
+                        if (cb) cb(err);
                     }
                     else {
                         console.log('config add ok:' + key);
-                        cb(null);
+                        if (cb) cb(null);
                     }
                 });
             }

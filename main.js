@@ -199,17 +199,17 @@ app.listen(port, () => {
  */
 //const jobHourly = new CronJob('0 0 */1 * * *', function () {
 const jobHourly = new CronJob('*/20 * * * * *', function() {
-        let now = moment();
-        console.log("hourly housekeeping:" + now.toLocaleString());
+        let now = Date.now();
+        console.log("hourly housekeeping:" + now.toString());
 
         modConfigs.get('lastOneHourTime', last => {
             // real cron jobs here
-            if (last && now.diff(moment(last), 'seconds') >= 30) {
+            if (last && (now - parseInt(last)) >= 19000) {
                 jobs.checkWhoIsIdling(0);
                 //jobs.checkWhenSabReturns();
             }
             // update timestamp
-            modConfigs.set('lastOneHourTime', now.toLocaleString());
+            modConfigs.set('lastOneHourTime', now.toString());
             // otherwise it may be restarted within an hour
         });
     }, function () {

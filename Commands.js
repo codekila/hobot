@@ -409,9 +409,12 @@ function methodSetConfig(event, userName, queryText, cb) {
 }
 
 function methodWeather(event, userName, queryText, cb) {
-    modWeather.checkWeatherTaiwan(result => {
-        cb(result);
-    });
+    let cmdStr = queryText.split(' ');
+    if (cmdStr.length == 2) {
+        modWeather.checkWeatherTaiwan(cmdStr[1], result => {
+            cb(result);
+        });
+    }
 }
 
 let defaultCommands = [

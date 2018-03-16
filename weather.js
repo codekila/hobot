@@ -30,13 +30,16 @@ function getLocationinfo() {
 }
 
 function getTownId(townName) {
+    let townId = 0;
     if (taiwanLocations == null || townName == null) return 0;
     for (let city of taiwanLocations)
+        if (city.name.includes(townName))
+            townId = city.towns[0].id;
         for (let town of city.towns) {
-            if (town.name == townName)
+            if (town.name.includes(townName))
                 return town.id;
         }
-    return 0;
+    return townId;
 }
 
 function checkWeatherTaiwan(townName, cb) {

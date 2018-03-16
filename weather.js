@@ -54,9 +54,12 @@ function checkWeatherTaiwan(townName, cb) {
         else if (body == null) {
             cb('Empty weather body');
         } else {
+            let townInfo = body;
+
+            console.log(JSON.stringify(townInfo));
             let text = townName + '天氣狀況：';
-            text += '溫度' + body.temperature + '度, 濕度' + body.humidity + '%, ' + body.desc;
-            text += '更新時間' + body.at;
+            text += '溫度' + townInfo.temperature + '度, 濕度' + townInfo.humidity + '%, ' + townInfo.desc;
+            text += '更新時間' + townInfo.at;
             cb(text);
         }
     });

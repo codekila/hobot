@@ -241,13 +241,22 @@ const cronjob0 = new CronJob('*/30 * * * * *', function () {
 const cronjob1 = new CronJob('0 */1 * * * *', function () {
         let now = Date.now();
 
-        // hearbeat
+        /*
+            if hearbeat is not updated for more than one minute it means the instance was swapped out
+         */
         console.log("hearbeat:" + now.toString());
-        if (cronTimestamps.hearbeat && (now - cronTimestamps.hearbeat) >= (60 * 60 * 1000)) {
+        if (cronTimestamps.hearbeat && (now - cronTimestamps.hearbeat) >= (5 * 60 * 1000)) {
             let mins = Math.floor((now - cronTimestamps.hearbeat)/(60*1000));
+            let text = '何寶剛剛睡了';
+
+            if (Math.floor(mins/60) > 0)
+                text += Math.floor(mins/60) + '小時';
+            if (Math.floor(mins%60) > 0)
+                text += '又' + Math.floor(mins%60) + '分鐘'
+            text += '啦～';
             global.config.botClient.pushMessage(global.config.channel3idiots, {
                 type: 'text',
-                text: '何寶剛剛睡了' + Math.floor(mins/60) + '小時又' + Math.floor(mins%60) + '分鐘啦～'
+                text: text
             });
         }
         modConfigs.set('hearbeat', now.toString());

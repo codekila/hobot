@@ -197,38 +197,51 @@ app.listen(port, () => {
  Day of Week: 0-6 (Sun-Sat)
 
  */
-const cronjob1 = new CronJob('0 */5 * * * *', function () {
-//const cronjob1 = new CronJob('*/10 * * * * *', function () {
-        modConfigs.get('lastCronTime', last => {
-            let now = Date.now();
-            if (last) {
-                let diff = now - parseInt(last);
-                // hourly jobs
-                if (diff >= (60 * 60 * 1000 - 100)) {
-                    console.log("hourly housekeeping:" + now.toString());
 
-                    // real cron jobs start here
-                    jobs.checkWhoIsIdling(12);
-                }
-                // daily jobs
-                if (diff >= (24 * 60 * 60 * 1000 - 100)) {
-                    console.log("daily housekeeping:" + now.toString());
+let cronTimestamps = {
+    cronTimestampHourly: 0,
+    cronTimestampDaily: 0,
+    cronTimestampWeekly: 0
+};
 
-                    // real cron jobs start here
-                    jobs.checkWhenSabReturns();
-                }
-                // weekly jobs
-                if (diff >= (7* 24 * 60 * 60 * 1000 - 100)) {
-                    console.log("weekly housekeeping:" + now.toString());
-
-                    // real cron jobs start here
-                }
-            }
-            // update timestamp
-            modConfigs.set('lastCronTime', now.toString());
-            // otherwise it may be restarted within an hour
+const cronjob0 = new CronJob('*/30 * * * * *', function () {
+        modConfigs.get('cronTimestampHourly', ts => {
+            if (ts) cronTimestamps.cronTimestampHourly = parseInt(ts);
+        });
+        modConfigs.get('cronTimestampDaily', ts => {
+            if (ts) cronTimestamps.cronTimestampDaily = parseInt(ts);
+        });
+        modConfigs.get('cronTimestampWeekly', ts => {
+            if (ts) cronTimestamps.cronTimestampWeekly = parseInt(ts);
         });
     }, function () {
+        /* This function is executed when the job stops */
+    },
+    true, /* Start the job right now */
+    global.config.defaultTZ /* Time zone of this job. */
+);
+
+const cronjob1 = new CronJob('0 */1 * * * *', function () {
+        let now = Date.now();
+        // hourly jobs
+        if (cronTimestamps.cronTimestampHourly && (now - cronTimestamps.cronTimestampHourly) >= (60 * 60 * 1000 - 100)) {
+            console.log("hourly housekeeping:" + now.toString());
+            jobs.checkWhoIsIdling(12);
+            modConfigs.set('cronTimestampHourly', now.toString());
+        }
+        // daily jobs
+        if (cronTimestamps.cronTimestampDaily && (now - cronTimestamps.cronTimestampDaily) >= (24 * 60 * 60 * 1000 - 100)) {
+            console.log("daily housekeeping:" + now.toString());
+            jobs.checkWhenSabReturns();
+            modConfigs.set('cronTimestampDaily', now.toString());
+        }
+        // weekly jobs
+        if (cronTimestamps.cronTimestampWeekly && (now - cronTimestamps.cronTimestampWeekly) >= (7 * 24 * 60 * 60 * 1000 - 100)) {
+            console.log("weekly housekeeping:" + now.toString());
+            modConfigs.set('cronTimestampWeekly', now.toString());
+        }
+    },
+    function () {
         /* This function is executed when the job stops */
     },
     true, /* Start the job right now */

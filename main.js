@@ -205,14 +205,24 @@ let cronTimestamps = {
 };
 
 const cronjob0 = new CronJob('*/30 * * * * *', function () {
+        let now = Date.now();
         modConfigs.get('cronTimestampHourly', ts => {
-            if (ts) cronTimestamps.cronTimestampHourly = parseInt(ts);
+            if (ts)
+                cronTimestamps.cronTimestampHourly = parseInt(ts);
+            else
+                modConfigs.set('cronTimestampHourly', now.toString());
         });
         modConfigs.get('cronTimestampDaily', ts => {
-            if (ts) cronTimestamps.cronTimestampDaily = parseInt(ts);
+            if (ts)
+                cronTimestamps.cronTimestampDaily = parseInt(ts);
+            else
+                modConfigs.set('cronTimestampDaily', now.toString());
         });
         modConfigs.get('cronTimestampWeekly', ts => {
-            if (ts) cronTimestamps.cronTimestampWeekly = parseInt(ts);
+            if (ts)
+                cronTimestamps.cronTimestampWeekly = parseInt(ts);
+            else
+                modConfigs.set('cronTimestampWeekly', now.toString());
         });
     }, function () {
         /* This function is executed when the job stops */

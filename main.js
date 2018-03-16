@@ -14,7 +14,7 @@ const modConfigs = require('./Configs.js');
 const modCmds = require('./Commands.js');
 const modUsers = require('./Users.js');
 const jobs = require('./cronJobs.js');
-
+const modWeather = require('./weather.js');
 
 // create LINE SDK configLINE from env variables
 const configLINE = {
@@ -172,6 +172,7 @@ app.listen(port, () => {
         modCmds.init(global.config.mongoose);
         modUsers.init(global.config.mongoose);
         jobs.init();
+        modWeather.init();
 
         modCmds.createCommands();
         modUsers.createUsers();

@@ -32,7 +32,7 @@ function getLocationinfo() {
 function getTownId(townName) {
     if (taiwanLocations == null || townName == null) return 0;
     for (let city of taiwanLocations)
-        for (let town of taiwanLocations.towns) {
+        for (let town of city) {
             if (town.name == townName)
                 return town.id;
         }

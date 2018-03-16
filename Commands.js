@@ -410,11 +410,15 @@ function methodSetConfig(event, userName, queryText, cb) {
 
 function methodWeather(event, userName, queryText, cb) {
     let cmdStr = queryText.split(' ');
-    if (cmdStr.length == 2) {
-        modWeather.checkWeatherTaiwan(cmdStr[1], result => {
-            cb(result);
-        });
-    }
+    let town;
+
+    if (cmdStr.length >= 2)
+        town = cmdStr[1];
+    else
+        town = '竹北市';
+    modWeather.checkWeatherTaiwan(town, result => {
+        cb(result);
+    });
 }
 
 let defaultCommands = [

@@ -30,8 +30,7 @@ function getLocationinfo() {
 }
 
 function getTownId(townName) {
-    if (taiwanLocations == null) return 0;
-    if (townName == null) townName = '竹北市';
+    if (taiwanLocations == null || townName == null) return 0;
     for (let city of taiwanLocations)
         for (let town of taiwanLocations.towns) {
             if (town.name == townName)

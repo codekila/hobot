@@ -11,6 +11,7 @@ const momentTZ = require('moment-timezone');
 const modConfigs = require('./Configs.js');
 const modUsers = require('./Users.js');
 const jobs = require('./cronJobs.js');
+const modWeather = require('./weather.js');
 
 let mongoose = null;
 let QuerySchema = null;
@@ -405,6 +406,12 @@ function methodSetConfig(event, userName, queryText, cb) {
             cb('OK');
         });
     }
+}
+
+function methodWeather(event, userName, queryText, cb) {
+    modWeather.checkWeatherTaiwan(result => {
+        cb(result);
+    });
 }
 
 let defaultCommands = [
@@ -1350,6 +1357,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodSetConfig"
+            }
+        ]
+    },
+    {
+        cmd: "weather",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "weather", "天氣"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodWeather"
             }
         ]
     }

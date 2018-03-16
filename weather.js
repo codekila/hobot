@@ -19,7 +19,7 @@ module.exports = {
 let taiwanLocations = null;
 
 function init() {
-    this.getLocationinfo();
+    getLocationinfo();
 }
 
 function getLocationinfo() {
@@ -41,7 +41,7 @@ function getTownId(townName) {
 }
 
 function checkWeatherTaiwan(townName, cb) {
-    let townId = this.getTownId(townName);
+    let townId = getTownId(townName);
 
     if (townId == 0) {
         cb('找不到這個名字的天氣喔');

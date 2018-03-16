@@ -5,7 +5,7 @@
 "use strict";
 
 const moment = require('moment');
-const http = require('request');
+const request = require('request');
 
 const modConfigs = require('./Configs.js');
 const modCmds = require('./Commands.js');

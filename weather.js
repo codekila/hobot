@@ -46,7 +46,7 @@ function checkWeatherTaiwan(townName, cb) {
         cb('找不到這個名字的天氣喔');
         return;
     }
-    console.log(townName + ': id = ' + townid);
+    console.log(townName + ': id = ' + townId);
     request('https://works.ioa.tw/weather/api/weathers/:' + townId + 'id.json', { json: true }, (err, res, body) => {
         if (err) {
             cb(err.message);

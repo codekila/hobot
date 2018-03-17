@@ -125,7 +125,8 @@ function checkWeatherYahoo(location, cb) {
             } else {
                 // try to shorten the calls
                 let channel = yw.query.results.channel;
-                let text = channel.location.city + ',' + channel.location.region;
+                let text = channel.location.city + ',' +
+                        (channel.location.region == channel.location.city) ? channel.location.country : channel.location.region;
                 let temp;
 
                 if (channel.units.temperature == 'F') {
@@ -134,7 +135,7 @@ function checkWeatherYahoo(location, cb) {
                     temp = channel.item.condition.temp + '°C(' + Math.floor((channel.item.condition.temp*9/5)+32) + '°F)';
                 }
 
-                text += '現在溫度' + temp +' 濕度' + channel.atmosphere.humidity + '% ' + yahooWeatherCode[channel.item.condition.code] + '.\n';
+                text += ' 現在' + yahooWeatherCode[channel.item.condition.code] + '，溫度' + temp +' / 濕度' + channel.atmosphere.humidity + '% '  '\n';
 
                 for (let i in channel.item.forecast) {
                     let forecast = channel.item.forecast[i];
@@ -147,7 +148,7 @@ function checkWeatherYahoo(location, cb) {
                         tempHigh = forecast.high;
                         tempLow = forecast.low;
                     }
-                    text += '\n' + weekOfDays[forecast.day] + ': ' + tempHigh + '/' + tempLow + '°C, ' + yahooWeatherCode[forecast.code];
+                    text += '\n' + weekOfDays[forecast.day] + ': ' + tempHigh + '°C / ' + tempLow + '°C  ' + yahooWeatherCode[forecast.code];
                     if (i == 4) break; // display 5 days at most
                 }
                 cb(text);

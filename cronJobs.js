@@ -5,12 +5,14 @@ const moment = require('moment');
 const modConfigs = require('./Configs.js');
 const modCmds = require('./Commands.js');
 const modUsers = require('./Users.js');
+const modWeather = require('./weather.js');
 
 module.exports = {
     init: init,
     checkWhoIsIdling: jobCheckWhoIsIdling,
     checkWhenSabReturns: jobCheckWhenSabReturns,
-    checkBirthdays: jobCheckBirthdays
+    checkBirthdays: jobCheckBirthdays,
+    checkWeather: jobCheckWeather
 };
 
 function init() {
@@ -52,6 +54,23 @@ function jobCheckWhenSabReturns() {
 
 function jobCheckBirthdays() {
     modUsers.checkBirthdays(result => {
+        if (result)
+            global.config.botClient.pushMessage(global.config.channel3idiots, {
+                type: 'text',
+                text: result
+            });
+    });
+}
+
+function jobCheckWeather() {
+    modWeather.checkWeather('Chupei Taiwan', result => {
+        if (result)
+            global.config.botClient.pushMessage(global.config.channel3idiots, {
+                type: 'text',
+                text: result
+            });
+    });
+    modWeather.checkWeather('San Diego CA', result => {
         if (result)
             global.config.botClient.pushMessage(global.config.channel3idiots, {
                 type: 'text',

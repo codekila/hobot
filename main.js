@@ -245,6 +245,8 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         /*
             if hearbeat is not updated for more than one minute it means the instance was swapped out
          */
+        jobs.checkWeather();
+
         console.log("hearbeat:" + now.toString());
         if (cronTimestamps.hearbeat && (now - cronTimestamps.hearbeat) >= (5 * 60 * 1000)) {
             let mins = Math.floor((now - cronTimestamps.hearbeat)/(60*1000));
@@ -253,7 +255,7 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
             if (Math.floor(mins/60) > 0)
                 text += Math.floor(mins/60) + '小時';
             if (Math.floor(mins%60) > 0)
-                text += '又' + Math.floor(mins%60) + '分鐘'
+                text += Math.floor(mins/60)>0 ? '又':'' + Math.floor(mins%60) + '分鐘'
             text += '啦～';
             global.config.botClient.pushMessage(global.config.channel3idiots, {
                 type: 'text',
@@ -271,6 +273,7 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         // daily jobs
         if (cronTimestamps.cronTimestampDaily && (now - cronTimestamps.cronTimestampDaily) >= (24 * 60 * 60 * 1000 - 100)) {
             console.log("daily housekeeping:" + now.toString());
+            jobs.checkWeather();
             jobs.checkWhenSabReturns();
             modConfigs.set('cronTimestampDaily', now.toString());
         }

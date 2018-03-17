@@ -140,13 +140,13 @@ function checkWeatherYahoo(location, cb) {
                     let tempHigh, tempLow;
 
                     if (channel.units.temperature == 'F') {
-                        tempHigh = forecast.high + '°F(' + Math.floor((forecast.high-32)*5/9) + '°C)';
-                        tempLow = forecast.low + '°F(' + Math.floor((forecast.low-32)*5/9) + '°C)';
+                        tempHigh = Math.floor((forecast.high-32)*5/9);
+                        tempLow = Math.floor((forecast.low-32)*5/9);
                     } else {
-                        tempHigh = forecast.high + '°C(' + Math.floor((forecast.high*9/5)+32) + '°F)';
-                        tempLow = forecast.low + '°C(' + Math.floor((forecast.low*9/5)+32) + '°F)';
+                        tempHigh = forecast.high;
+                        tempLow = forecast.low;
                     }
-                    text += '\n' + forecast.day + ' High:' + tempHigh + 'Low:' + tempLow + ', ' + forecast.text;
+                    text += '\n' + forecast.day + ': ' + tempHigh + '/' + tempLow + '(°C), ' + forecast.text;
                 }
                 cb(text);
             }

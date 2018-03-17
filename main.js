@@ -245,9 +245,8 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         /*
             if hearbeat is not updated for more than one minute it means the instance was swapped out
          */
-        jobs.checkWeather();
-
         console.log("hearbeat:" + now.toString());
+    
         if (cronTimestamps.hearbeat && (now - cronTimestamps.hearbeat) >= (5 * 60 * 1000)) {
             let mins = Math.floor((now - cronTimestamps.hearbeat)/(60*1000));
             let text = '何寶剛剛睡了';

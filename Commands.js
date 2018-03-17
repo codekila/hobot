@@ -1221,7 +1221,7 @@ let defaultCommands = [
                 priority: "default",
                 model: "precise",
                 texts: [
-                    "time", "now"
+                    "t", "time", "now"
                 ]
             },
             {
@@ -1368,7 +1368,7 @@ let defaultCommands = [
                 priority: "default",
                 model: "command",
                 texts: [
-                    "weather", "天氣"
+                    "w", "weather", "天氣"
                 ]
             }
         ],

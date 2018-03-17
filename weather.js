@@ -126,8 +126,15 @@ function checkWeatherYahoo(location, cb) {
                 // try to shorten the calls
                 let channel = yw.query.results.channel;
                 let text = 'Weather in ' + channel.location.city + ',' + channel.location.region + ',' + channel.location.country + ' now is ';
+                let temp;
 
-                text += channel.item.condition.text +', Temperature at ' + channel.item.condition.temp + '°' + channel.units.temperature +', Humidity at ' + channel.atmosphere.humidity + '%.';
+                if (channel.units.temperature == 'F') {
+                    temp = channel.item.condition.temp + '°F(' + Math.floor((channel.item.condition.temp-32)*5/9) + '°C)';
+                } else {
+                    temp = channel.item.condition.temp + '°C(' + Math.floor((channel.item.condition.temp*9/5)+32) + '°F)';
+                }
+
+                text += channel.item.condition.text +', Temperature at ' + temp +', Humidity at ' + channel.atmosphere.humidity + '%.';
 
                 //text += '：' + townInfo.at;
                 cb(text);

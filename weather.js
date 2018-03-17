@@ -125,7 +125,7 @@ function checkWeatherYahoo(location, cb) {
             } else {
                 // try to shorten the calls
                 let channel = yw.query.results.channel;
-                let text = channel.location.city + ',' + ((channel.location.region == channel.location.city) ? channel.location.country : channel.location.region);
+                let text = channel.location.city + ',' + ((channel.location.region.trim().toLowerCase() == channel.location.city.trim().toLowerCase()) ? channel.location.country : channel.location.region);
                 let temp;
 
                 if (channel.units.temperature == 'F') {

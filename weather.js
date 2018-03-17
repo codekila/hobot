@@ -125,9 +125,9 @@ function checkWeatherYahoo(location, cb) {
             } else {
                 // try to shorten the calls
                 let channel = yw.query.results.channel;
-                let text = channel.location.city + ',' + channel.location.region + ',' + channel.location.country + '：';
+                let text = channel.location.city + ',' + channel.location.region + ',' + channel.location.country + ':';
 
-                text += '現在溫度' + channel.item.condition.temp + '度' + channel.units.temperature +'，濕度' + channel.atmosphere.humidity + '%，' + channel.item.condition.text + '。\n';
+                text += 'Now it\'s ' + channel.item.condition.text +', temperature at ' + channel.item.condition.temp + '°' + channel.units.temperature +', humidity at ' + channel.atmosphere.humidity + '%';
 
                 //text += '：' + townInfo.at;
                 cb(text);

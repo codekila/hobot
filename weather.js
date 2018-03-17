@@ -135,7 +135,7 @@ function checkWeatherYahoo(location, cb) {
                     temp = channel.item.condition.temp + '°C(' + Math.floor((channel.item.condition.temp*9/5)+32) + '°F)';
                 }
 
-                text += ' 現在' + yahooWeatherCode[channel.item.condition.code] + '，溫度' + temp +' / 濕度' + channel.atmosphere.humidity + '% '  '\n';
+                text += ' 現在' + yahooWeatherCode[channel.item.condition.code] + '，溫度' + temp +' / 濕度' + channel.atmosphere.humidity + '%\n';
 
                 for (let i in channel.item.forecast) {
                     let forecast = channel.item.forecast[i];

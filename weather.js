@@ -125,7 +125,7 @@ function checkWeatherYahoo(location, cb) {
             } else {
                 // try to shorten the calls
                 let channel = yw.query.results.channel;
-                let text = 'Weather in ' + channel.location.city + ',' + channel.location.region + ' now is ';
+                let text = channel.location.city + ',' + channel.location.region;
                 let temp;
 
                 if (channel.units.temperature == 'F') {
@@ -134,9 +134,10 @@ function checkWeatherYahoo(location, cb) {
                     temp = channel.item.condition.temp + '°C(' + Math.floor((channel.item.condition.temp*9/5)+32) + '°F)';
                 }
 
-                text += temp +', H' + channel.atmosphere.humidity + '%,' + channel.item.condition.text + '.\n';
+                text += '現在溫度' + temp +' 濕度' + channel.atmosphere.humidity + '% ' + yahooWeatherCode[channel.item.condition.code] + '.\n';
 
-                for (let forecast of channel.item.forecast) {
+                for (let i in channel.item.forecast) {
+                    let channel = channel.item.forecast[i];
                     let tempHigh, tempLow;
 
                     if (channel.units.temperature == 'F') {
@@ -146,7 +147,8 @@ function checkWeatherYahoo(location, cb) {
                         tempHigh = forecast.high;
                         tempLow = forecast.low;
                     }
-                    text += '\n' + forecast.day + ': ' + tempHigh + '/' + tempLow + '°C, ' + forecast.text;
+                    text += '\n' + weekOfDays[forecast.day] + ': ' + tempHigh + '/' + tempLow + '°C, ' + yahooWeatherCode[forecast.code];
+                    if (i == 4) break; // display 5 days at most
                 }
                 cb(text);
             }
@@ -156,6 +158,67 @@ function checkWeatherYahoo(location, cb) {
         }
     });
 }
+
+const weekOfDays = {
+    'Sun': '週日',
+    'Mon': '週一',
+    'Tue': '週二',
+    'Wed': '週三',
+    'Thr': '週四',
+    'Fri': '週五',
+    'Sat': '週六'
+};
+
+const yahooWeatherCode = [
+    '龍捲風', // 0
+    '熱帶風暴',
+    '颱風‘,
+    '嚴重暴風雨',
+    '暴風雨',
+    '雨夾雪', // 5
+    '雨夾雪',
+    '雨夾雪',
+    '凍雨',
+    '細雨',
+    '凍雨', // 10
+    '陣雨',
+    '陣雨',
+    '毛雪',
+    '雪夾雨',
+    '吹雪', // 15
+    '下雪',
+    '冰雹',
+    '雨夾雪',
+    '沙塵',
+    '有霧', // 20
+    '有霾',
+    '有煙',
+    '大風',
+    '有風',
+    '寒冷', // 25
+    '有雲',
+    '陰天',
+    '陰天',
+    '多雲',
+    '多雲', // 30
+    '晴天',
+    '晴天',
+    '晴天',
+    '晴天',
+    '雨夾冰雹', // 35
+    '很熱',
+    '暴雨',
+    '偶有暴雨',
+    '偶有暴雨',
+    '偶有陣雨', // 40
+    '大雪',
+    '偶有雨雪',
+    '大雪',
+    '有雲',
+    '雷陣雨', // 45
+    '雪雨',
+    '雷陣雨'
+];
 
 let x = {
     "query": {

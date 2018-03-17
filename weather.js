@@ -27,8 +27,6 @@ function init() {
 function checkWeather(townName, cb) {
     let townId = getTaiwanTownId(townName);
 
-    console.log(townName + ': id = ' + townId);
-
     if (townId == 0)
         return checkWeatherYahoo(townName, cb);
     else
@@ -120,29 +118,173 @@ function checkFullWeatherYahoo(location, cb) {
  */
 function checkWeatherYahoo(location, cb) {
     getWeatherYahoo(location, yw => {
-        console.log('yw: ' + JSON.stringify(yw));
-        let ans = {};
+        console.log('Yahoo Weather result: ' + JSON.stringify(yw));
         try {
-            if (yw.query.results != null) {
+            if (yw.query.results == null) {
+                cb('not found');
+            } else {
                 // try to shorten the calls
-                let gen = yw.query.results.channel;
-                let info = yw.query.results.channel.item;
+                let channel = yw.query.results.channel;
+                let text = channel.location.city + ',' + channel.location.region, ',' + channel.location.country + '：';
 
-                ans.date = info.condition.date;
-                ans.location = {lat: info.lat, long: info.long};
-                ans.weather = {
-                    temperature: {value: info.condition.temp, units: gen.units.temperature},
-                    wind: {value: gen.wind.speed, units: gen.units.speed},
-                    windChill: {value: gen.wind.chill, units: gen.units.temperature},
-                    condition: info.condition.text
-                };
-                ans.forecast = info.forecast;
+                text += '現在溫度' + channel.item.condition.temp + '度' + channel.units.temperature +'，濕度' + channel.atmosphere.humidity + '%，' + channel.item.condition.text + '。\n';
+
+                //text += '：' + townInfo.at;
+                cb(text);
             }
-            console.log('ans: ' + ans);
-            cb(JSON.stringify(ans));
         } catch (err) {
             console.log(err);
             cb(null);
         }
     });
 }
+
+let x = {
+    "query": {
+        "count": 1,
+        "created": "2018-03-17T00:57:43Z",
+        "lang": "en-US",
+        "results": {
+            "channel": {
+                "units": {
+                    "distance": "mi",
+                    "pressure": "in",
+                    "speed": "mph",
+                    "temperature": "F"
+                },
+                "title": "Yahoo! Weather - Nome, AK, US",
+                "link": "http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2460286/",
+                "description": "Yahoo! Weather for Nome, AK, US",
+                "language": "en-us",
+                "lastBuildDate": "Fri, 16 Mar 2018 04:57 PM AKDT",
+                "ttl": "60",
+                "location": {
+                    "city": "Nome",
+                    "country": "United States",
+                    "region": " AK"
+                },
+                "wind": {
+                    "chill": "-9",
+                    "direction": "23",
+                    "speed": "11"
+                },
+                "atmosphere": {
+                    "humidity": "60",
+                    "pressure": "1018.0",
+                    "rising": "0",
+                    "visibility": "16.1"
+                },
+                "astronomy": {
+                    "sunrise": "9:17 am",
+                    "sunset": "9:6 pm"
+                },
+                "image": {
+                    "title": "Yahoo! Weather",
+                    "width": "142",
+                    "height": "18",
+                    "link": "http://weather.yahoo.com",
+                    "url": "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+                },
+                "item": {
+                    "title": "Conditions for Nome, AK, US at 03:00 PM AKDT",
+                    "lat": "64.499474",
+                    "long": "-165.405792",
+                    "link": "http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2460286/",
+                    "pubDate": "Fri, 16 Mar 2018 03:00 PM AKDT",
+                    "condition": {
+                        "code": "32",
+                        "date": "Fri, 16 Mar 2018 03:00 PM AKDT",
+                        "temp": "3",
+                        "text": "Sunny"
+                    },
+                    "forecast": [
+                        {
+                            "code": "32",
+                            "date": "16 Mar 2018",
+                            "day": "Fri",
+                            "high": "3",
+                            "low": "-4",
+                            "text": "Sunny"
+                        },
+                        {
+                            "code": "14",
+                            "date": "17 Mar 2018",
+                            "day": "Sat",
+                            "high": "20",
+                            "low": "-4",
+                            "text": "Snow Showers"
+                        },
+                        {
+                            "code": "14",
+                            "date": "18 Mar 2018",
+                            "day": "Sun",
+                            "high": "22",
+                            "low": "14",
+                            "text": "Snow Showers"
+                        },
+                        {
+                            "code": "28",
+                            "date": "19 Mar 2018",
+                            "day": "Mon",
+                            "high": "23",
+                            "low": "15",
+                            "text": "Mostly Cloudy"
+                        },
+                        {
+                            "code": "34",
+                            "date": "20 Mar 2018",
+                            "day": "Tue",
+                            "high": "13",
+                            "low": "-1",
+                            "text": "Mostly Sunny"
+                        },
+                        {
+                            "code": "30",
+                            "date": "21 Mar 2018",
+                            "day": "Wed",
+                            "high": "5",
+                            "low": "-3",
+                            "text": "Partly Cloudy"
+                        },
+                        {
+                            "code": "30",
+                            "date": "22 Mar 2018",
+                            "day": "Thu",
+                            "high": "7",
+                            "low": "-2",
+                            "text": "Partly Cloudy"
+                        },
+                        {
+                            "code": "34",
+                            "date": "23 Mar 2018",
+                            "day": "Fri",
+                            "high": "15",
+                            "low": "4",
+                            "text": "Mostly Sunny"
+                        },
+                        {
+                            "code": "30",
+                            "date": "24 Mar 2018",
+                            "day": "Sat",
+                            "high": "14",
+                            "low": "8",
+                            "text": "Partly Cloudy"
+                        },
+                        {
+                            "code": "30",
+                            "date": "25 Mar 2018",
+                            "day": "Sun",
+                            "high": "16",
+                            "low": "5",
+                            "text": "Partly Cloudy"
+                        }
+                    ],
+                    "description": "<![CDATA[<img src=\"http://l.yimg.com/a/i/us/we/52/32.gif\"/>\n<BR />\n<b>Current Conditions:</b>\n<BR />Sunny\n<BR />\n<BR />\n<b>Forecast:</b>\n<BR /> Fri - Sunny. High: 3Low: -4\n<BR /> Sat - Snow Showers. High: 20Low: -4\n<BR /> Sun - Snow Showers. High: 22Low: 14\n<BR /> Mon - Mostly Cloudy. High: 23Low: 15\n<BR /> Tue - Mostly Sunny. High: 13Low: -1\n<BR />\n<BR />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2460286/\">Full Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>",
+                    "guid": {
+                        "isPermaLink": "false"
+                    }
+                }
+            }
+        }
+    }
+};

@@ -5,7 +5,6 @@
 "use strict";
 
 const moment = require('moment');
-var https = require('https');
 const request = require('request');
 
 const modConfigs = require('./Configs.js');
@@ -30,12 +29,8 @@ function checkWeather(townName, cb) {
 
     console.log(townName + ': id = ' + townId);
 
-    if (townId == 0) {
-        // try yahoo weather
-        checkWeatherYahoo(townName).then( res => {
-            return cb(JSON.stringify(res));
-        });
-    }
+    if (townId == 0)
+        return checkWeatherYahoo(townName, cb);
     else
         return checkWeatherTaiwan(townName, cb);
 }
@@ -92,70 +87,62 @@ function checkWeatherTaiwan(townName, cb) {
  */
 
 /*
-    input: location (for example "gainesville, fl")
-    output: full yahoo weather info in json format (see above)
+ input: location (for example "gainesville, fl")
+ output: full yahoo weather info in json format (see above)
  */
-function getWeatherYahoo(location) {
-    return new Promise(function (response, reject) {
-        let locationUrl = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")&format=json&env=store://datatables.org/alltableswithkeys';
+function getWeatherYahoo(location, cb) {
+    let locationUrl = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")&format=json&env=store://datatables.org/alltableswithkeys';
 
-        https.get(locationUrl, function (res) {
-            res.setEncoding('binary');
-
-            let resData = "";
-            res.on('data', function (chunk) {
-                return resData += chunk;
-            });
-            res.on('end', function () {
-                var result = JSON.parse(resData);
-                response(result);
-            });
-        });
+    request(locationUrl, {json: true}, (err, res, body) => {
+        if (err) {
+            console.log(err);
+            cb(null);
+        }
+        else {
+            cb(body);
+        }
     });
 }
 
 /*
-    input: location (for example "gainesville, fl")
-    output: full yahoo weather info in json format (https://developer.yahoo.com/weather/)
+ input: location (for example "gainesville, fl")
+ output: full yahoo weather info in json format (https://developer.yahoo.com/weather/)
  */
-function checkFullWeatherYahoo(location) {
-    return new Promise(function (response, reject) {
-        getWeatherYahoo(location).then(function (ans) {
-            response(ans);
-        });
+function checkFullWeatherYahoo(location, cb) {
+    getWeatherYahoo(location, ans => {
+        cb(ans);
     });
 }
 
 /*
-    input: location (for example "gainesville, fl")
-    output: simplified yahoo weather info in json format
+ input: location (for example "gainesville, fl")
+ output: simplified yahoo weather info in json format
  */
-function checkWeatherYahoo(location) {
-    return new Promise(function (response, reject) {
-        getWeatherYahoo(location).then(function (yw) {
-            console.log('yw: ' + JSON.stringify(yw));
-            let ans = {};
-            try {
-                if (yw.query.results != null) {
-                    // try to shorten the calls
-                    let gen = yw.query.results.channel;
-                    let info = yw.query.results.channel.item;
+function checkWeatherYahoo(location, cb) {
+    getWeatherYahoo(location, yw => {
+        console.log('yw: ' + JSON.stringify(yw));
+        let ans = {};
+        try {
+            if (yw.query.results != null) {
+                // try to shorten the calls
+                let gen = yw.query.results.channel;
+                let info = yw.query.results.channel.item;
 
-                    ans.date = info.condition.date;
-                    ans.location = {lat: info.lat, long: info.long};
-                    ans.weather = {
-                        temperature: {value: info.condition.temp, units: gen.units.temperature},
-                        wind: {value: gen.wind.speed, units: gen.units.speed},
-                        windChill: {value: gen.wind.chill, units: gen.units.temperature},
-                        condition: info.condition.text
-                    };
-                    ans.forecast = info.forecast;
-                }
-                console.log('ans: ' + ans);
-                response(ans);
-            } catch (err) {
-                console.log(err);
+                ans.date = info.condition.date;
+                ans.location = {lat: info.lat, long: info.long};
+                ans.weather = {
+                    temperature: {value: info.condition.temp, units: gen.units.temperature},
+                    wind: {value: gen.wind.speed, units: gen.units.speed},
+                    windChill: {value: gen.wind.chill, units: gen.units.temperature},
+                    condition: info.condition.text
+                };
+                ans.forecast = info.forecast;
             }
-        });
+            console.log('ans: ' + ans);
+            cb(ans);
+        } catch (err) {
+            console.log(err);
+            cb(null);
+        }
     });
 }

@@ -125,7 +125,7 @@ function checkWeatherYahoo(location, cb) {
             } else {
                 // try to shorten the calls
                 let channel = yw.query.results.channel;
-                let text = 'Weather in ' + channel.location.city + ',' + channel.location.region + ',' + channel.location.country + ' now is ';
+                let text = 'Weather in ' + channel.location.city + ',' + channel.location.region + ' now is ';
                 let temp;
 
                 if (channel.units.temperature == 'F') {
@@ -134,7 +134,7 @@ function checkWeatherYahoo(location, cb) {
                     temp = channel.item.condition.temp + '°C(' + Math.floor((channel.item.condition.temp*9/5)+32) + '°F)';
                 }
 
-                text += channel.item.condition.text +', Temperature at ' + temp +', Humidity at ' + channel.atmosphere.humidity + '%.';
+                text += temp +', H' + channel.atmosphere.humidity + '%,' + channel.item.condition.text + '.\n';
 
                 for (let forecast of channel.item.forecast) {
                     let tempHigh, tempLow;
@@ -146,7 +146,7 @@ function checkWeatherYahoo(location, cb) {
                         tempHigh = forecast.high;
                         tempLow = forecast.low;
                     }
-                    text += '\n' + forecast.day + ': ' + tempHigh + '/' + tempLow + '(°C), ' + forecast.text;
+                    text += '\n' + forecast.day + ': ' + tempHigh + '/' + tempLow + '°C, ' + forecast.text;
                 }
                 cb(text);
             }

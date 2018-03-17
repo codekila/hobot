@@ -277,6 +277,7 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         // weekly jobs
         if (cronTimestamps.cronTimestampWeekly && (now - cronTimestamps.cronTimestampWeekly) >= (7 * 24 * 60 * 60 * 1000 - 100)) {
             console.log("weekly housekeeping:" + now.toString());
+            jobs.checkBirthdays();
             modConfigs.set('cronTimestampWeekly', now.toString());
         }
     },

@@ -136,19 +136,21 @@ function checkWeatherYahoo(location) {
             console.log('yw: ' + JSON.stringify(yw));
             let ans = {};
             try {
-                // try to shorten the calls
-                let gen = yw.query.results.channel;
-                let info = yw.query.results.channel.item;
+                if (yw.query.results != null) {
+                    // try to shorten the calls
+                    let gen = yw.query.results.channel;
+                    let info = yw.query.results.channel.item;
 
-                ans.date = info.condition.date;
-                ans.location = {lat: info.lat, long: info.long};
-                ans.weather = {
-                    temperature: {value: info.condition.temp, units: gen.units.temperature},
-                    wind: {value: gen.wind.speed, units: gen.units.speed},
-                    windChill: {value: gen.wind.chill, units: gen.units.temperature},
-                    condition: info.condition.text
-                };
-                ans.forecast = info.forecast;
+                    ans.date = info.condition.date;
+                    ans.location = {lat: info.lat, long: info.long};
+                    ans.weather = {
+                        temperature: {value: info.condition.temp, units: gen.units.temperature},
+                        wind: {value: gen.wind.speed, units: gen.units.speed},
+                        windChill: {value: gen.wind.chill, units: gen.units.temperature},
+                        condition: info.condition.text
+                    };
+                    ans.forecast = info.forecast;
+                }
                 console.log('ans: ' + ans);
                 response(ans);
             } catch (err) {

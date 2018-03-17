@@ -9,7 +9,8 @@ const modUsers = require('./Users.js');
 module.exports = {
     init: init,
     checkWhoIsIdling: jobCheckWhoIsIdling,
-    checkWhenSabReturns: jobCheckWhenSabReturns
+    checkWhenSabReturns: jobCheckWhenSabReturns,
+    checkBirthdays: jobCheckBirthdays
 };
 
 function init() {
@@ -46,5 +47,15 @@ function jobCheckWhenSabReturns() {
                 });
             }
         }
+    });
+}
+
+function jobCheckBirthdays() {
+    modUsers.checkBirthdays(result => {
+        if (result)
+            global.config.botClient.pushMessage(global.config.channel3idiots, {
+                type: 'text',
+                text: result
+            });
     });
 }

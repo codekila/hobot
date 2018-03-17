@@ -28,6 +28,8 @@ function init() {
 function checkWeather(townName, cb) {
     let townId = getTaiwanTownId(townName);
 
+    console.log(townName + ': id = ' + townId);
+
     if (townId == 0) {
         // try yahoo weather
         checkWeatherYahoo(townName).then( res => {
@@ -131,7 +133,7 @@ function checkFullWeatherYahoo(location) {
 function checkWeatherYahoo(location) {
     return new Promise(function (response, reject) {
         getWeatherYahoo(location).then(function (yw) {
-            console.log('yw: ' + yw);
+            console.log('yw: ' + JSON.stringify(yw));
             let ans = {};
             try {
                 // try to shorten the calls

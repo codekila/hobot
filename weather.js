@@ -172,7 +172,7 @@ const weekOfDays = {
 const yahooWeatherCode = [
     '龍捲風', // 0
     '熱帶風暴',
-    '颱風‘,
+    '颱風',
     '嚴重暴風雨',
     '暴風雨',
     '雨夾雪', // 5

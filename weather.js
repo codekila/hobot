@@ -136,8 +136,8 @@ function checkWeatherYahoo(location, cb) {
 
                 text += '現在溫度' + temp +' 濕度' + channel.atmosphere.humidity + '% ' + yahooWeatherCode[channel.item.condition.code] + '.\n';
 
-                for (let i in channel.item.forecast) {
-                    let channel = channel.item.forecast[i];
+                let i = 0;
+                for (let channel of channel.item.forecast) {
                     let tempHigh, tempLow;
 
                     if (channel.units.temperature == 'F') {
@@ -148,7 +148,7 @@ function checkWeatherYahoo(location, cb) {
                         tempLow = forecast.low;
                     }
                     text += '\n' + weekOfDays[forecast.day] + ': ' + tempHigh + '/' + tempLow + '°C, ' + yahooWeatherCode[forecast.code];
-                    if (i == 4) break; // display 5 days at most
+                    if (++i == 5) break; // display 5 days at most
                 }
                 cb(text);
             }

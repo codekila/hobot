@@ -415,6 +415,10 @@ function methodWeather(event, userName, queryText, cb) {
     });
 }
 
+function methodSleep(event, userName, queryText, cb) {
+    global.config.sleepTime = 5;
+}
+
 let defaultCommands = [
     {
         cmd: "idiot",
@@ -1377,6 +1381,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodWeather"
+            }
+        ]
+    },
+    {
+        cmd: "sleep",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "s", "sleep"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodSleep"
             }
         ]
     }

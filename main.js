@@ -27,6 +27,7 @@ const configLINE = {
 global.config = {
     botClient: (()=> new lineBotSdk.Client(configLINE))(),
     botStartTime: (()=> Date.now())(),
+    sleepTime: 0,
     defaultTZ: 'Asia/Taipei',
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
     mongoose: require('mongoose'),
@@ -72,7 +73,7 @@ function handleEvent(event) {
 
 function cbSendReply(event, msgBody) {
     // use reply API
-    if (event != null && msgBody != null) {
+    if (event != null && msgBody != null && global.config.sleepTime == 0) {
         return global.config.botClient.replyMessage(event.replyToken, msgBody).catch((err) => {
             if (err instanceof HTTPError) {
                 console.error('replyMessage error:' + err.statusCode);
@@ -245,7 +246,8 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         /*
             if hearbeat is not updated for more than one minute it means the instance was swapped out
          */
-        console.log("hearbeat:" + now.toString());
+        console.log('sleep: ' + global.config.sleepTime + 'hearbeat:' + now.toString());
+        if (global.config.sleepTime>0) global.config.sleepTime--;
     
         if (cronTimestamps.hearbeat && (now - cronTimestamps.hearbeat) >= (5 * 60 * 1000)) {
             let mins = Math.floor((now - cronTimestamps.hearbeat)/(60*1000));

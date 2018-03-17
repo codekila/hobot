@@ -220,7 +220,7 @@ const yahooWeatherCode = [
     '雷陣雨'
 ];
 
-let x = {
+let sampleData = {
     "query": {
         "count": 1,
         "created": "2018-03-17T00:57:43Z",

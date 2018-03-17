@@ -409,12 +409,10 @@ function methodSetConfig(event, userName, queryText, cb) {
 }
 
 function methodWeather(event, userName, queryText, cb) {
-    let town = queryText.substr(queryText.indexOf(' ')+1);
+    let town = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '竹北市';
 
     console.log('text=' + queryText + ', town=' + town );
-
-    if (town == null || town.length == 0)
-        town = '竹北市';
+    
     modWeather.checkWeather(town, result => {
         cb(result);
     });

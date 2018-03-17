@@ -139,7 +139,7 @@ function checkWeatherYahoo(location, cb) {
                 ans.forecast = info.forecast;
             }
             console.log('ans: ' + ans);
-            cb(ans);
+            cb(JSON.stringify(ans));
         } catch (err) {
             console.log(err);
             cb(null);

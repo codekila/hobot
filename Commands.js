@@ -409,14 +409,11 @@ function methodSetConfig(event, userName, queryText, cb) {
 }
 
 function methodWeather(event, userName, queryText, cb) {
-    let cmdStr = queryText.split(' ');
-    let town;
+    let town = queryText.substr(queryText.indexOf(' '));
 
-    if (cmdStr.length >= 2)
-        town = cmdStr[1];
-    else
+    if (town == null || town.length == 0)
         town = '竹北市';
-    modWeather.checkWeatherTaiwan(town, result => {
+    modWeather.checkWeather(town, result => {
         cb(result);
     });
 }

@@ -136,7 +136,18 @@ function checkWeatherYahoo(location, cb) {
 
                 text += channel.item.condition.text +', Temperature at ' + temp +', Humidity at ' + channel.atmosphere.humidity + '%.';
 
-                //text += '：' + townInfo.at;
+                for (let forecast of channel.item.forecast) {
+                    let tempHigh, tempLow;
+
+                    if (channel.units.temperature == 'F') {
+                        tempHigh = forecast.high + '°F(' + Math.floor((forecast.high-32)*5/9) + '°C)';
+                        tempLow = forecast.low + '°F(' + Math.floor((forecast.low-32)*5/9) + '°C)';
+                    } else {
+                        tempHigh = forecast.high + '°C(' + Math.floor((forecast.high*9/5)+32) + '°F)';
+                        tempLow = forecast.low + '°C(' + Math.floor((forecast.low*9/5)+32) + '°F)';
+                    }
+                    text += '\n' + forecast.day + ' High:' + tempHigh + 'Low:' + tempLow + ', ' + forecast.text;
+                }
                 cb(text);
             }
         } catch (err) {

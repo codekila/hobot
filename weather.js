@@ -164,7 +164,7 @@ const weekOfDays = {
     'Mon': '週一',
     'Tue': '週二',
     'Wed': '週三',
-    'Thr': '週四',
+    'Thu': '週四',
     'Fri': '週五',
     'Sat': '週六'
 };

@@ -39,7 +39,7 @@ function geoCode(address, cb) {
     } else {
         googleMapsClient.geocode({
             address: address,
-            language: 'zh-tw'
+            language: 'zh-TW'
         }, function (err, response) {
             if (err) {
                 console.log(err);

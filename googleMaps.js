@@ -63,7 +63,7 @@ function places(location, cb) {
             location: [location.lat, location.lng],
             rankby: 'distance',
             opennow: true,
-            type: 'food'
+            type: 'restaurant'
         }, function (err, response) {
             if (err) {
                 console.log(err);

@@ -415,6 +415,7 @@ function methodSleep(event, userName, queryText, cb) {
 function methodEat(event, userName, queryText, cb) {
     let address = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '新竹縣竹北市興隆路一段439號';
     gMaps.geoCode(address, location => {
+        console.log('location:' + JSON.stringify(location));
         if (location) {
             gMaps.places(location, cb);
         }
@@ -453,7 +454,7 @@ let defaultCommands = [
                     "對不起，我智商比較低",
                     "說你笨你不相信",
                     "別罵我",
-                    "豬笑鱉沒尾",
+                    "龜笑鱉沒尾",
                     "五十步笑百步",
                     "可能比你聰明一點點",
                     "別笑我啦",

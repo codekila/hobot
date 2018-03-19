@@ -47,7 +47,7 @@ function geoCode(address, cb) {
                 cb(null);
             } else {
                 console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
-                cb(response.json.results[0].geometry.location);
+                cb([response.json.results[0].geometry.location.lat, response.json.results[0].geometry.location.lng]);
             }
         });
     }
@@ -60,7 +60,7 @@ function places(location, cb) {
     } else {
         googleMapsClient.placesNearby({
             language: 'zh-TW',
-            location: [location.lat, location.lng],
+            location: location,
             radius: 1000,
             rankby: 'distance',
             minprice: 1,

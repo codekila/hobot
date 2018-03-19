@@ -38,7 +38,8 @@ function geoCode(address, cb) {
         cb(null);
     } else {
         googleMapsClient.geocode({
-            address: address
+            address: address,
+            language: 'zh-tw'
         }, function (err, response) {
             if (err) {
                 console.log(err);

@@ -47,7 +47,7 @@ function geoCode(address, cb) {
                 cb(null);
             } else {
                 console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
-                cb(location);
+                cb(response.json.results[0].geometry.location);
             }
         });
     }

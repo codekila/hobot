@@ -412,9 +412,13 @@ function methodSleep(event, userName, queryText, cb) {
     global.config.sleepTime = 5;
 }
 
-function methodGeocode(event, userName, queryText, cb) {
+function methodEat(event, userName, queryText, cb) {
     let address = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '新竹縣竹北市興隆路一段439號';
-    gMaps.geoCode(address, cb);
+    gMaps.geoCode(address, location => {
+        if (location) {
+            gMaps.places(location, cb);
+        }
+    });
 }
 
 let defaultCommands = [
@@ -1402,13 +1406,13 @@ let defaultCommands = [
         ]
     },
     {
-        cmd: "geocode",
+        cmd: "eat",
         queries: [
             {
                 priority: "default",
                 model: "command",
                 texts: [
-                    "@geocode"
+                    "eat"
                 ]
             }
         ],
@@ -1416,7 +1420,7 @@ let defaultCommands = [
             {
                 priority: "first",
                 model: "smart",
-                method: "methodGeocode"
+                method: "methodEat"
             }
         ]
     }

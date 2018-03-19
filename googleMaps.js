@@ -19,7 +19,8 @@ const modUsers = require('./Users.js');
 
 module.exports = {
     init: init,
-    geoCode: geoCode
+    geoCode: geoCode,
+    places: places
 };
 
 function init() {
@@ -45,11 +46,37 @@ function geoCode(address, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                let r = response.json.results;
-                console.log('GMaps Geocode repsonse:' + JSON.stringify(r));
-                let text = r[0].geometry.location.lat + ', ' + r[0].geometry.location.lng + '\n';
-                text += r[0].formatted_address;
+                console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
+                cb(response.json.results[0].geometry.location);
+            }
+        });
+    }
+}
 
+function places(location, cb) {
+    console.log('GMaps Places:' + address);
+    if (address == null) {
+        cb(null);
+    } else {
+        googleMapsClient.placesNearby({
+            language: 'zh-TW',
+            location: [location.lat, location.lng],
+            radius: 1000,
+            rankby: 'distance',
+            minprice: 1,
+            maxprice: 4,
+            opennow: true,
+            type: 'restaurant'
+        }, function (err, response) {
+            if (err) {
+                console.log(err);
+                cb(null);
+            } else {
+                let text = '附近餐廳:';
+                console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
+                for (let r of response.json.results) {
+                    text += '\n' + r.name;
+                }
                 cb(text);
             }
         });

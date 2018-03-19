@@ -54,8 +54,8 @@ function geoCode(address, cb) {
 }
 
 function places(location, cb) {
-    console.log('GMaps Places:' + address);
-    if (address == null) {
+    console.log('GMaps Places:' + JSON.stringify(location));
+    if (location == null) {
         cb(null);
     } else {
         googleMapsClient.placesNearby({

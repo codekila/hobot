@@ -72,7 +72,7 @@ function places(location, cb) {
                 let text = '附近餐廳:';
                 console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
                 for (let r of response.json.results) {
-                    text += '\n' + r.name + '(' + r.rating + '): ' + r.vicinity;
+                    text += '\n' + r.name + '(' + (r.rating ? r.rating:0)  + '): ' + r.vicinity;
                 }
                 cb(text);
             }

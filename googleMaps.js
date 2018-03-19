@@ -60,7 +60,7 @@ function places(location, cb) {
     } else {
         googleMapsClient.placesNearby({
             language: 'zh-TW',
-            location: [location.lat, location.lng],
+            location: [parseInt(location.lat), parseInt(location.lng)],
             radius: 1000,
             rankby: 'distance',
             minprice: 1,

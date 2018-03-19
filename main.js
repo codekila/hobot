@@ -15,6 +15,7 @@ const modCmds = require('./Commands.js');
 const modUsers = require('./Users.js');
 const jobs = require('./cronJobs.js');
 const modWeather = require('./weather.js');
+const gMaps = require('./googleMaps.js');
 
 // create LINE SDK configLINE from env variables
 const configLINE = {
@@ -174,6 +175,7 @@ app.listen(port, () => {
         modUsers.init(global.config.mongoose);
         jobs.init();
         modWeather.init();
+        gMaps.init();
 
         modCmds.createCommands();
         modUsers.createUsers();
@@ -246,7 +248,7 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         /*
             if hearbeat is not updated for more than one minute it means the instance was swapped out
          */
-        console.log('sleep: ' + global.config.sleepTime + ', hearbeat: ' + now.toString());
+        console.log('sleep timer: ' + global.config.sleepTime + ', hearbeat: ' + now.toString());
         if (global.config.sleepTime>0) global.config.sleepTime--;
     
         if (cronTimestamps.hearbeat && (now - cronTimestamps.hearbeat) >= (5 * 60 * 1000)) {

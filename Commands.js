@@ -12,6 +12,7 @@ const modConfigs = require('./Configs.js');
 const modUsers = require('./Users.js');
 const jobs = require('./cronJobs.js');
 const modWeather = require('./weather.js');
+const gMaps = require('./googleMaps.js');
 
 let mongoose = null;
 let QuerySchema = null;
@@ -381,21 +382,15 @@ function methodReplyTheImage(event, userName, queryText, cb) {
 }
 
 function methodAddCommand(event, userName, queryText, cb) {
-    addCommand(queryText , result => {
-        cb(result);
-    });
+    addCommand(queryText , cb);
 }
 
 function methodDeleteCommand(event, userName, queryText, cb) {
-    deleteCommand(queryText , result => {
-        cb(result);
-    });
+    deleteCommand(queryText , cb);
 }
 
 function methodShowIdle(event, userName, queryText, cb) {
-    modUsers.showIdle(result => {
-        cb(result);
-    });
+    modUsers.showIdle(cb);
 }
 
 function methodSetConfig(event, userName, queryText, cb) {
@@ -410,13 +405,16 @@ function methodSetConfig(event, userName, queryText, cb) {
 
 function methodWeather(event, userName, queryText, cb) {
     let town = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '竹北市';
-    modWeather.checkWeather(town, result => {
-        cb(result);
-    });
+    modWeather.checkWeather(town, cb);
 }
 
 function methodSleep(event, userName, queryText, cb) {
     global.config.sleepTime = 5;
+}
+
+function methodCmd(event, userName, queryText, cb) {
+    let address = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '新竹縣竹北市興隆路一段439號';
+    gMaps.geoCode(address, cb);
 }
 
 let defaultCommands = [
@@ -1400,6 +1398,25 @@ let defaultCommands = [
                 priority: "first",
                 model: "smart",
                 method: "methodSleep"
+            }
+        ]
+    },
+    {
+        cmd: "geocode",
+        queries: [
+            {
+                priority: "default",
+                model: "command",
+                texts: [
+                    "@c"
+                ]
+            }
+        ],
+        responses: [
+            {
+                priority: "first",
+                model: "smart",
+                method: "methodGeocode"
             }
         ]
     }

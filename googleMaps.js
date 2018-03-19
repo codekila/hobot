@@ -61,8 +61,10 @@ function places(location, cb) {
         googleMapsClient.placesNearby({
             language: 'zh-TW',
             location: [location.lat, location.lng],
-            radius: 1000,
             rankby: 'distance',
+            minprice: 1,
+            maxprice: 4,
+            opennow: true,
             type: 'restaurant'
         }, function (err, response) {
             if (err) {

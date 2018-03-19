@@ -62,10 +62,8 @@ function places(location, cb) {
             language: 'zh-TW',
             location: [location.lat, location.lng],
             rankby: 'distance',
-            minprice: 1,
-            maxprice: 4,
             opennow: true,
-            type: 'restaurant'
+            type: 'food'
         }, function (err, response) {
             if (err) {
                 console.log(err);

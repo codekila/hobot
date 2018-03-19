@@ -33,6 +33,7 @@ function init() {
  * @param cb
  */
 function geoCode(address, cb) {
+    console.log('GMaps Geocode:' + address);
     if (address == null) {
         cb(null);
     } else {
@@ -43,6 +44,7 @@ function geoCode(address, cb) {
                 console.log(err);
                 cb(null);
             } else {
+                console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
                 cb(response.json.results);
             }
         });

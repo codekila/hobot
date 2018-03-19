@@ -44,8 +44,12 @@ function geoCode(address, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
-                cb(response.json.results);
+                let r = response.json.results;
+                console.log('GMaps Geocode repsonse:' + JSON.stringify(r));
+                let text = r[0].geometry.location.lat + ', ' + r[0].geometry.location.lng + '\n';
+                text += r[0].formatted_address;
+
+                cb(text);
             }
         });
     }

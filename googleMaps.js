@@ -95,15 +95,15 @@ function places(location, cb) {
                     }
                 };
 
-                async.forEachSeries(response.json.results,
+                async.eachSeries(response.json.results,
                     (r, cbComplete) => {
                         googleMapsClient.place({
                             placeid: r.place_id,
                             language: 'zh-TW'
-                        }, function (err, response) {
+                        }, (err, response) => {
                             if (err) {
                                 console.log(err);
-                                cb(null);
+                                cbComplete(null);
                             } else {
                                 console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);

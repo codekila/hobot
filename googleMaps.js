@@ -12,6 +12,7 @@ let googleMapsClient = require('@google/maps').createClient({
 
 const moment = require('moment');
 const request = require('request');
+const async = request('async');
 
 const modConfigs = require('./Configs.js');
 const modCmds = require('./Commands.js');
@@ -94,6 +95,33 @@ function places(location, cb) {
                     }
                 };
 
+                async.forEachSeries(response.json.results,
+                    (r, cbComplete) => {
+                        googleMapsClient.place({
+                            placeid: r.place_id,
+                            language: 'zh-TW'
+                        }, function (err, response) {
+                            if (err) {
+                                console.log(err);
+                                cb(null);
+                            } else {
+                                console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
+                                let col = convertToCarouselColumn(response.json.result);
+                                console.log('GMaps Place Detail Carousel:' + JSON.stringify(col));
+                                carouselMsg.columns.push(col);
+                                cbComplete();
+                            }
+                        });
+                    },
+                    err => {
+                        if (err)
+                            console.error("Error:" + err.message);
+                        else {
+                            console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                        }
+                    }
+                );
+                /*
                 for (let r of response.json.results) {
                     googleMapsClient.place({
                         placeid: r.place_id,
@@ -110,6 +138,7 @@ function places(location, cb) {
                         }
                     });
                 }
+                */
             }
         });
     }

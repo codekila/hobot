@@ -98,14 +98,14 @@ function places(location, cb) {
                 async.eachSeries(response.json.results,
                     (r, cbComplete) => {
                         console.log('GMaps Place Detail request: ' + r.name);
-                        /*
+
                         googleMapsClient.place({
                             placeid: r.place_id,
                             language: 'zh-TW'
                         }, (err, response) => {
                             if (err) {
                                 console.log(err);
-                                cbComplete(null);
+                                cbComplete();
                             } else {
                                 console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
@@ -114,8 +114,8 @@ function places(location, cb) {
                                 cbComplete();
                             }
                         });
-                        */
-                        cbComplete();
+
+                        //cbComplete();
                     },
                     err => {
                         if (err)

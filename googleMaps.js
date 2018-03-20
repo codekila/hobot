@@ -105,13 +105,13 @@ function places(location, cb) {
                         }, (err, response) => {
                             if (err) {
                                 console.log(err);
-                                cbComplete();
+                                cbComplete(err);
                             } else {
                                 console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 console.log('GMaps Place Detail Carousel:' + JSON.stringify(col));
                                 carouselMsg.columns.push(col);
-                                cbComplete();
+                                cbComplete(null);
                             }
                         });
 

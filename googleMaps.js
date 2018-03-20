@@ -94,7 +94,7 @@ function places(location, cb) {
                         columns: []
                     }
                 };
-/*
+
                 async.eachSeries(response.json.results,
                     (r, cbComplete) => {
                         console.log('GMaps Place Detail request: ' + r.name);
@@ -111,7 +111,7 @@ function places(location, cb) {
                                 let col = convertToCarouselColumn(response.json.result);
                                 console.log('GMaps Place Detail Carousel: ' + JSON.stringify(col));
                                 carouselMsg.columns.push(col);
-                                cbComplete(null);
+                                cbComplete();
                             }
                         });
                     },
@@ -123,8 +123,8 @@ function places(location, cb) {
                         }
                     }
                 );
-                */
 
+/*
                 for (let r of response.json.results) {
                     googleMapsClient.place({
                         placeid: r.place_id,
@@ -141,7 +141,7 @@ function places(location, cb) {
                         }
                     });
                 }
-                
+                */
             }
         });
     }

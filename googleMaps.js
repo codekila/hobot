@@ -94,7 +94,7 @@ function places(location, cb) {
                         columns: []
                     }
                 };
-
+/*
                 async.eachSeries(response.json.results,
                     (r, cbComplete) => {
                         console.log('GMaps Place Detail request: ' + r.name);
@@ -114,8 +114,6 @@ function places(location, cb) {
                                 cbComplete(null);
                             }
                         });
-
-                        //cbComplete();
                     },
                     err => {
                         if (err)
@@ -125,7 +123,8 @@ function places(location, cb) {
                         }
                     }
                 );
-                /*
+                */
+
                 for (let r of response.json.results) {
                     googleMapsClient.place({
                         placeid: r.place_id,
@@ -142,7 +141,7 @@ function places(location, cb) {
                         }
                     });
                 }
-                */
+                
             }
         });
     }

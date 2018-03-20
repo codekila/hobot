@@ -30,7 +30,7 @@ function init() {
  *
  * Geocode an address
  *
- * @param address
+ * @param address: street address or point of interest
  * @param cb
  */
 function geoCode(address, cb) {
@@ -46,13 +46,18 @@ function geoCode(address, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
+                console.log('GMaps Geocode response:' + JSON.stringify(response.json.results));
                 cb(response.json.results[0].geometry.location);
             }
         });
     }
 }
 
+/**
+ *
+ * @param location: coordinates to look up
+ * @param cb
+ */
 function places(location, cb) {
     console.log('GMaps Places:' + JSON.stringify(location));
     if (location == null) {
@@ -69,12 +74,28 @@ function places(location, cb) {
                 console.log(err);
                 cb(null);
             } else {
+                console.log('GMaps Places response:' + JSON.stringify(response.json.results));
+                /*
                 let text = '附近餐廳:';
-                console.log('GMaps Geocode repsonse:' + JSON.stringify(response.json.results));
                 for (let r of response.json.results) {
-                    text += '\n' + r.name + '(' + (r.rating ? r.rating:'0.0')  + '): ' + r.vicinity;
+                    text += '\n' + r.name + '(' + (r.rating ? r.rating:'0.0')  + '): ' + r.vicinity + '\n';
                 }
                 cb(text);
+                */
+
+                for (let r of response.json.results) {
+                    googleMapsClient.place({
+                        placeid: r.placeid,
+                        language: 'zh-TW'
+                    }, function (err, response) {
+                        if (err) {
+                            console.log(err);
+                            cb(null);
+                        } else {
+                            console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
+                        }
+                    });
+                }
             }
         });
     }

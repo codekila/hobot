@@ -63,6 +63,7 @@ function places(location, cb) {
     if (location == null) {
         cb(null);
     } else {
+        // get a list of places nearby
         googleMapsClient.placesNearby({
             language: 'zh-TW',
             location: [location.lat, location.lng],
@@ -83,6 +84,16 @@ function places(location, cb) {
                 cb(text);
                 */
 
+                // get detail of each place
+                let carouselMsg = {
+                    type: 'template',
+                    altText: 'this is a carousel template',
+                    template: {
+                        type: 'carousel',
+                        columns: []
+                    }
+                };
+
                 for (let r of response.json.results) {
                     googleMapsClient.place({
                         placeid: r.place_id,
@@ -93,10 +104,45 @@ function places(location, cb) {
                             cb(null);
                         } else {
                             console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
+                            let col = convertToCarouselColumn(response.json.result);
+                            console.log('GMaps Place Detail Carousel:' + JSON.stringify(col));
+                            carouselMsg.columns.push(col);
                         }
                     });
                 }
             }
         });
     }
+}
+
+function convertToCarouselColumn(place) {
+    let ret =   {
+                    thumbnailImageUrl: "https://example.com/bot/images/item1.jpg",
+                    imageBackgroundColor: "#FFFFFF",
+                    title: place.name,
+                    text: place.formatted_phone_number,
+                    defaultAction: {
+                        type: 'uri',
+                        label: 'View detail',
+                        uri: 'http://example.com/page/123'
+                    },
+                    actions: [
+                        {
+                            type: "postback",
+                            label: "Buy",
+                            data: "action=buy&itemid=111"
+                        },
+                        {
+                            type: "postback",
+                            label: "Add to cart",
+                            data: "action=add&itemid=111"
+                        },
+                        {
+                            type: "uri",
+                            label: "View detail",
+                            uri: "http://example.com/page/111"
+                        }
+                    ]
+                };
+    return ret;
 }

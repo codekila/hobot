@@ -98,6 +98,7 @@ function places(location, cb) {
                 async.eachSeries(response.json.results,
                     (r, cbComplete) => {
                         console.log('GMaps Place Detail request: ' + r.name);
+                        /*
                         googleMapsClient.place({
                             placeid: r.place_id,
                             language: 'zh-TW'
@@ -113,6 +114,8 @@ function places(location, cb) {
                                 cbComplete();
                             }
                         });
+                        */
+                        cbComplete();
                     },
                     err => {
                         if (err)

@@ -85,7 +85,7 @@ function places(location, cb) {
 
                 for (let r of response.json.results) {
                     googleMapsClient.place({
-                        placeid: r.placeid,
+                        placeid: r.place_id,
                         language: 'zh-TW'
                     }, function (err, response) {
                         if (err) {

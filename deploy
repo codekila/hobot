@@ -1,2 +1,2 @@
-git add .;git commit -m "revision"; git push heroku master
+git add .;git commit -m "revision"; git push -u origin master
 

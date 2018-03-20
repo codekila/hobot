@@ -12,7 +12,7 @@ let googleMapsClient = require('@google/maps').createClient({
 
 const moment = require('moment');
 const request = require('request');
-const async = request('async');
+const async = require('async');
 
 const modConfigs = require('./Configs.js');
 const modCmds = require('./Commands.js');

@@ -134,7 +134,6 @@ function places(location, cb) {
                                 console.log(err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                let result = response.json.result;
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                     if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
                                         let col = convertToCarouselColumn(response.json.result);
@@ -178,6 +177,7 @@ function convertToCarouselColumn(place) {
         actions: []
     };
 
+    /*
     if (place.formatted_phone_number) {
         ret.actions.push({
             type: "uri",
@@ -185,6 +185,6 @@ function convertToCarouselColumn(place) {
             uri: 'tel:' + place.formatted_phone_number
         });
     }
-
+*/
     return ret;
 }

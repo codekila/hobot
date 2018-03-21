@@ -134,7 +134,7 @@ function places(location, cb) {
                                 console.log(err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                     if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
                                         let col = convertToCarouselColumn(response.json.result);
                                         //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
@@ -174,14 +174,10 @@ function convertToCarouselColumn(place) {
             label: "前往店家網站",
             uri: place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8'
         },
-        actions: [{
-            type: "postback",
-            label: "Buy",
-            data: "action=buy&itemid=222"
-        }]
+        actions: []
     };
 
-    /*
+    
     if (place.formatted_phone_number) {
         ret.actions.push({
             type: "uri",

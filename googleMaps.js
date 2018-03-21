@@ -177,12 +177,18 @@ function convertToCarouselColumn(place) {
         actions: []
     };
 
-
+/*
         ret.actions.push({
             type: "uri",
             label: place.formatted_phone_number?place.formatted_phone_number:'無電話',
             uri: 'tel:' + place.formatted_phone_number
         });
-
+*/
+    ret.actions.push({
+        type: "uri",
+        label: "前往店家網站",
+        uri: place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8'
+    });
+    
     return ret;
 }

@@ -174,7 +174,11 @@ function convertToCarouselColumn(place) {
             label: "前往店家網站",
             uri: place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8'
         },
-        actions: []
+        actions: [{
+            type: "postback",
+            label: "Buy",
+            data: "action=buy&itemid=222"
+        }]
     };
 
     /*

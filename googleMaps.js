@@ -95,13 +95,13 @@ function places(location, cbFunc) {
                 };
 
                 async.eachSeries(response.json.results,
-                    (r, callback) => {
+                    function(r, callback) {
                         console.log('GMaps Place Detail request: ' + r.name);
 
                         googleMapsClient.place({
                             placeid: r.place_id,
                             language: 'zh-TW'
-                        }, (err, response) => {
+                        }, function(err, response) {
                             if (err) {
                                 console.log(err);
                                 callback(err);
@@ -114,12 +114,11 @@ function places(location, cbFunc) {
                             }
                         });
                     },
-                    err => {
+                    function (err) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-
                         }
                     }
                 );

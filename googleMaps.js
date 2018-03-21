@@ -136,13 +136,12 @@ function places(location, cb) {
                             } else {
                                 let result = response.json.result;
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                if (result.status == 'OK' && result.name != null) {
                                     if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
                                         let col = convertToCarouselColumn(result);
                                         //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
                                         carouselMsg.template.columns.push(col);
                                     }
-                                }
+                                
                                 cbMyPlaceDetailDone(null);
                             }
                         });

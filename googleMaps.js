@@ -164,30 +164,27 @@ function places(location, cb) {
 const querystring = require("querystring");
 
 function convertToCarouselColumn(place) {
+    let q = querystring.escape(place.name);
     let ret = {
         thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jpg",
         imageBackgroundColor: "#FFFFFF",
         title: place.name,
         text: place.vicinity,
+        defaultAction: {
+            type: "uri",
+            label: "前往店家網站",
+            uri: place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8'
+        },
         actions: []
     };
-
-    let q = querystring.escape(place.name);
 
     if (place.formatted_phone_number) {
         ret.actions.push({
             type: "uri",
             label: place.formatted_phone_number,
-            uri: 'tel://' + place.formatted_phone_number
+            uri: 'tel:' + place.formatted_phone_number
         });
     }
-
-
-    ret.actions.push({
-        type: "uri",
-        label: "店家網站",
-        uri: place.website ? place.website : 'https://www.google.com.tw/search?q='+ q +'&oq=' + q +'&ie=UTF-8'
-    });
 
     return ret;
 }

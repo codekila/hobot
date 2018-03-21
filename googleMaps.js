@@ -88,6 +88,9 @@ function places(location, cb) {
                  cb(text);
                  */
 
+                response.json.results.sort((a,b) => {
+                   return a.rating - b.rating;
+                });
                 response.json.results.splice(0,MAX_LINE_CAROUSEL_NUMBER);
 
                 // get detail of each place

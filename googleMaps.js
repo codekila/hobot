@@ -108,11 +108,9 @@ function places(location, cbFunc) {
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
-                                console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                //carouselMsg.columns.push(col);
-                                console.log('----BEFORE----');
+                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
-                                console.log('----END----');
                             }
                         });
                     },
@@ -139,7 +137,7 @@ function places(location, cbFunc) {
                             console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
                             let col = convertToCarouselColumn(response.json.result);
                             console.log('GMaps Place Detail Carousel:' + JSON.stringify(col));
-                            carouselMsg.columns.push(col);
+                            carouselMsg.template.columns.push(col);
                         }
                     });
                 }

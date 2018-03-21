@@ -119,6 +119,7 @@ function places(location, cb) {
                 };
                 //cb(carouselMsg);
 
+                let i = 0;
 
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
@@ -135,7 +136,8 @@ function places(location, cb) {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                carouselMsg.template.columns.push(col);
+                                if (i++<2)
+                                    carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
                             }
                         });

@@ -78,7 +78,7 @@ function places(location, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                //console.log('GMaps Places response:' + JSON.stringify(response.json.results));
+                console.log('GMaps Places response:' + JSON.stringify(response.json.results));
 
                 /*
                  let text = '附近餐廳:';
@@ -135,11 +135,9 @@ function places(location, cb) {
                                 cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                if (i< MAX_LINE_CAROUSEL_NUMBER) {
-                                    let col = convertToCarouselColumn(response.json.result);
-                                    //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                    carouselMsg.template.columns.push(col);
-                                }
+                                let col = convertToCarouselColumn(response.json.result);
+                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -149,16 +147,6 @@ function places(location, cb) {
                             console.error("Error:" + err.message);
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-                            // sort based on rating
-                            /*
-                            carouselMsg.template.columns.sort((a,b) => {
-                                return b.rating - a.rating;
-                            });
-
-                            // cannot exceed this number
-                            if (carouselMsg.template.columns.length>MAX_LINE_CAROUSEL_NUMBER)
-                                carouselMsg.template.columns.splice(0, MAX_LINE_CAROUSEL_NUMBER);
-                                */
                             cb(carouselMsg);
                         }
                     }

@@ -134,11 +134,12 @@ function places(location, cb) {
                                 console.log(err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                if (i++< MAX_LINE_CAROUSEL_NUMBER)
-                                carouselMsg.template.columns.push(col);
+                                console.log('GMaps Place Detail response: '+ i++);
+                                if (i< MAX_LINE_CAROUSEL_NUMBER)
+                                    carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
                             }
                         });

@@ -165,10 +165,12 @@ function convertToCarouselColumn(place) {
         actions: []
     };
 
+    let q = querystring.escape(place.name);
+
     ret.actions.push({
         type: "uri",
         label: "店家網站",
-        uri: place.website ? place.website : querystring.escape('https://www.google.com.tw/search?q='+ place.name +'&oq=' + place.name+'&ie=UTF-8')
+        uri: place.website ? place.website : 'https://www.google.com.tw/search?q='+ q +'&oq=' + q +'&ie=UTF-8'
     });
 
     return ret;

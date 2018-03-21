@@ -119,6 +119,7 @@ function places(location, cb) {
                 };
                 //cb(carouselMsg);
 
+                let i = 0;
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
@@ -132,12 +133,11 @@ function places(location, cb) {
                                 cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                if (response.json.result.website && response.json.result.website.length > 0) {
-
-                                let col = convertToCarouselColumn(response.json.result);
-                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                carouselMsg.template.columns.push(col);
-                            }
+                                if (response.json.result.website && response.json.result.website.length > 0 && i++<2) {
+                                    let col = convertToCarouselColumn(response.json.result);
+                                    //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                    carouselMsg.template.columns.push(col);
+                                }
                                 cbMyPlaceDetailDone(null);
                             }
                         });

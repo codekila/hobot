@@ -93,55 +93,39 @@ function places(location, cbFunc) {
                         columns: []
                     }
                 };
+                global.config.botClient.pushMessage(global.config.channelTest, carouselMsg);
 
-                async.each(response.json.results,
-                    (r, cbMyPlaceDetailDone) => {
-                        console.log('GMaps Place Detail request=> ' + r.name);
+                /*
+                                async.each(response.json.results,
+                                    (r, cbMyPlaceDetailDone) => {
+                                        console.log('GMaps Place Detail request=> ' + r.name);
 
-                        googleMapsClient.place({
-                            placeid: r.place_id,
-                            language: 'zh-TW'
-                        }, (err, response) => {
-                            if (err) {
-                                console.log(err);
-                                cbMyPlaceDetailDone(err);
-                            } else {
-                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                let col = convertToCarouselColumn(response.json.result);
-                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                carouselMsg.template.columns.push(col);
-                                cbMyPlaceDetailDone(null);
-                            }
-                        });
-                    },
-                    err => {
-                        if (err)
-                            console.error("Error:" + err.message);
-                        else {
-                            //console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-                            global.config.botClient.pushMessage(global.config.channelTest, carouselMsg);
-                        }
-                    }
-                );
-
-/*
-                for (let r of response.json.results) {
-                    googleMapsClient.place({
-                        placeid: r.place_id,
-                        language: 'zh-TW'
-                    }, function (err, response) {
-                        if (err) {
-                            console.log(err);
-                            cb(null);
-                        } else {
-                            console.log('GMaps Place Detail response:' + JSON.stringify(response.json.result));
-                            let col = convertToCarouselColumn(response.json.result);
-                            console.log('GMaps Place Detail Carousel:' + JSON.stringify(col));
-                            carouselMsg.template.columns.push(col);
-                        }
-                    });
-                }
-                */
+                                        googleMapsClient.place({
+                                            placeid: r.place_id,
+                                            language: 'zh-TW'
+                                        }, (err, response) => {
+                                            if (err) {
+                                                console.log(err);
+                                                cbMyPlaceDetailDone(err);
+                                            } else {
+                                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                                let col = convertToCarouselColumn(response.json.result);
+                                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                                carouselMsg.template.columns.push(col);
+                                                cbMyPlaceDetailDone(null);
+                                            }
+                                        });
+                                    },
+                                    err => {
+                                        if (err)
+                                            console.error("Error:" + err.message);
+                                        else {
+                                            //console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                                            global.config.botClient.pushMessage(global.config.channelTest, carouselMsg);
+                                        }
+                                    }
+                                );
+                                */
             }
         });
     }

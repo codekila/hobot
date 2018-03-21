@@ -177,14 +177,12 @@ function convertToCarouselColumn(place) {
         actions: []
     };
 
-    
-    if (place.formatted_phone_number) {
+
         ret.actions.push({
             type: "uri",
-            label: place.formatted_phone_number,
+            label: place.formatted_phone_number?place.formatted_phone_number:'無電話',
             uri: 'tel:' + place.formatted_phone_number
         });
-    }
-*/
+
     return ret;
 }

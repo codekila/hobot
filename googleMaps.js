@@ -111,7 +111,7 @@ function places(location, cb) {
 
                 let carouselMsg = {
                     type: 'template',
-                    altText: 'this is a carousel template',
+                    altText: '何寶推薦選擇',
                     template: {
                         type: "carousel",
                         columns: []
@@ -133,7 +133,7 @@ function places(location, cb) {
                                 cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                if (response.json.result.website && response.json.result.website.length > 0 && i++<9) {
+                                if (response.json.result.website && response.json.result.website.length > 0 && i++<15) {
                                     let col = convertToCarouselColumn(response.json.result);
                                     //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
                                     carouselMsg.template.columns.push(col);

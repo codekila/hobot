@@ -78,7 +78,7 @@ function places(location, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                console.log('GMaps Places response:' + JSON.stringify(response.json.results));
+                //console.log('GMaps Places response:' + JSON.stringify(response.json.results));
 
                 /*
                  let text = '附近餐廳:';
@@ -127,7 +127,7 @@ function places(location, cb) {
                 //cb(carouselMsg);
 
                 let i = 0;
-                async.each(response.json.results,
+                async.eachSeries(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
 

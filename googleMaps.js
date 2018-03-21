@@ -135,9 +135,11 @@ function places(location, cb) {
                                 cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                let col = convertToCarouselColumn(response.json.result);
-                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                carouselMsg.template.columns.push(col);
+                                if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
+                                    let col = convertToCarouselColumn(response.json.result);
+                                    //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                    carouselMsg.template.columns.push(col);
+                                }
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -173,7 +175,7 @@ function convertToCarouselColumn(place) {
         actions: []
     };
 
-    if (place.photos[0]) {
+    if (place.photos.length>0) {
         ret.thumbnailImageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
         ret.imageBackgroundColor = "#FFFFFF";
     }

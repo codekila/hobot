@@ -59,7 +59,7 @@ function geoCode(address, cb) {
  * @param location: coordinates to look up
  * @param cb
  */
-function places(location, cbFunc) {
+function places(location, cb) {
     console.log('GMaps Places:' + JSON.stringify(location));
     if (location == null) {
         cb(null);
@@ -74,7 +74,7 @@ function places(location, cbFunc) {
         }, function (err, response) {
             if (err) {
                 console.log(err);
-                cbFunc(null);
+                cb(null);
             } else {
                 console.log('GMaps Places response:' + JSON.stringify(response.json.results));
 
@@ -82,7 +82,7 @@ function places(location, cbFunc) {
                 for (let r of response.json.results) {
                     text += '\n' + r.name + '(' + (r.rating ? r.rating:'0.0')  + '): ' + r.vicinity + '\n';
                 }
-                cbFunc(text);
+                cb(text);
 
                 // get detail of each place
                 let carouselMsg = {
@@ -93,7 +93,7 @@ function places(location, cbFunc) {
                         columns: []
                     }
                 };
-                global.config.botClient.pushMessage(global.config.channelTest, carouselMsg);
+                cb(carouselMsg);
 
                 /*
                                 async.each(response.json.results,

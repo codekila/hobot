@@ -417,7 +417,9 @@ function methodEat(event, userName, queryText, cb) {
     gMaps.geoCode(address, location => {
         console.log('location:' + JSON.stringify(location));
         if (location) {
-            gMaps.places(location, cb);
+            gMaps.places(location, carousel => {
+                global.config.botClient.replyMessage(event.replyToken, carousel);
+            });
         }
     });
 }

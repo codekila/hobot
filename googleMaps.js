@@ -78,12 +78,14 @@ function places(location, cb) {
             } else {
                 console.log('GMaps Places response:' + JSON.stringify(response.json.results));
 
+                /*
                 let text = '附近餐廳:';
                 for (let r of response.json.results) {
                     text += '\n' + r.name + '(' + (r.rating ? r.rating:'0.0')  + '): ' + r.vicinity + '\n';
                 }
                 cb(text);
-
+*/
+                
                 // get detail of each place
                 let carouselMsg = {
                     type: 'template',

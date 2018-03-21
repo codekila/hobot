@@ -134,13 +134,10 @@ function places(location, cb) {
                                 console.log(err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                    if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
-                                        let col = convertToCarouselColumn(response.json.result);
-                                        //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                        carouselMsg.template.columns.push(col);
-                                    }
-
+                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                let col = convertToCarouselColumn(response.json.result);
+                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -149,7 +146,14 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                            //console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                            // sort based on rating
+                            carouselMsg.sort((a,b) => {
+                                return b.rating - a.rating;
+                            });
+                            // cannot exceed this number
+                            if (carouselMsg.length>MAX_LINE_CAROUSEL_NUMBER)
+                                carouselMsg.splice(0, MAX_LINE_CAROUSEL_NUMBER);
                             cb(carouselMsg);
                         }
                     }
@@ -164,31 +168,28 @@ const querystring = require("querystring");
 
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
+    let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
     let ret = {
-        thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
-        imageBackgroundColor: "#FFFFFF",
         title: place.name,
         text: place.vicinity,
         defaultAction: {
             type: "uri",
             label: "前往店家網站",
-            uri: place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8'
+            uri: uri
         },
         actions: []
     };
 
-/*
-        ret.actions.push({
-            type: "uri",
-            label: place.formatted_phone_number?place.formatted_phone_number:'無電話',
-            uri: 'tel:' + place.formatted_phone_number
-        });
-*/
+    if (place.photos[0]) {
+        ret.thumbnailImageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
+        ret.imageBackgroundColor = "#FFFFFF";
+    }
+
     ret.actions.push({
         type: "uri",
         label: "前往店家網站",
-        uri: place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8'
+        uri: uri
     });
-    
+
     return ret;
 }

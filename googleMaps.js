@@ -85,14 +85,30 @@ function places(location, cb) {
                 }
                 cb(text);
 */
-                
+
                 // get detail of each place
                 let carouselMsg = {
                     type: 'template',
                     altText: 'this is a carousel template',
                     template: {
+                        type: "confirm",
+                        text: "Are you sure?",
+                        actions: [
+                            {
+                                type: "message",
+                                label: "Yes",
+                                text: "yes"
+                            },
+                            {
+                                type: "message",
+                                label: "No",
+                                text: "no"
+                            }
+                        ]
+                        /*
                         type: 'carousel',
                         columns: []
+                        */
                     }
                 };
                 cb(carouselMsg);

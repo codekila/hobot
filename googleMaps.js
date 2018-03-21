@@ -154,6 +154,8 @@ function places(location, cb) {
     }
 }
 
+const querystring = require("querystring");
+
 function convertToCarouselColumn(place) {
     let ret = {
         thumbnailImageUrl: "https://hobot86.herokuapp.com/static/public/images/store/sky/preview.jog",
@@ -163,11 +165,11 @@ function convertToCarouselColumn(place) {
         actions: []
     };
 
-        ret.actions.push({
-            type: "uri",
-            label: "店家網站",
-            uri: place.website ? place.website : 'https://www.google.com.tw/search?q='+ place.name +'&oq=' + place.name+'&ie=UTF-8'
-        });
+    ret.actions.push({
+        type: "uri",
+        label: "店家網站",
+        uri: place.website ? place.website : querystring.stringify('https://www.google.com.tw/search?q='+ place.name +'&oq=' + place.name+'&ie=UTF-8')
+    });
 
     return ret;
 }

@@ -157,7 +157,7 @@ function places(location, cb) {
 
 function convertToCarouselColumn(place) {
     let ret = {
-        thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jog",
+        //thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jog",
         //imageBackgroundColor: "#FFFFFF",
         title: place.name ? place.name : '',
         text: place.formatted_phone_number ? place.formatted_phone_number : '無電話',

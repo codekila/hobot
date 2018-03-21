@@ -78,7 +78,7 @@ function places(location, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                console.log('GMaps Places response:' + JSON.stringify(response.json.results));
+                //console.log('GMaps Places response:' + JSON.stringify(response.json.results));
 
                 /*
                  let text = '附近餐廳:';
@@ -146,14 +146,14 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            //console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                            console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
                             // sort based on rating
-                            carouselMsg.sort((a,b) => {
+                            carouselMsg.columns.sort((a,b) => {
                                 return b.rating - a.rating;
                             });
                             // cannot exceed this number
-                            if (carouselMsg.length>MAX_LINE_CAROUSEL_NUMBER)
-                                carouselMsg.splice(0, MAX_LINE_CAROUSEL_NUMBER);
+                            if (carouselMsg.columns.length>MAX_LINE_CAROUSEL_NUMBER)
+                                carouselMsg.columns.splice(0, MAX_LINE_CAROUSEL_NUMBER);
                             cb(carouselMsg);
                         }
                     }

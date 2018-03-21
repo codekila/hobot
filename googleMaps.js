@@ -148,9 +148,11 @@ function places(location, cb) {
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
                             // sort based on rating
+                            /*
                             carouselMsg.template.columns.sort((a,b) => {
                                 return b.rating - a.rating;
                             });
+                            */
                             // cannot exceed this number
                             if (carouselMsg.template.columns.length>MAX_LINE_CAROUSEL_NUMBER)
                                 carouselMsg.template.columns.splice(0, MAX_LINE_CAROUSEL_NUMBER);

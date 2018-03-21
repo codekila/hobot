@@ -87,7 +87,8 @@ function places(location, cb) {
 */
 
                 // get detail of each place
-                let carouselMsg = {
+
+                let confirmMsg = {
                     type: 'template',
                     altText: 'this is a carousel template',
                     template: {
@@ -105,10 +106,39 @@ function places(location, cb) {
                                 text: "no"
                             }
                         ]
-                        /*
-                        type: 'carousel',
-                        columns: []
-                        */
+                    }
+                };
+
+                let carouselMsg = {
+                    type: 'template',
+                    altText: 'this is a carousel template',
+                    template: {
+                        type: "carousel",
+                        columns: [{
+                            //thumbnailImageUrl: "https://example.com/bot/images/item1.jpg",
+                            //imageBackgroundColor: "#FFFFFF",
+                            //title: 'Title Name',
+                            text: 'Text --',
+                            /*
+                            defaultAction: {
+                                type: 'uri',
+                                label: 'View detail',
+                                uri: 'http://example.com/page/123'
+                            },
+                            */
+                            actions: [
+                                {
+                                    type: "postback",
+                                    label: "Buy",
+                                    data: "action=buy&itemid=111"
+                                },
+                                {
+                                    type: "uri",
+                                    label: "View detail",
+                                    uri: "http://example.com/page/111"
+                                }
+                            ]
+                        }]
                     }
                 };
                 cb(carouselMsg);

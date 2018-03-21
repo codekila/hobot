@@ -140,6 +140,7 @@ function places(location, cb) {
                                     //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
                                     carouselMsg.template.columns.push(col);
                                 }
+                                console.log('response:' + i);
                                 cbMyPlaceDetailDone(null);
                             }
                         });

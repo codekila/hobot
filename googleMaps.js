@@ -182,11 +182,12 @@ function convertToCarouselColumn(place) {
         });
     }
 
+    /*
     ret.actions.push({
         type: "uri",
         label: "店家網站",
         uri: place.website ? place.website : 'https://www.google.com.tw/search?q='+ q +'&oq=' + q +'&ie=UTF-8'
     });
-
+*/
     return ret;
 }

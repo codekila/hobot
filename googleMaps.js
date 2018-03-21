@@ -94,7 +94,7 @@ function places(location, cbFunc) {
                     }
                 };
 
-                async.each(response.json.results,
+                async.forEachSeries(response.json.results,
                     (r, callback) => {
                         console.log('GMaps Place Detail request: ' + r.name);
 

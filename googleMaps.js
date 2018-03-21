@@ -59,7 +59,7 @@ function geoCode(address, cb) {
  * @param location: coordinates to look up
  * @param cb
  */
-function places(location, cb) {
+function places(location, cbFunc) {
     console.log('GMaps Places:' + JSON.stringify(location));
     if (location == null) {
         cb(null);
@@ -74,16 +74,15 @@ function places(location, cb) {
         }, function (err, response) {
             if (err) {
                 console.log(err);
-                cb(null);
+                cbFunc(null);
             } else {
                 console.log('GMaps Places response:' + JSON.stringify(response.json.results));
-                /*
+
                 let text = '附近餐廳:';
                 for (let r of response.json.results) {
                     text += '\n' + r.name + '(' + (r.rating ? r.rating:'0.0')  + '): ' + r.vicinity + '\n';
                 }
-                cb(text);
-                */
+                cbFunc(text);
 
                 // get detail of each place
                 let carouselMsg = {
@@ -96,7 +95,7 @@ function places(location, cb) {
                 };
 
                 async.eachSeries(response.json.results,
-                    (r, cbComplete) => {
+                    (r, callback) => {
                         console.log('GMaps Place Detail request: ' + r.name);
 
                         googleMapsClient.place({
@@ -105,13 +104,13 @@ function places(location, cb) {
                         }, (err, response) => {
                             if (err) {
                                 console.log(err);
-                                cbComplete(err);
+                                callback(err);
                             } else {
-                                console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 console.log('GMaps Place Detail Carousel: ' + JSON.stringify(col));
                                 carouselMsg.columns.push(col);
-                                cbComplete();
+                                callback();
                             }
                         });
                     },
@@ -120,6 +119,7 @@ function places(location, cb) {
                             console.error("Error:" + err.message);
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+
                         }
                     }
                 );

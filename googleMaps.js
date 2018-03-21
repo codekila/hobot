@@ -96,7 +96,7 @@ function places(location, cbFunc) {
 
                 async.eachSeries(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
-                        console.log('GMaps Place Detail request: ' + r.name);
+                        console.log('GMaps Place Detail request=> ' + r.name);
 
                         googleMapsClient.place({
                             placeid: r.place_id,
@@ -108,7 +108,7 @@ function places(location, cbFunc) {
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
-                                console.log('GMaps Place Detail Carousel: ' + JSON.stringify(col));
+                                console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
                                 carouselMsg.columns.push(col);
                                 console.log('----BEFORE----');
                                 cbMyPlaceDetailDone(null);

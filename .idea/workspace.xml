@@ -40,8 +40,8 @@
       <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/googleMaps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="165" column="28" selection-start-line="165" selection-start-column="28" selection-end-line="165" selection-end-column="28" />
+            <state relative-caret-position="609">
+              <caret line="172" column="5" selection-start-line="172" selection-start-column="5" selection-end-line="172" selection-end-column="5" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
                 <element signature="e#2300#3017#0" expanded="false" />
@@ -321,12 +321,12 @@
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
-      <workItem from="1521378121535" duration="22059000" />
+      <workItem from="1521378121535" duration="22358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209499000" />
+    <option name="totallyTimeSpent" value="209798000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -560,8 +560,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/googleMaps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="165" column="28" selection-start-line="165" selection-start-column="28" selection-end-line="165" selection-end-column="28" />
+        <state relative-caret-position="609">
+          <caret line="172" column="5" selection-start-line="172" selection-start-column="5" selection-end-line="172" selection-end-column="5" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
             <element signature="e#2300#3017#0" expanded="false" />

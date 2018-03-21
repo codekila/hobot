@@ -159,15 +159,17 @@ function convertToCarouselColumn(place) {
     let ret = {
         thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jog",
         imageBackgroundColor: "#FFFFFF",
-        title: place.name,
-        text: place.formatted_phone_number,
-        actions: [
-            {
-                type: "uri",
-                label: "店家網站",
-                uri: place.website
-            }
-        ]
+        title: place.name ? place.name : '',
+        text: place.formatted_phone_number ? place.formatted_phone_number : '無電話',
+        actions: []
     };
+
+    if (place.website) {
+        ret.actions.push({
+            type: "uri",
+            label: "店家網站",
+            uri: place.website ? place.website : ''
+        });
+    }
     return ret;
 }

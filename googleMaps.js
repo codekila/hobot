@@ -159,8 +159,8 @@ function places(location, cb) {
 
 function convertToCarouselColumn(place) {
     let ret = {
-        //thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jog",
-        //imageBackgroundColor: "#FFFFFF",
+        thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jog",
+        imageBackgroundColor: "#FFFFFF",
         title: place.name ? place.name : '',
         text: place.formatted_phone_number ? place.formatted_phone_number : '無電話',
         actions: []
@@ -170,7 +170,7 @@ function convertToCarouselColumn(place) {
         ret.actions.push({
             type: "uri",
             label: "店家網站",
-            uri: place.website ? place.website : ''
+            uri: place.website ? place.website : 'https://www.google.com.tw/search?q='+ place.name +'&oq=' + place.name+'&ie=UTF-8'
         });
     }
     return ret;

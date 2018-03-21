@@ -150,7 +150,7 @@ function places(location, cb) {
                             console.error("Error:" + err.message);
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-                            cb(carouselMsg);
+                            //cb(carouselMsg);
                         }
                     }
                 );

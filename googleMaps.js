@@ -137,6 +137,7 @@ function places(location, cb) {
                                 console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                if (i++< MAX_LINE_CAROUSEL_NUMBER)
                                 carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
                             }
@@ -152,10 +153,11 @@ function places(location, cb) {
                             carouselMsg.template.columns.sort((a,b) => {
                                 return b.rating - a.rating;
                             });
-                            */
+
                             // cannot exceed this number
                             if (carouselMsg.template.columns.length>MAX_LINE_CAROUSEL_NUMBER)
                                 carouselMsg.template.columns.splice(0, MAX_LINE_CAROUSEL_NUMBER);
+                                */
                             cb(carouselMsg);
                         }
                     }

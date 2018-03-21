@@ -10,6 +10,8 @@ let googleMapsClient = require('@google/maps').createClient({
     key: myGoogleMapsAPIKey
 });
 
+const MAX_LINE_CAROUSEL_NUMBER = 10;
+
 const moment = require('moment');
 const request = require('request');
 const async = require('async');
@@ -132,11 +134,14 @@ function places(location, cb) {
                                 console.log(err);
                                 cbMyPlaceDetailDone(err);
                             } else {
+                                let result = response.json.result;
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
-                                if (response.json.result.website && response.json.result.website.length > 0 && i++<10) {
-                                    let col = convertToCarouselColumn(response.json.result);
-                                    //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
-                                    carouselMsg.template.columns.push(col);
+                                if (result.status == 'OK' && result.name != null) {
+                                    if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
+                                        let col = convertToCarouselColumn(result);
+                                        //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                        carouselMsg.template.columns.push(col);
+                                    }
                                 }
                                 cbMyPlaceDetailDone(null);
                             }
@@ -163,12 +168,20 @@ function convertToCarouselColumn(place) {
     let ret = {
         thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jpg",
         imageBackgroundColor: "#FFFFFF",
-        title: place.name ? place.name : '',
-        text: place.formatted_phone_number ? place.formatted_phone_number : '無電話',
+        title: place.name,
+        text: place.vicinity,
         actions: []
     };
 
     let q = querystring.escape(place.name);
+
+    if (place.formatted_phone_number) {
+        ret.actions.push({
+            type: "uri",
+            label: "電話：" + place.formatted_phone_number,
+            uri: 'tel:' + place.formatted_phone_number
+        });
+    }
 
     ret.actions.push({
         type: "uri",

@@ -165,7 +165,7 @@ const querystring = require("querystring");
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
     let ret = {
-        thumbnailImageUrl: "https://hobot86.herokuapp.com/static/images/store/sky/preview.jpg",
+        thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         imageBackgroundColor: "#FFFFFF",
         title: place.name,
         text: place.vicinity,

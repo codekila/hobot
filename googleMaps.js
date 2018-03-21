@@ -137,11 +137,11 @@ function places(location, cb) {
                                 let result = response.json.result;
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                     if (i++ < MAX_LINE_CAROUSEL_NUMBER) {
-                                        let col = convertToCarouselColumn(result);
+                                        let col = convertToCarouselColumn(response.json.result);
                                         //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
                                         carouselMsg.template.columns.push(col);
                                     }
-                                
+
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -177,7 +177,7 @@ function convertToCarouselColumn(place) {
     if (place.formatted_phone_number) {
         ret.actions.push({
             type: "uri",
-            label: "電話：" + place.formatted_phone_number,
+            label: place.formatted_phone_number,
             uri: 'tel:' + place.formatted_phone_number
         });
     }

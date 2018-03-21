@@ -134,7 +134,7 @@ function places(location, cb) {
                                 console.log(err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
                                 carouselMsg.template.columns.push(col);

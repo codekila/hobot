@@ -144,7 +144,7 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            //console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                            console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
                             global.config.botClient.pushMessage(global.config.channelTest, carouselMsg);
                         }
                     }

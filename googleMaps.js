@@ -137,7 +137,7 @@ function places(location, cb) {
                         }, (err, response) => {
                             if (err) {
                                 i++;
-                                console.log(err);
+                                console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));

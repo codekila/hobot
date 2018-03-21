@@ -94,8 +94,8 @@ function places(location, cbFunc) {
                     }
                 };
 
-                async.forEachSeries(response.json.results,
-                    (r, callback) => {
+                async.eachSeries(response.json.results,
+                    (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request: ' + r.name);
 
                         googleMapsClient.place({
@@ -104,13 +104,14 @@ function places(location, cbFunc) {
                         }, (err, response) => {
                             if (err) {
                                 console.log(err);
-                                callback(err);
+                                cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 console.log('GMaps Place Detail Carousel: ' + JSON.stringify(col));
                                 carouselMsg.columns.push(col);
-                                callback();
+                                cbMyPlaceDetailDone(null);
+                                console.log('----END----');
                             }
                         });
                     },

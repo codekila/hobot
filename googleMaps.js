@@ -165,6 +165,8 @@ function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
     let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
     let ret = {
+        thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
+        imageBackgroundColor: "#FFFFFF",
         title: place.name,
         text: place.vicinity,
         defaultAction: {
@@ -174,12 +176,12 @@ function convertToCarouselColumn(place) {
         },
         actions: []
     };
-
+/*
     if (place.photos.length>0) {
         ret.thumbnailImageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
         ret.imageBackgroundColor = "#FFFFFF";
     }
-
+*/
     ret.actions.push({
         type: "uri",
         label: "前往店家網站",

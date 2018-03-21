@@ -148,12 +148,12 @@ function places(location, cb) {
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
                             // sort based on rating
-                            carouselMsg.columns.sort((a,b) => {
+                            carouselMsg.template.columns.sort((a,b) => {
                                 return b.rating - a.rating;
                             });
                             // cannot exceed this number
-                            if (carouselMsg.columns.length>MAX_LINE_CAROUSEL_NUMBER)
-                                carouselMsg.columns.splice(0, MAX_LINE_CAROUSEL_NUMBER);
+                            if (carouselMsg.template.columns.length>MAX_LINE_CAROUSEL_NUMBER)
+                                carouselMsg.template.columns.splice(0, MAX_LINE_CAROUSEL_NUMBER);
                             cb(carouselMsg);
                         }
                     }

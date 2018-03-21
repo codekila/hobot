@@ -94,7 +94,7 @@ function places(location, cbFunc) {
                     }
                 };
 
-                async.eachSeries(response.json.results,
+                async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
 
@@ -118,8 +118,8 @@ function places(location, cbFunc) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-
+                            //console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
+                            global.config.botClient.pushMessage(global.config.channelTest, carouselMsg);
                         }
                     }
                 );

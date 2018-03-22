@@ -128,8 +128,8 @@ function places(location, cb) {
                 //cb(carouselMsg);
                 
                 setTimeout( () => {
-                    console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.columns.length + ') Timeout:' + JSON.stringify(carouselMsg));
-                    if (carouselMsg.columns.length>0) {
+                    console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Timeout:' + JSON.stringify(carouselMsg));
+                    if (carouselMsg.template.columns.length>0) {
                         queryTimeout = true;
                         cb(carouselMsg);
                     }
@@ -151,7 +151,7 @@ function places(location, cb) {
                                 //console.log('GMaps Place Detail response=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 carouselMsg.template.columns.push(col);
-                                console.log('GMaps Place Detail Carousel=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(col));
+                                console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -160,7 +160,7 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.columns.length + '):' + JSON.stringify(carouselMsg));
+                            console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + '):' + JSON.stringify(carouselMsg));
                             if (queryTimeout == false)
                                 cb(carouselMsg);
                         }

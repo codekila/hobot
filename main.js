@@ -256,15 +256,18 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
             let mins = Math.floor((now - cronTimestamps.hearbeat)/(60*1000));
             let text = '何寶剛剛睡了';
 
-            if (Math.floor(mins/60) > 0)
-                text += Math.floor(mins/60) + '小時';
-            if (Math.floor(mins%60) > 0)
-                text += (Math.floor(mins/60)>0 ? '又':'') + Math.floor(mins%60) + '分鐘'
-            text += '啦～';
-            global.config.botClient.pushMessage(global.config.channel3idiots, {
-                type: 'text',
-                text: text
-            });
+            // only send the msg if I've slept for more than 3 hours
+            if (Math.floor(mins/60)>2) {
+                if (Math.floor(mins / 60) > 0)
+                    text += Math.floor(mins / 60) + '小時';
+                if (Math.floor(mins % 60) > 0)
+                    text += (Math.floor(mins / 60) > 0 ? '又' : '') + Math.floor(mins % 60) + '分鐘'
+                text += '啦～';
+                global.config.botClient.pushMessage(global.config.channel3idiots, {
+                    type: 'text',
+                    text: text
+                });
+            }
         }
         modConfigs.set('hearbeat', now.toString());
 

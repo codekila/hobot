@@ -55,8 +55,8 @@ function geoCode(address, cb) {
 }
 
 function sortByRating(a,b) {
-    console.log('a=' + parseInt(a.rating) + '  b=' + parseInt(b.rating));
-    return parseInt(a.rating) - parseInt(b.rating);
+    console.log('a=' + parseFloat(a.rating) + '  b=' + parseFloat(b.rating));
+    return parseFloat(a.rating) - parseFloat(b.rating);
 }
 
 /**
@@ -171,9 +171,9 @@ function places(location, cb) {
                             console.error("Error:" + err.message);
                         else {
                             if (queryTimeout == false) {
-                                console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Done' + JSON.stringify(carouselMsg.template.columns));
-                                carouselMsg.template.columns.sort(sortByRating);
-                                cb(carouselMsg);
+                                //console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Done' + JSON.stringify(carouselMsg.template.columns));
+                                //carouselMsg.template.columns.sort(sortByRating);
+                                //cb(carouselMsg);
                             }
                         }
                     }

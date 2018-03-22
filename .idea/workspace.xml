@@ -7,6 +7,7 @@
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googleMaps.js" afterPath="$PROJECT_DIR$/googleMaps.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
     <ignored path="hobot86.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +31,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="42" column="14" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
+            <state relative-caret-position="294">
+              <caret line="258" column="62" selection-start-line="258" selection-start-column="62" selection-end-line="258" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -40,11 +41,11 @@
       <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/googleMaps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="58" column="51" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="51" />
+            <state relative-caret-position="1713">
+              <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#3050#3767#0" expanded="false" />
+                <element signature="e#3058#3775#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -147,9 +148,9 @@
         <option value="$PROJECT_DIR$/google.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/deploy" />
-        <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/Commands.js" />
         <option value="$PROJECT_DIR$/googleMaps.js" />
+        <option value="$PROJECT_DIR$/main.js" />
       </list>
     </option>
   </component>
@@ -321,12 +322,12 @@
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
-      <workItem from="1521378121535" duration="38377000" />
+      <workItem from="1521378121535" duration="39427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="225817000" />
+    <option name="totallyTimeSpent" value="226867000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -552,19 +553,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="42" column="14" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
+        <state relative-caret-position="294">
+          <caret line="258" column="62" selection-start-line="258" selection-start-column="62" selection-end-line="258" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/googleMaps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="58" column="51" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="51" />
+        <state relative-caret-position="1713">
+          <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#3050#3767#0" expanded="false" />
+            <element signature="e#3058#3775#0" expanded="false" />
           </folding>
         </state>
       </provider>

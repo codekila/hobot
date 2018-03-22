@@ -141,7 +141,7 @@ function places(location, cb) {
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
                     //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;
-                        //carouselMsg.template.columns.sort(sortByRating);
+                        carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
                     //}
                 }, 1500);
@@ -193,10 +193,10 @@ function convertToCarouselColumn(place) {
     let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
     let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
 
-    if (title.length > 39)
-        title.substr(0, 39);
-    if (text.length > 59)
-        text.substr(0, 59);
+    if (title.length > 40)
+        title = title.substr(0, 40);
+    if (text.length > 60)
+        text = text.substr(0, 60);
     let ret = {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         //imageBackgroundColor: "#FFFFFF",

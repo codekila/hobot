@@ -90,7 +90,7 @@ function places(location, cb) {
                  }
                  cb(text);
                  */
-/*
+
                 response.json.results.sort(sortByRating);
                 
                 let numToTrim;
@@ -101,9 +101,6 @@ function places(location, cb) {
                     numToTrim = 0;
                 console.log('toTrim:' + numToTrim);
                 response.json.results.splice(0, numToTrim);
-                */
-                response.json.results.splice(0, global.config.MAX_LINE_CAROUSEL_NUMBER);
-
 
                 // get detail of each place
 
@@ -140,8 +137,9 @@ function places(location, cb) {
                 //cb(carouselMsg);
                 
                 setTimeout( () => {
-                    console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Timeout');
-                    if (carouselMsg.template.columns.length>0) {
+                    let len = carouselMsg.template.columns.length;
+                    console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
+                    if (len>0 && len<(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;
                         carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
@@ -160,7 +158,7 @@ function places(location, cb) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
+                                //console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 carouselMsg.template.columns.push(col);
                                 //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));

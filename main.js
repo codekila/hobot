@@ -33,7 +33,8 @@ global.config = {
     mongoURL: 'mongodb://hobot:hobotpass123@ds151558.mlab.com:51558/hobot',
     mongoose: require('mongoose'),
     channel3idiots: 'C9378e378d388296e286f09a39caaa8a8',
-    channelTest: 'Ced664c11782376a001d6c43c5bb3e850'
+    channelTest: 'Ced664c11782376a001d6c43c5bb3e850',
+    MAX_LINE_CAROUSEL_NUMBER:10
 };
 
 // create Express app

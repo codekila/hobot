@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commands.js" afterPath="$PROJECT_DIR$/Commands.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googleMaps.js" afterPath="$PROJECT_DIR$/googleMaps.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
     <ignored path="hobot86.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,21 +32,21 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="67" column="29" selection-start-line="67" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="36" column="28" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/googleMaps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="158" column="34" selection-start-line="158" selection-start-column="34" selection-end-line="158" selection-end-column="34" />
+            <state relative-caret-position="339">
+              <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#2657#3374#0" expanded="false" />
+                <element signature="e#2870#3587#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -98,14 +101,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commands.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Commands.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-186">
-              <caret line="376" column="37" selection-start-line="376" selection-start-column="17" selection-end-line="376" selection-end-column="37" />
+            <state relative-caret-position="459">
+              <caret line="426" column="63" selection-start-line="426" selection-start-column="63" selection-end-line="426" selection-end-column="63" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#13254#37241#0" expanded="false" />
+                <element signature="e#13692#37679#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -145,10 +148,10 @@
         <option value="$PROJECT_DIR$/weather.js" />
         <option value="$PROJECT_DIR$/google.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/deploy" />
-        <option value="$PROJECT_DIR$/Commands.js" />
+        <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/googleMaps.js" />
+        <option value="$PROJECT_DIR$/Commands.js" />
       </list>
     </option>
   </component>
@@ -320,12 +323,12 @@
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
-      <workItem from="1521378121535" duration="35480000" />
+      <workItem from="1521378121535" duration="36172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222920000" />
+    <option name="totallyTimeSpent" value="223612000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -444,7 +447,7 @@
           <caret line="418" column="32" selection-start-line="418" selection-start-column="32" selection-end-line="418" selection-end-column="32" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#13254#37241#0" expanded="false" />
+            <element signature="e#13692#37679#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -538,32 +541,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Commands.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-186">
-          <caret line="376" column="37" selection-start-line="376" selection-start-column="17" selection-end-line="376" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#13254#37241#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="67" column="29" selection-start-line="67" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="300">
+          <caret line="36" column="28" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/googleMaps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="158" column="34" selection-start-line="158" selection-start-column="34" selection-end-line="158" selection-end-column="34" />
+        <state relative-caret-position="339">
+          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#2657#3374#0" expanded="false" />
+            <element signature="e#2870#3587#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Commands.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="426" column="63" selection-start-line="426" selection-start-column="63" selection-end-line="426" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
+            <element signature="e#13692#37679#0" expanded="false" />
           </folding>
         </state>
       </provider>

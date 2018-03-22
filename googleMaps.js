@@ -10,8 +10,6 @@ let googleMapsClient = require('@google/maps').createClient({
     key: myGoogleMapsAPIKey
 });
 
-const MAX_LINE_CAROUSEL_NUMBER = 10;
-
 const moment = require('moment');
 const request = require('request');
 const async = require('async');
@@ -92,10 +90,15 @@ function places(location, cb) {
                  cb(text);
                  */
 
-                response.json.results.sort((a,b) => {
-                   return a.rating - b.rating;
-                });
-                response.json.results.splice(0,MAX_LINE_CAROUSEL_NUMBER+5); // add 5 more to allow some timeout on getting details
+                response.json.results.sort(sortByRating());
+                
+                let numToTrim;
+                // add 5 more to allow some timeout on getting details
+                if ((response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER+5)) > 0)
+                    numToTrim = response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER+5);
+                else
+                    numToTrim = 0;
+                response.json.results.splice(0, numToTrim);
 
                 // get detail of each place
 
@@ -135,7 +138,7 @@ function places(location, cb) {
                     console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Timeout');
                     if (carouselMsg.template.columns.length>0) {
                         queryTimeout = true;
-                        carouselMsg.template.columns.sort(sortByRating).splice(0, MAX_LINE_CAROUSEL_NUMBER);
+                        carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
                     }
                 }, 1000);
@@ -167,7 +170,7 @@ function places(location, cb) {
                         else {
                             console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Done');
                             if (queryTimeout == false) {
-                                carouselMsg.template.columns.sort(sortByRating).splice(0, MAX_LINE_CAROUSEL_NUMBER);
+                                carouselMsg.template.columns.sort(sortByRating);
                                 cb(carouselMsg);
                             }
                         }

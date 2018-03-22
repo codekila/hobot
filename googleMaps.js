@@ -99,7 +99,6 @@ function places(location, cb) {
                     numToTrim = response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER+5);
                 else
                     numToTrim = 0;
-                console.log('toTrim:' + numToTrim);
                 response.json.results.splice(0, numToTrim);
 
                 // get detail of each place
@@ -188,7 +187,7 @@ const querystring = require("querystring");
 
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
-    let title = place.name + (place.rating ? (' (' + place.rating + +'/' + place.reviews.length + ')'):'');
+    let title = place.name + (place.rating ? (' (' + place.rating +'/' + place.reviews.length + ')'):'');
     let text = place.vicinity + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
     let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
     let ret = {

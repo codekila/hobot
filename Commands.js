@@ -418,6 +418,7 @@ function methodEat(event, userName, queryText, cb) {
         console.log('location:' + JSON.stringify(location));
         if (location) {
             gMaps.places(location, carousel => {
+                /*
                 let numToTrim;
                 // add 5 more to allow some timeout on getting details
                 if (carousel.template.columns.length > global.config.MAX_LINE_CAROUSEL_NUMBER)
@@ -425,6 +426,7 @@ function methodEat(event, userName, queryText, cb) {
                 else
                     numToTrim = 0;
                 carousel.template.columns.splice(0, numToTrim);
+                */
                 global.config.botClient.replyMessage(event.replyToken, carousel);
             });
         }

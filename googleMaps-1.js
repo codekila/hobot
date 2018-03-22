@@ -160,7 +160,7 @@ function places(location, cb) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
+                                console.log('GMaps Place Detail response=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 carouselMsg.template.columns.push(col);
                                 //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));

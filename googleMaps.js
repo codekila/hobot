@@ -56,6 +56,10 @@ function geoCode(address, cb) {
     }
 }
 
+function sortByRating(a,b) {
+    return a.rating - b.rating;
+}
+
 /**
  *
  * @param location: coordinates to look up
@@ -91,7 +95,7 @@ function places(location, cb) {
                 response.json.results.sort((a,b) => {
                    return a.rating - b.rating;
                 });
-                response.json.results.splice(0,MAX_LINE_CAROUSEL_NUMBER);
+                response.json.results.splice(0,MAX_LINE_CAROUSEL_NUMBER+5); // add 5 more to allow some timeout on getting details
 
                 // get detail of each place
 
@@ -128,12 +132,13 @@ function places(location, cb) {
                 //cb(carouselMsg);
                 
                 setTimeout( () => {
-                    console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Timeout:' + JSON.stringify(carouselMsg));
+                    console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Timeout');
                     if (carouselMsg.template.columns.length>0) {
                         queryTimeout = true;
+                        carouselMsg.template.columns.sort(sortByRating).splice(0, MAX_LINE_CAROUSEL_NUMBER);
                         cb(carouselMsg);
                     }
-                }, 1500);
+                }, 1000);
 
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
@@ -151,7 +156,7 @@ function places(location, cb) {
                                 //console.log('GMaps Place Detail response=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 carouselMsg.template.columns.push(col);
-                                console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
+                                //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -160,9 +165,11 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + '):' + JSON.stringify(carouselMsg));
-                            if (queryTimeout == false)
+                            console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Done');
+                            if (queryTimeout == false) {
+                                carouselMsg.template.columns.sort(sortByRating).splice(0, MAX_LINE_CAROUSEL_NUMBER);
                                 cb(carouselMsg);
+                            }
                         }
                     }
                 );
@@ -176,12 +183,14 @@ const querystring = require("querystring");
 
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
+    let title = place.name + (place.rating ? (' (' + place.rating + +'/' + place.reviews.length + ')'):'');
+    let text = place.vicinity + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
     let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
     let ret = {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         imageBackgroundColor: "#FFFFFF",
-        title: place.name + (place.rating ? (' (' + place.rating + ')'):''),
-        text: place.vicinity,
+        title: title,
+        text: text,
         defaultAction: {
             type: "uri",
             label: "前往店家網站",

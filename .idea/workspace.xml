@@ -41,8 +41,8 @@
       <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/googleMaps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="143" column="24" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="24" />
+            <state relative-caret-position="414">
+              <caret line="143" column="26" selection-start-line="143" selection-start-column="26" selection-end-line="143" selection-end-column="26" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
                 <element signature="e#3058#3775#0" expanded="false" />
@@ -103,8 +103,8 @@
       <file leaf-file-name="Commands.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="420" column="18" selection-start-line="420" selection-start-column="18" selection-end-line="420" selection-end-column="18" />
+            <state relative-caret-position="489">
+              <caret line="427" column="79" selection-start-line="427" selection-start-column="79" selection-end-line="427" selection-end-column="79" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
                 <element signature="e#13688#37675#0" expanded="false" />
@@ -322,12 +322,12 @@
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
-      <workItem from="1521378121535" duration="45324000" />
+      <workItem from="1521378121535" duration="45476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="232764000" />
+    <option name="totallyTimeSpent" value="232916000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -550,8 +550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="420" column="18" selection-start-line="420" selection-start-column="18" selection-end-line="420" selection-end-column="18" />
+        <state relative-caret-position="489">
+          <caret line="427" column="79" selection-start-line="427" selection-start-column="79" selection-end-line="427" selection-end-column="79" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
             <element signature="e#13688#37675#0" expanded="false" />
@@ -561,8 +561,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/googleMaps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="143" column="24" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="24" />
+        <state relative-caret-position="414">
+          <caret line="143" column="26" selection-start-line="143" selection-start-column="26" selection-end-line="143" selection-end-column="26" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
             <element signature="e#3058#3775#0" expanded="false" />

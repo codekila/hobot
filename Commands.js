@@ -425,7 +425,7 @@ function methodEat(event, userName, queryText, cb) {
                 else
                     numToTrim = 0;
                 carousel.template.columns.splice(0,  numToTrim);
-                global.config.botClient.replyMessage(event.replyToken, testJSON);
+                global.config.botClient.replyMessage(event.replyToken, carousel);
             });
         }
     });

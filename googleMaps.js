@@ -141,7 +141,7 @@ function places(location, cb) {
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
                     //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;
-                        carouselMsg.template.columns.sort(sortByRating);
+                        //carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
                     //}
                 }, 1500);

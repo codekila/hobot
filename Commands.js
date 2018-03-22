@@ -428,7 +428,7 @@ function methodEat(event, userName, queryText, cb) {
                 console.log('methodEat222:' + carousel.template.columns.length);
                 console.log('methodEat:' + JSON.stringify(carousel));
 
-                carouselX = JSON.parse(testJSON);
+                let carouselX = JSON.parse(testJSON);
                 console.log('methodEat:' + JSON.stringify(carouselX));
 
                 global.config.botClient.replyMessage(event.replyToken, carouselX);

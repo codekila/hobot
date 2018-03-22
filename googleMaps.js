@@ -144,7 +144,8 @@ function places(location, cb) {
                     //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;
                         cols.sort(sortByRating);
-                        carouselMsg.template.columns = cols;
+                        for (let x of cols)
+                            carouselMsg.template.columns.push(x.columns);
                         cb(carouselMsg);
                     //}
                 }, 1500);

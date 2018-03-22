@@ -90,7 +90,7 @@ function places(location, cb) {
                  }
                  cb(text);
                  */
-
+/*
                 response.json.results.sort(sortByRating);
                 
                 let numToTrim;
@@ -101,6 +101,9 @@ function places(location, cb) {
                     numToTrim = 0;
                 console.log('toTrim:' + numToTrim);
                 response.json.results.splice(0, numToTrim);
+                */
+                response.json.results.splice(0, global.config.MAX_LINE_CAROUSEL_NUMBER);
+
 
                 // get detail of each place
 
@@ -143,7 +146,7 @@ function places(location, cb) {
                         carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
                     }
-                }, 1500);
+                }, 1000);
 
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {

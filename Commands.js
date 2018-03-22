@@ -1457,4 +1457,4 @@ let testJSON = '{"type":"template",' +
     '"actions":[' +
     '{"type":"uri",' +
     '"label":"前往店家網站",' +
-    '"uri":"http://locations.jambajuice.com/ll/US/CA/San-Diego/9450-Scranton-Rd_-#116"}]}]}}';
+    '"uri":"http://locations.jambajuice.com/ll/US/CA/San-Diego/9450-Scranton-Rd_-#116"}]}]}}'.toString('utf8');

@@ -190,7 +190,7 @@ function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
     //let title = place.name + (place.rating ? (' (' + place.rating +'/' + place.reviews.length + ')'):'');
     let title = place.name + (place.rating ? (' (' + place.rating + ')'):'');
-    let text = place.vicinity + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
+    let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
     let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
     let ret = {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,

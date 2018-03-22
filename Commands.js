@@ -424,7 +424,7 @@ function methodEat(event, userName, queryText, cb) {
                     numToTrim = carousel.template.columns.length - global.config.MAX_LINE_CAROUSEL_NUMBER;
                 else
                     numToTrim = 0;
-                carousel.template.columns.splice(0, 12);
+                carousel.template.columns.splice(0,  carousel.template.columns.length - 1);
                 console.log('methodEat222:' + carousel.template.columns.length);
                 console.log('methodEat:' + JSON.stringify(carousel));
 

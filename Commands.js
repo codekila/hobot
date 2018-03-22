@@ -1449,12 +1449,13 @@ let testJSON = '{"type":"template",' +
     '"columns":[' +
     '{"thumbnailImageUrl":"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=CmRaAAAAsbhX-KcmU1G9kCWMmmmMxsGKcrUpkoKYYwCukex0lbgyUG6JMgHGEAGJg5bcI-WoVa_sqfJCb8jUiPn7kxhwJtrnZrPjre2xE92P42Wagd9l8NkSYaGYz3oGa6t6J3yBEhC49Bivdl0BoxXgyAc2gIIDGhQ1V_rYuISbe_yms_SU2yguPGpF5Q&key=AIzaSyCST9EN_cfvQcj8_w200O44zsgTA2ASBuI",' +
     '"imageBackgroundColor":"#FFFFFF",' +
-    '"title":"Jamba Juice Sorrento Court / Mira Mesa (4.4)","text":"9450 Scranton Road #116, San Diego ((858) 202-0591)",' +
+    '"title":"Jamba Juice Sorrento Court / Mira Mesa (4.4)",' +
+    '"text":"9450 Scranton Road 116, San Diego ((858) 202-0591)",' +
     '"defaultAction":{' +
     '"type":"uri",' +
     '"label":"前往店家網站",' +
-    '"uri":"http://locations.jambajuice.com/ll/US/CA/San-Diego/9450-Scranton-Rd_-#116"},' +
+    '"uri":"http://locations.jambajuice.com/ll/US/CA/San-Diego/9450-Scranton-Rd116"},' +
     '"actions":[' +
     '{"type":"uri",' +
     '"label":"前往店家網站",' +
-    '"uri":"http://locations.jambajuice.com/ll/US/CA/San-Diego/9450-Scranton-Rd_-#116"}]}]}}';
+    '"uri":"http://locations.jambajuice.com/ll/US/CA/San-Diego/9450-Scranton-Rd_116"}]}]}}';

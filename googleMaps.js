@@ -55,7 +55,7 @@ function geoCode(address, cb) {
 }
 
 function sortByRating(a,b) {
-    console.log('a=' + parseFloat(a.rating) + '  b=' + parseFloat(b.rating));
+    //console.log('a=' + parseFloat(a.rating) + '  b=' + parseFloat(b.rating));
     return parseFloat(a.rating) - parseFloat(b.rating);
 }
 
@@ -144,8 +144,8 @@ function places(location, cb) {
                     //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;
                         cols.sort(sortByRating);
-                        for (let x of cols)
-                            carouselMsg.template.columns.push(x.columns);
+                        for (let i in cols)
+                            carouselMsg.template.columns.push(cols[cols.length - i -1].columns);
                         cb(carouselMsg);
                     //}
                 }, 1500);

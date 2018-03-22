@@ -91,7 +91,7 @@ function places(location, cb) {
                  cb(text);
                  */
 
-                response.json.results.sort(sortByRating());
+                response.json.results.sort(sortByRating);
                 
                 let numToTrim;
                 // add 5 more to allow some timeout on getting details

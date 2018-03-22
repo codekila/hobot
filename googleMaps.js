@@ -124,9 +124,17 @@ function places(location, cb) {
                         columns: []
                     }
                 };
+                let queryTimeout = false;
                 //cb(carouselMsg);
+                
+                setTimeout( () => {
+                    console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.columns.length + ') Timeout:' + JSON.stringify(carouselMsg));
+                    if (carouselMsg.columns.length>0) {
+                        queryTimeout = true;
+                        cb(carouselMsg);
+                    }
+                }, 1500);
 
-                let i = 0;
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
@@ -140,13 +148,11 @@ function places(location, cb) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                //console.log('GMaps Place Detail response: ' + i + '--->' + JSON.stringify(response.json.result));
+                                //console.log('GMaps Place Detail response=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
-                                console.log('GMaps Place Detail Carousel=> ' + i + '--->' + JSON.stringify(col));
                                 carouselMsg.template.columns.push(col);
-                                console.log('BBBBB');
+                                console.log('GMaps Place Detail Carousel=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
-                                console.log('response:' + i++);
                             }
                         });
                     },
@@ -154,8 +160,9 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-                            cb(carouselMsg);
+                            console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.columns.length + '):' + JSON.stringify(carouselMsg));
+                            if (queryTimeout == false)
+                                cb(carouselMsg);
                         }
                     }
                 );
@@ -173,7 +180,7 @@ function convertToCarouselColumn(place) {
     let ret = {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         imageBackgroundColor: "#FFFFFF",
-        title: place.name + (place.rating ? ('(' + place.rating + ')'):''),
+        title: place.name + (place.rating ? (' (' + place.rating + ')'):''),
         text: place.vicinity,
         defaultAction: {
             type: "uri",

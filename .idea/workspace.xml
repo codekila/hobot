@@ -7,7 +7,6 @@
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commands.js" afterPath="$PROJECT_DIR$/Commands.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googleMaps.js" afterPath="$PROJECT_DIR$/googleMaps.js" />
     </list>
     <ignored path="hobot86.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -103,11 +102,11 @@
       <file leaf-file-name="Commands.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="426" column="89" selection-start-line="426" selection-start-column="89" selection-end-line="426" selection-end-column="89" />
+            <state relative-caret-position="294">
+              <caret line="433" column="80" selection-start-line="433" selection-start-column="80" selection-end-line="433" selection-end-column="80" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#13865#37852#0" expanded="false" />
+                <element signature="e#13992#37979#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -322,12 +321,12 @@
       <updated>1519309778845</updated>
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
-      <workItem from="1521378121535" duration="41594000" />
+      <workItem from="1521378121535" duration="42144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229034000" />
+    <option name="totallyTimeSpent" value="229584000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="6" />
@@ -446,7 +445,7 @@
           <caret line="418" column="32" selection-start-line="418" selection-start-column="32" selection-end-line="418" selection-end-column="32" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#13865#37852#0" expanded="false" />
+            <element signature="e#13992#37979#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -561,11 +560,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="426" column="89" selection-start-line="426" selection-start-column="89" selection-end-line="426" selection-end-column="89" />
+        <state relative-caret-position="294">
+          <caret line="433" column="80" selection-start-line="433" selection-start-column="80" selection-end-line="433" selection-end-column="80" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#13865#37852#0" expanded="false" />
+            <element signature="e#13992#37979#0" expanded="false" />
           </folding>
         </state>
       </provider>

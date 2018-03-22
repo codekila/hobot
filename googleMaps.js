@@ -141,13 +141,13 @@ function places(location, cb) {
                 setTimeout( () => {
                     let len = cols.length;
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
-                    //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
+                    if (len>0) {
                         queryTimeout = true;
                         cols.sort(sortByRating);
                         for (let i in cols)
                             carouselMsg.template.columns.push(cols[cols.length - i -1].columns);
                         cb(carouselMsg);
-                    //}
+                    }
                 }, 1500);
 
                 async.each(response.json.results,

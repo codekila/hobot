@@ -1452,10 +1452,10 @@ let testJSON = {
             defaultAction:{
                 type:"uri",
                 label:"前往店家網站",
-                uri:"https://example.com/"
+                uri:"https://locations.jambajuice.com/"
             },
             actions:[{
                 type:"uri",
                 label:"前往店家網站",
-                uri:"https://example.com/"
+                uri:"https://locations.jambajuice.com/"
             }]}]}};

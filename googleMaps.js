@@ -80,7 +80,8 @@ function places(location, cb) {
                 console.log(err);
                 cb(null);
             } else {
-                //console.log('GMaps Places response:' + JSON.stringify(response.json.results));
+                //console.log('GMaps Places response :' + JSON.stringify(response.json.results));
+                console.log('GMaps Places response :' + response.json.results.length);
 
                 /*
                  let text = '附近餐廳:';
@@ -98,6 +99,7 @@ function places(location, cb) {
                     numToTrim = response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER+5);
                 else
                     numToTrim = 0;
+                console.log('toTrim:' + numToTrim);
                 response.json.results.splice(0, numToTrim);
 
                 // get detail of each place
@@ -156,7 +158,7 @@ function places(location, cb) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                //console.log('GMaps Place Detail response=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(response.json.result));
+                                console.log('GMaps Place Detail response=> ' + carouselMsg.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 carouselMsg.template.columns.push(col);
                                 //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));

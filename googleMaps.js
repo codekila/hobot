@@ -127,7 +127,7 @@ function places(location, cb) {
                 //cb(carouselMsg);
 
                 let i = 0;
-                async.eachOfLimit(response.json.results, 5,
+                async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
 
@@ -140,9 +140,9 @@ function places(location, cb) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                //console.log('GMaps Place Detail response: ' + JSON.stringify(response.json.result));
+                                console.log('GMaps Place Detail response: ' + i + '--->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
-                                //console.log('GMaps Place Detail Carousel=> ' + JSON.stringify(col));
+                                console.log('GMaps Place Detail Carousel=> ' + i + '--->' + JSON.stringify(col));
                                 carouselMsg.template.columns.push(col);
                                 cbMyPlaceDetailDone(null);
                                 console.log('response:' + i++);

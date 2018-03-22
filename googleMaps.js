@@ -140,10 +140,11 @@ function places(location, cb) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
-                                console.log('GMaps Place Detail response: ' + i + '--->' + JSON.stringify(response.json.result));
+                                //console.log('GMaps Place Detail response: ' + i + '--->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
                                 console.log('GMaps Place Detail Carousel=> ' + i + '--->' + JSON.stringify(col));
                                 carouselMsg.template.columns.push(col);
+                                console.log('BBBBB');
                                 cbMyPlaceDetailDone(null);
                                 console.log('response:' + i++);
                             }
@@ -172,7 +173,7 @@ function convertToCarouselColumn(place) {
     let ret = {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         imageBackgroundColor: "#FFFFFF",
-        title: place.name + place.rating ? ('(' + place.rating + ')'):'',
+        title: place.name + (place.rating ? (' (' + place.rating + ')'):''),
         text: place.vicinity,
         defaultAction: {
             type: "uri",

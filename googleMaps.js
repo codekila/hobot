@@ -143,7 +143,7 @@ function places(location, cb) {
                         carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
                     }
-                }, 1000);
+                }, 1500);
 
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {

@@ -55,7 +55,7 @@ function geoCode(address, cb) {
 }
 
 function sortByRating(a,b) {
-    return a.rating - b.rating;
+    return parseInt(a.rating) - parseInt(b.rating);
 }
 
 /**
@@ -143,7 +143,7 @@ function places(location, cb) {
                         carouselMsg.template.columns.sort(sortByRating);
                         cb(carouselMsg);
                     }
-                }, 1000);
+                }, 1500);
 
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
@@ -169,8 +169,8 @@ function places(location, cb) {
                         if (err)
                             console.error("Error:" + err.message);
                         else {
-                            console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Done');
                             if (queryTimeout == false) {
+                                console.log('GMaps Place Detail Carousel Msg(' + carouselMsg.template.columns.length + ') Done');
                                 carouselMsg.template.columns.sort(sortByRating);
                                 cb(carouselMsg);
                             }
@@ -187,7 +187,8 @@ const querystring = require("querystring");
 
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
-    let title = place.name + (place.rating ? (' (' + place.rating +'/' + place.reviews.length + ')'):'');
+    //let title = place.name + (place.rating ? (' (' + place.rating +'/' + place.reviews.length + ')'):'');
+    let title = place.name + (place.rating ? (' (' + place.rating + ')'):'');
     let text = place.vicinity + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
     let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
     let ret = {

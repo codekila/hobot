@@ -423,9 +423,6 @@ function methodEat(event, userName, queryText, cb) {
                     numToTrim = carousel.template.columns.length - global.config.MAX_LINE_CAROUSEL_NUMBER;
                 else
                     numToTrim = 0;
-                console.log('displaying--->' + carousel.template.columns.length);
-                console.log('numToTrim--->' + numToTrim);
-
                 carousel.template.columns.splice(0, numToTrim);
 
                 global.config.botClient.replyMessage(event.replyToken, carousel);

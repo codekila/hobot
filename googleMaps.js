@@ -139,7 +139,7 @@ function places(location, cb) {
                 //cb(carouselMsg);
                 
                 setTimeout( () => {
-                    let len = carouselMsg.template.columns.length;
+                    let len = cols.length;
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
                     //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;

@@ -418,6 +418,7 @@ function methodEat(event, userName, queryText, cb) {
         console.log('location:' + JSON.stringify(location));
         if (location) {
             gMaps.places(location, carousel => {
+                console.log('methodEat:' + carousel.template.columns.length);
                 let numToTrim;
                 if (carousel.template.columns.length > global.config.MAX_LINE_CAROUSEL_NUMBER)
                     numToTrim = carousel.template.columns.length - global.config.MAX_LINE_CAROUSEL_NUMBER;

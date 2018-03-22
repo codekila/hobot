@@ -133,6 +133,8 @@ function places(location, cb) {
                         columns: []
                     }
                 };
+                let cols = [];
+
                 let queryTimeout = false;
                 //cb(carouselMsg);
                 
@@ -141,7 +143,8 @@ function places(location, cb) {
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
                     //if (len>0 && len<=(global.config.MAX_LINE_CAROUSEL_NUMBER+5)) {
                         queryTimeout = true;
-                        carouselMsg.template.columns.sort(sortByRating);
+                        cols.sort(sortByRating);
+                        carouselMsg.template.columns = cols;
                         cb(carouselMsg);
                     //}
                 }, 1500);
@@ -160,7 +163,7 @@ function places(location, cb) {
                             } else {
                                 //console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(response.json.result);
-                                carouselMsg.template.columns.push(col);
+                                cols.push(col);
                                 //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
                             }
@@ -198,6 +201,9 @@ function convertToCarouselColumn(place) {
     if (text.length > 60)
         text = text.substr(0, 60);
     let ret = {
+        rating: place.rating,
+        review_num: place.reviews.length,
+        columns: {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         //imageBackgroundColor: "#FFFFFF",
         title: title,
@@ -208,14 +214,15 @@ function convertToCarouselColumn(place) {
             uri: uri
         },
         actions: []
-    };
+    }
+};
 /*
     if (place.photos.length>0) {
         ret.thumbnailImageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
         ret.imageBackgroundColor = "#FFFFFF";
     }
 */
-    ret.actions.push({
+    ret.columns.actions.push({
         type: "uri",
         label: "前往店家網站",
         uri: uri

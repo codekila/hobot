@@ -126,6 +126,7 @@ function places(location, cb) {
                 };
                 //cb(carouselMsg);
 
+                let i = 0;
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
@@ -172,7 +173,7 @@ function convertToCarouselColumn(place) {
     let ret = {
         thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
         imageBackgroundColor: "#FFFFFF",
-        title: place.name + (place.rating ? (' (' + place.rating + ')'):''),
+        title: place.name + (place.rating ? ('(' + place.rating + ')'):''),
         text: place.vicinity,
         defaultAction: {
             type: "uri",

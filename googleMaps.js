@@ -127,7 +127,7 @@ function places(location, cb) {
                 //cb(carouselMsg);
 
                 let i = 0;
-                async.eachSeries(response.json.results,
+                async.eachOfLimit(response.json.results, 5,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
 

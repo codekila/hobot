@@ -425,6 +425,8 @@ function methodEat(event, userName, queryText, cb) {
                 else
                     numToTrim = 0;
                 carousel.template.columns.splice(0, numToTrim);
+                console.log('methodEat222:' + carousel.template.columns.length);
+                console.log('methodEat:' + JSON.stringify(carousel));
 
                 global.config.botClient.replyMessage(event.replyToken, carousel);
             });

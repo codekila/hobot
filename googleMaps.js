@@ -126,7 +126,6 @@ function places(location, cb) {
                 };
                 //cb(carouselMsg);
 
-                let i = 0;
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {
                         console.log('GMaps Place Detail request=> ' + r.name);
@@ -155,7 +154,7 @@ function places(location, cb) {
                             console.error("Error:" + err.message);
                         else {
                             console.log('GMaps Place Detail Carousel Msg:' + JSON.stringify(carouselMsg));
-                            //cb(carouselMsg);
+                            cb(carouselMsg);
                         }
                     }
                 );

@@ -451,12 +451,14 @@ function methodPlace(event, userName, cmd, cb) {
     }
 
     for (let t of placeTypes) {
+        console.log('placeText=' + placeText +', key=' + t.key);
         if (t.key == placeText) {
             placeType = t;
             break;
         }
     }
 
+    console.log('placeType=' + JSON.stringify(placeType));
     console.log('methodPlace: type=' + placeText + ', address=' + address);
 
     if (placeType == null) {

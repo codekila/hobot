@@ -248,24 +248,31 @@ function matchCommand(event, userName, queryText, cb) {
         let matched = null;
 
         for (let query of this.queries) {
-            // match based on models
+            // match commands first
             for (let text of query.texts) {
                 if (query.model == "command" && (text == queryText || queryText.substr(0, queryText.indexOf(' ')) == text)) {
                     matched = query;
-                } else if (query.model == "precise" && text == queryText) {
-                    matched = query;
-                } else if (query.model == "fuzzy" && queryText.includes(text)) {
-                    matched = query;
-                }
-                if (matched)
                     break;
+                }
+            }
+            // keywords next
+            if (matched == false) {
+                for (let text of query.texts) {
+                    if (query.model == "precise" && text == queryText) {
+                        matched = query;
+                    } else if (query.model == "fuzzy" && queryText.includes(text)) {
+                        matched = query;
+                    }
+                    if (matched)
+                        break;
+                }
             }
         }
         if (matched != null)
             emit(this._id, matched);
     };
 
-    o.reduce = function(key, matchesQueries) {
+    o.reduce = function (key, matchesQueries) {
         let deft = null;
         for (let query of matchesQueries) {
             if (query.priority = 'first') {
@@ -280,11 +287,11 @@ function matchCommand(event, userName, queryText, cb) {
     o.scope = {queryText: queryText};
 
     // try to match a query
-    CommandsModel.mapReduce( o, (err, cmd) => {
+    CommandsModel.mapReduce(o, (err, cmd) => {
         if (err)
             console.log('CommandsModel.mapReduce err: ' + err.message);
         else {
-            if (cmd.results.length>0) {
+            if (cmd.results.length > 0) {
                 //console.log('matched: ' + cmd.results[0]._id);
                 console.log('matched: ' + JSON.stringify(cmd.results[0]));
                 cb(cmd.results[0]._id);
@@ -347,13 +354,18 @@ function processResponse(event, userName, queryText, matchedId, cb) {
 }
 
 function processDb(event, userName, queryText, cb) {
-    // match a command based on the query
-    matchCommand(event, userName, queryText, matchedId => {
-        if (matchedId) {
-            // react to the matched query
-            processResponse(event, userName, queryText, matchedId, cb);
-        }
-    });
+    // special reserved command
+    if (queryText[0] == '!') {
+        methodPlace(event, userName, queryText, cb);
+    } else {
+        // match a command based on the query
+        matchCommand(event, userName, queryText, matchedId => {
+            if (matchedId) {
+                // react to the matched query
+                processResponse(event, userName, queryText, matchedId, cb);
+            }
+        });
+    }
 }
 
 function methodUserCheckTime(event, userName, queryText, cb) {
@@ -382,11 +394,11 @@ function methodReplyTheImage(event, userName, queryText, cb) {
 }
 
 function methodAddCommand(event, userName, queryText, cb) {
-    addCommand(queryText , cb);
+    addCommand(queryText, cb);
 }
 
 function methodDeleteCommand(event, userName, queryText, cb) {
-    deleteCommand(queryText , cb);
+    deleteCommand(queryText, cb);
 }
 
 function methodShowIdle(event, userName, queryText, cb) {
@@ -404,7 +416,7 @@ function methodSetConfig(event, userName, queryText, cb) {
 }
 
 function methodWeather(event, userName, queryText, cb) {
-    let town = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '竹北市';
+    let town = queryText.indexOf(' ') > 0 ? queryText.substr(queryText.indexOf(' ') + 1) : '竹北市';
     modWeather.checkWeather(town, cb);
 }
 
@@ -412,19 +424,40 @@ function methodSleep(event, userName, queryText, cb) {
     global.config.sleepTime = 5;
 }
 
-function methodEat(event, userName, queryText, cb) {
-    let address = queryText.indexOf(' ')>0 ? queryText.substr(queryText.indexOf(' ')+1): '新竹縣竹北市興隆路一段439號';
+function methodPlace(event, userName, cmd, cb) {
+    let placeType;
+    let address;
+
+    // display help
+    if (cmd.length == 1) {
+        let text = '可以選擇的地點類別：';
+        for (let t of placeTypes)
+            text += t + ', ';
+        cb(text + '以上。');
+        return;
+    }
+
+    if (cmd.indexOf(' ') > 0) {
+        placeType = cmd.substr(1, cmd.indexOf(' '));
+        address = cmd.substr(cmd.indexOf(' ') + 1);
+    } else {
+        placeType = cmd.substr(1);
+        address = '新竹縣竹北市興隆路一段439號';
+    }
+
+    console.log('methodPlace: type=' + placeType + ', address=' + address);
+    
     gMaps.geoCode(address, location => {
         console.log('location:' + JSON.stringify(location));
         if (location) {
-            gMaps.places(location, 'bank', carousel => {
+            gMaps.places(location, placeType, carousel => {
                 //console.log('methodEat:' + carousel.template.columns.length);
                 let numToTrim;
                 if (carousel.template.columns.length > global.config.MAX_LINE_CAROUSEL_NUMBER)
                     numToTrim = carousel.template.columns.length - global.config.MAX_LINE_CAROUSEL_NUMBER;
                 else
                     numToTrim = 0;
-                carousel.template.columns.splice(0,  numToTrim);
+                carousel.template.columns.splice(0, numToTrim);
                 global.config.botClient.replyMessage(event.replyToken, carousel);
             });
         }
@@ -1260,14 +1293,14 @@ let defaultCommands = [
         cmd: "birthday",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "bday", "birthday"
                 ]
             },
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "生日"
@@ -1286,7 +1319,7 @@ let defaultCommands = [
         cmd: "image",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "image", "picture", "pic", "photo"
@@ -1305,7 +1338,7 @@ let defaultCommands = [
         cmd: "add",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "add", "teach", "learn"
@@ -1324,7 +1357,7 @@ let defaultCommands = [
         cmd: "del",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "del"
@@ -1343,7 +1376,7 @@ let defaultCommands = [
         cmd: "idle",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "idle"
@@ -1359,13 +1392,13 @@ let defaultCommands = [
         ]
     },
     {
-        cmd: "@set",
+        cmd: "set",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
-                    "@set"
+                    "set"
                 ]
             }
         ],
@@ -1381,7 +1414,7 @@ let defaultCommands = [
         cmd: "weather",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "w", "weather", "天氣"
@@ -1400,7 +1433,7 @@ let defaultCommands = [
         cmd: "sleep",
         queries: [
             {
-                priority: "default",
+                priority: "first",
                 model: "command",
                 texts: [
                     "s", "sleep"
@@ -1414,24 +1447,38 @@ let defaultCommands = [
                 method: "methodSleep"
             }
         ]
-    },
-    {
-        cmd: "eat",
-        queries: [
-            {
-                priority: "default",
-                model: "command",
-                texts: [
-                    "eat"
-                ]
-            }
-        ],
-        responses: [
-            {
-                priority: "first",
-                model: "smart",
-                method: "methodEat"
-            }
-        ]
     }
+];
+
+/**
+ *
+ * [{shortname: google place type}, ...]
+ */
+let placeTypes = [
+    {'airport':'airport'},
+    {'atm':'atm'},
+    {'bakery':'bakery'},
+    {'bank':'bank'},
+    {'bar':'bar'},
+    {'book':'book_store'},
+    {'bus':'bus_station'},
+    {'cafe':'cafe'},
+    {'711':'convenience_store'},
+    {'dentist':'dentist'},
+    {'doctor':'doctor'},
+    {'gas':'gas_station'},
+    {'gym':'gym'},
+    {'hair':'hair_care'},
+    {'hospital':'hospital'},
+    {'hotel':'lodging'},
+    {'park':'park'},
+    {'parking':'parking'},
+    {'pharmacy':'pharmacy'},
+    {'police':'police'},
+    {'eat':'restaurant'},
+    {'school':'school'},
+    {'shopping':'shopping_mall'},
+    {'subway':'subway_station'},
+    {'supermarket':'supermarket'},
+    {'train':'train_station'}
 ];

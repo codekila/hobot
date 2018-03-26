@@ -424,33 +424,50 @@ function methodSleep(event, userName, queryText, cb) {
     global.config.sleepTime = 5;
 }
 
+function returnPlaceTypes() {
+    let text = '可以選擇的地點類別：';
+    for (let t of placeTypes)
+        text += t.key + ', ';
+    return (text + '以上。');
+}
+
 function methodPlace(event, userName, cmd, cb) {
-    let placeType;
+    let placeType = null;
+    let placeText;
     let address;
 
     // display help
     if (cmd.length == 1) {
-        let text = '可以選擇的地點類別：';
-        for (let t of placeTypes)
-            text += t + ', ';
-        cb(text + '以上。');
+        cb(returnPlaceTypes());
         return;
     }
 
     if (cmd.indexOf(' ') > 0) {
-        placeType = cmd.substr(1, cmd.indexOf(' '));
+        placeText = cmd.substr(1, cmd.indexOf(' '));
         address = cmd.substr(cmd.indexOf(' ') + 1);
     } else {
-        placeType = cmd.substr(1);
+        placeText = cmd.substr(1);
         address = '新竹縣竹北市興隆路一段439號';
     }
 
-    console.log('methodPlace: type=' + placeType + ', address=' + address);
-    
+    for (let t of placeTypes) {
+        if (t.key == placeText) {
+            placeType = t;
+            break;
+        }
+    }
+
+    if (placeType == null) {
+        cb(returnPlaceTypes());
+        return;
+    }
+
+    console.log('methodPlace: type=' + placeType.type + ', address=' + address);
+
     gMaps.geoCode(address, location => {
         console.log('location:' + JSON.stringify(location));
         if (location) {
-            gMaps.places(location, placeType, carousel => {
+            gMaps.places(location, placeType.type, placeType.sort, carousel => {
                 //console.log('methodEat:' + carousel.template.columns.length);
                 let numToTrim;
                 if (carousel.template.columns.length > global.config.MAX_LINE_CAROUSEL_NUMBER)
@@ -1455,30 +1472,30 @@ let defaultCommands = [
  * [{shortname: google place type}, ...]
  */
 let placeTypes = [
-    {'airport':'airport'},
-    {'atm':'atm'},
-    {'bakery':'bakery'},
-    {'bank':'bank'},
-    {'bar':'bar'},
-    {'book':'book_store'},
-    {'bus':'bus_station'},
-    {'cafe':'cafe'},
-    {'711':'convenience_store'},
-    {'dentist':'dentist'},
-    {'doctor':'doctor'},
-    {'gas':'gas_station'},
-    {'gym':'gym'},
-    {'hair':'hair_care'},
-    {'hospital':'hospital'},
-    {'hotel':'lodging'},
-    {'park':'park'},
-    {'parking':'parking'},
-    {'pharmacy':'pharmacy'},
-    {'police':'police'},
-    {'eat':'restaurant'},
-    {'school':'school'},
-    {'shopping':'shopping_mall'},
-    {'subway':'subway_station'},
-    {'supermarket':'supermarket'},
-    {'train':'train_station'}
+    {key:'airport',type:'airport',sort:false},
+    {key:'atm',type:'atm',sort:false},
+    {key:'bakery',type:'bakery',sort:true},
+    {key:'bank',type:'bank',sort:false},
+    {key:'bar',type:'bar',sort:true},
+    {key:'book',type:'book_store',sort:false},
+    {key:'bus',type:'bus_station',sort:false},
+    {key:'cafe',type:'cafe',sort:true},
+    {key:'711',type:'convenience_store',sort:false},
+    {key:'dentist',type:'dentist',sort:true},
+    {key:'doctor',type:'doctor',sort:true},
+    {key:'gas',type:'gas_station',sort:false},
+    {key:'gym',type:'gym',sort:true},
+    {key:'hair',type:'hair_care',sort:true},
+    {key:'hospital',type:'hospital',sort:false},
+    {key:'hotel',type:'lodging',sort:true},
+    {key:'park',type:'park',sort:false},
+    {key:'parking',type:'parking',sort:false},
+    {key:'pharmacy',type:'pharmacy',sort:false},
+    {key:'police',type:'police',sort:false},
+    {key:'eat',type:'restaurant',sort:true},
+    {key:'school',type:'school',sort:false},
+    {key:'shopping',type:'shopping_mall',sort:false},
+    {key:'subway',type:'subway_station',sort:false},
+    {key:'supermarket',type:'supermarket',sort:false},
+    {key:'train',type:'train_station',sort:false}
 ];

@@ -63,9 +63,10 @@ function sortByRating(a,b) {
  *
  * @param location
  * @param placeType
+ * @param doSort
  * @param cb
  */
-function places(location, placeType, cb) {
+function places(location, placeType, doSort, cb) {
     console.log('GMaps Places:' + JSON.stringify(location));
     if (location == null) {
         cb(null);
@@ -93,7 +94,8 @@ function places(location, placeType, cb) {
                  cb(text);
                  */
 
-                response.json.results.sort(sortByRating);
+                if (doSort)
+                    response.json.results.sort(sortByRating);
                 
                 let numToTrim;
                 // add 5 more to allow some timeout on getting details
@@ -144,7 +146,8 @@ function places(location, placeType, cb) {
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
                     if (len>0) {
                         queryTimeout = true;
-                        cols.sort(sortByRating);
+                        if (doSort)
+                            cols.sort(sortByRating);
                         for (let i in cols)
                             carouselMsg.template.columns.push(cols[cols.length - i -1].columns);
                         cb(carouselMsg);

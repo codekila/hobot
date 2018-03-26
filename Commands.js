@@ -417,7 +417,7 @@ function methodEat(event, userName, queryText, cb) {
     gMaps.geoCode(address, location => {
         console.log('location:' + JSON.stringify(location));
         if (location) {
-            gMaps.places(location, carousel => {
+            gMaps.places(location, 'bank', carousel => {
                 //console.log('methodEat:' + carousel.template.columns.length);
                 let numToTrim;
                 if (carousel.template.columns.length > global.config.MAX_LINE_CAROUSEL_NUMBER)

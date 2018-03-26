@@ -54,7 +54,7 @@ function geoCode(address, cb) {
     }
 }
 
-function sortByRating(a,b) {
+function sortByRating(a, b) {
     //console.log('a=' + parseFloat(a.rating) + '  b=' + parseFloat(b.rating));
     return parseFloat(a.rating) - parseFloat(b.rating);
 }
@@ -64,8 +64,12 @@ function sortByRating(a,b) {
  * @param location: coordinates to look up
  * @param cb
  */
-function places(location, cb) {
+function places(location, type, cb) {
     console.log('GMaps Places:' + JSON.stringify(location));
+    
+    if (type == null)
+        type = 'restaurant';
+    
     if (location == null) {
         cb(null);
     } else {
@@ -75,7 +79,7 @@ function places(location, cb) {
             location: [location.lat, location.lng],
             rankby: 'distance',
             opennow: true,
-            type: 'restaurant'
+            type: type
         }, function (err, response) {
             if (err) {
                 console.log(err);
@@ -93,11 +97,11 @@ function places(location, cb) {
                  */
 
                 response.json.results.sort(sortByRating);
-                
+
                 let numToTrim;
                 // add 5 more to allow some timeout on getting details
-                if ((response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER+5)) > 0)
-                    numToTrim = response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER+5);
+                if ((response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER + 5)) > 0)
+                    numToTrim = response.json.results.length - (global.config.MAX_LINE_CAROUSEL_NUMBER + 5);
                 else
                     numToTrim = 0;
                 response.json.results.splice(0, numToTrim);
@@ -137,15 +141,15 @@ function places(location, cb) {
 
                 let queryTimeout = false;
                 //cb(carouselMsg);
-                
-                setTimeout( () => {
+
+                setTimeout(() => {
                     let len = cols.length;
                     console.log('GMaps Place Detail Carousel Msg(' + len + ') Timeout');
-                    if (len>0) {
+                    if (len > 0) {
                         queryTimeout = true;
                         cols.sort(sortByRating);
                         for (let i in cols)
-                            carouselMsg.template.columns.push(cols[cols.length - i -1].columns);
+                            carouselMsg.template.columns.push(cols[cols.length - i - 1].columns);
                         cb(carouselMsg);
                     }
                 }, 1500);
@@ -193,41 +197,34 @@ const querystring = require("querystring");
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
     //let title = place.name + (place.rating ? (' (' + place.rating +'/' + place.reviews.length + ')'):'');
-    let title = place.name + (place.rating ? (' (' + place.rating + ')'):'');
-    let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
-    let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
+    let title = place.name + (place.rating ? (' (' + place.rating + ')') : '');
+    let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')') : '');
+    let uri = place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
 
+    // make sure we don't exceed the max characters of LINE messaging API, otherwise it will get rejected
     if (title.length > 40)
         title = title.substr(0, 40);
     if (text.length > 60)
         text = text.substr(0, 60);
-    let ret = {
+
+    return {
         rating: place.rating,
         review_num: place.reviews.length,
         columns: {
-        thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
-        //imageBackgroundColor: "#FFFFFF",
-        title: title,
-        text: text,
-        defaultAction: {
-            type: "uri",
-            label: "前往店家網站",
-            uri: uri
-        },
-        actions: []
-    }
-};
-/*
-    if (place.photos.length>0) {
-        ret.thumbnailImageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
-        ret.imageBackgroundColor = "#FFFFFF";
-    }
-*/
-    ret.columns.actions.push({
-        type: "uri",
-        label: "前往店家網站",
-        uri: uri
-    });
-
-    return ret;
+            thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
+            //imageBackgroundColor: "#FFFFFF",
+            title: title,
+            text: text,
+            defaultAction: {
+                type: "uri",
+                label: "前往店家網站",
+                uri: uri
+            },
+            actions: [{
+                type: "uri",
+                label: "前往店家網站",
+                uri: uri
+            }]
+        }
+    };
 }

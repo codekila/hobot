@@ -169,7 +169,7 @@ function places(location, placeType, doSort, cb) {
                                 //console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(detailRes.json.result);
                                 cols.push(col);
-                                //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
+                                console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
                             }
                         });

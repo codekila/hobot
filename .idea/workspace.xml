@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Commands.js" afterPath="$PROJECT_DIR$/Commands.js" />
     </list>
     <ignored path="hobot86.iws" />
@@ -27,11 +28,11 @@
       <file leaf-file-name="Commands.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="460" column="58" lean-forward="false" selection-start-line="460" selection-start-column="58" selection-end-line="460" selection-end-column="58" />
+            <state relative-caret-position="177">
+              <caret line="446" column="51" lean-forward="true" selection-start-line="446" selection-start-column="51" selection-end-line="446" selection-end-column="51" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#14942#38516#0" expanded="false" />
+                <element signature="e#14963#38537#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -283,12 +284,12 @@
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
       <workItem from="1521378121535" duration="50511000" />
-      <workItem from="1522037513287" duration="13195000" />
+      <workItem from="1522037513287" duration="13282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="251146000" />
+    <option name="totallyTimeSpent" value="251233000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="0" />
@@ -412,7 +413,7 @@
           <caret line="405" column="56" lean-forward="false" selection-start-line="405" selection-start-column="56" selection-end-line="405" selection-end-column="56" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#14942#38516#0" expanded="false" />
+            <element signature="e#14963#38537#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -472,7 +473,7 @@
           <caret line="418" column="32" lean-forward="false" selection-start-line="418" selection-start-column="32" selection-end-line="418" selection-end-column="32" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#14942#38516#0" expanded="false" />
+            <element signature="e#14963#38537#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -582,11 +583,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="460" column="58" lean-forward="false" selection-start-line="460" selection-start-column="58" selection-end-line="460" selection-end-column="58" />
+        <state relative-caret-position="177">
+          <caret line="446" column="51" lean-forward="true" selection-start-line="446" selection-start-column="51" selection-end-line="446" selection-end-column="51" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#14942#38516#0" expanded="false" />
+            <element signature="e#14963#38537#0" expanded="false" />
           </folding>
         </state>
       </provider>

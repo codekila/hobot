@@ -443,7 +443,7 @@ function methodPlace(event, userName, cmd, cb) {
     }
 
     if (cmd.indexOf(' ') > 0) {
-        placeText = cmd.substr(1, cmd.indexOf(' '));
+        placeText = cmd.substr(1, cmd.indexOf(' ')).trim().toLowerCase();
         address = cmd.substr(cmd.indexOf(' ') + 1);
     } else {
         placeText = cmd.substr(1);

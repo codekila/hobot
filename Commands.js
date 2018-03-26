@@ -256,7 +256,7 @@ function matchCommand(event, userName, queryText, cb) {
                 }
             }
             // keywords next
-            if (matched == false) {
+            if (matched == null) {
                 for (let text of query.texts) {
                     if (query.model == "precise" && text == queryText) {
                         matched = query;

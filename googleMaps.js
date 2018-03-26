@@ -206,7 +206,7 @@ function convertToCarouselColumn(place) {
     if (text.length > 60)
         text = text.substr(0, 60);
     let ret = {
-        rating: place.rating?place.rating:0,
+        rating: place.rating?place.rating:"0",
         review_num: place.reviews? place.reviews.length:0,
         columns: {
         thumbnailImageUrl: place.photos==null? null:('https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey),

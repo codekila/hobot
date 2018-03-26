@@ -197,35 +197,32 @@ const querystring = require("querystring");
 function convertToCarouselColumn(place) {
     let q = querystring.escape(place.name);
     //let title = place.name + (place.rating ? (' (' + place.rating +'/' + place.reviews.length + ')'):'');
-    let title = place.name + (place.rating ? (' (' + place.rating + ')'):'');
-    let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')'):'');
-    let uri= place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
+    let title = place.name + (place.rating ? (' (' + place.rating + ')') : '');
+    let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')') : '');
+    let uri = place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
+    let imageUrl = place.photos ? ('https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey) : null;
 
     if (title.length > 40)
         title = title.substr(0, 40);
     if (text.length > 60)
         text = text.substr(0, 60);
     let ret = {
-        rating: place.rating?place.rating:"0",
+        rating: place.rating ? place.rating : "0",
         columns: {
-        thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
-        //imageBackgroundColor: "#FFFFFF",
-        title: title,
-        text: text,
-        defaultAction: {
-            type: "uri",
-            label: "前往店家網站",
-            uri: uri
-        },
-        actions: []
-    }
-};
-/*
-    if (place.photos.length>0) {
-        ret.thumbnailImageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
-        ret.imageBackgroundColor = "#FFFFFF";
-    }
-*/
+            //imageBackgroundColor: "#FFFFFF",
+            title: title,
+            text: text,
+            defaultAction: {
+                type: "uri",
+                label: "前往店家網站",
+                uri: uri
+            },
+            actions: []
+        }
+    };
+
+    if (imageUrl) ret.columns.thumbnailImageUrl = imageUrl;
+
     ret.columns.actions.push({
         type: "uri",
         label: "前往店家網站",

@@ -169,7 +169,7 @@ function places(location, placeType, doSort, cb) {
                                 //console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
                                 let col = convertToCarouselColumn(detailRes.json.result);
                                 cols.push(col);
-                                console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
+                                //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
                             }
                         });
@@ -200,7 +200,7 @@ function convertToCarouselColumn(place) {
     let title = place.name + (place.rating ? (' (' + place.rating + ')') : '');
     let text = place.vicinity + '\n' + (place.formatted_phone_number ? (' (' + place.formatted_phone_number + ')') : '');
     let uri = place.website ? place.website : 'https://www.google.com.tw/search?q=' + q + '&oq=' + q + '&ie=UTF-8';
-    let imageUrl = place.hasOwnProperty('photos') ? ('https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey) : null;
+    let imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey;
 
     if (title.length > 40)
         title = title.substr(0, 40);

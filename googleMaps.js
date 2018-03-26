@@ -152,7 +152,7 @@ function places(location, placeType, doSort, cb) {
                             carouselMsg.template.columns.push(cols[cols.length - i -1].columns);
                         cb(carouselMsg);
                     }
-                }, 1500);
+                }, 2000);
 
                 async.each(response.json.results,
                     (r, cbMyPlaceDetailDone) => {

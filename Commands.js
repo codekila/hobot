@@ -457,12 +457,12 @@ function methodPlace(event, userName, cmd, cb) {
         }
     }
 
+    console.log('methodPlace: type=' + placeText + ', address=' + address);
+
     if (placeType == null) {
         cb(returnPlaceTypes());
         return;
     }
-
-    console.log('methodPlace: type=' + placeType.type + ', address=' + address);
 
     gMaps.geoCode(address, location => {
         console.log('location:' + JSON.stringify(location));

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="51d48f7e-9bb3-442b-afcf-8b5c1c769206" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Commands.js" afterPath="$PROJECT_DIR$/Commands.js" />
       <change beforePath="$PROJECT_DIR$/googleMaps.js" afterPath="$PROJECT_DIR$/googleMaps.js" />
     </list>
     <ignored path="hobot86.iws" />
@@ -25,24 +26,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Commands.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Commands.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1490">
-              <caret line="470" column="18" lean-forward="false" selection-start-line="470" selection-start-column="18" selection-end-line="470" selection-end-column="18" />
+            <state relative-caret-position="313">
+              <caret line="459" column="72" lean-forward="true" selection-start-line="459" selection-start-column="72" selection-end-line="459" selection-end-column="72" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
-                <element signature="e#14823#38397#0" expanded="false" />
+                <element signature="e#14818#38392#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="googleMaps.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/googleMaps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="202" column="163" lean-forward="false" selection-start-line="202" selection-start-column="163" selection-end-line="202" selection-end-column="163" />
+            <state relative-caret-position="-745">
+              <caret line="154" column="21" lean-forward="false" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
@@ -95,8 +96,8 @@
         <option value="$PROJECT_DIR$/deploy" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/Commands.js" />
         <option value="$PROJECT_DIR$/googleMaps.js" />
+        <option value="$PROJECT_DIR$/Commands.js" />
       </list>
     </option>
   </component>
@@ -284,12 +285,12 @@
       <workItem from="1519309784778" duration="2738000" />
       <workItem from="1519345260366" duration="184702000" />
       <workItem from="1521378121535" duration="50511000" />
-      <workItem from="1522037513287" duration="12777000" />
+      <workItem from="1522037513287" duration="13016000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250728000" />
+    <option name="totallyTimeSpent" value="250967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="0" />
@@ -413,7 +414,7 @@
           <caret line="405" column="56" lean-forward="false" selection-start-line="405" selection-start-column="56" selection-end-line="405" selection-end-column="56" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#14823#38397#0" expanded="false" />
+            <element signature="e#14818#38392#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -473,7 +474,7 @@
           <caret line="418" column="32" lean-forward="false" selection-start-line="418" selection-start-column="32" selection-end-line="418" selection-end-column="32" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#14823#38397#0" expanded="false" />
+            <element signature="e#14818#38392#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -571,23 +572,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Commands.js">
+    <entry file="file://$PROJECT_DIR$/googleMaps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1490">
-          <caret line="470" column="18" lean-forward="false" selection-start-line="470" selection-start-column="18" selection-end-line="470" selection-end-column="18" />
+        <state relative-caret-position="-745">
+          <caret line="154" column="21" lean-forward="false" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
-            <element signature="e#14823#38397#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/googleMaps.js">
+    <entry file="file://$PROJECT_DIR$/Commands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="202" column="163" lean-forward="false" selection-start-line="202" selection-start-column="163" selection-end-line="202" selection-end-column="163" />
+        <state relative-caret-position="313">
+          <caret line="459" column="72" lean-forward="true" selection-start-line="459" selection-start-column="72" selection-end-line="459" selection-end-column="72" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
+            <element signature="e#14818#38392#0" expanded="false" />
           </folding>
         </state>
       </provider>

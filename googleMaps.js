@@ -161,13 +161,13 @@ function places(location, placeType, doSort, cb) {
                         googleMapsClient.place({
                             placeid: r.place_id,
                             language: 'zh-TW'
-                        }, (err, response) => {
+                        }, (err, detailRes) => {
                             if (err) {
                                 console.log('ERROR:' + err);
                                 cbMyPlaceDetailDone(err);
                             } else {
                                 //console.log('GMaps Place Detail response=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(response.json.result));
-                                let col = convertToCarouselColumn(response.json.result);
+                                let col = convertToCarouselColumn(detailRes.json.result);
                                 cols.push(col);
                                 //console.log('GMaps Place Detail Carousel=> ' + carouselMsg.template.columns.length + ' --->' + JSON.stringify(col));
                                 cbMyPlaceDetailDone(null);
@@ -206,10 +206,10 @@ function convertToCarouselColumn(place) {
     if (text.length > 60)
         text = text.substr(0, 60);
     let ret = {
-        rating: place.rating,
-        review_num: place.reviews.length,
+        rating: place.rating?place.rating:0,
+        review_num: place.reviews? place.reviews.length:0,
         columns: {
-        thumbnailImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey,
+        thumbnailImageUrl: place.photos==null? null:('https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' + place.photos[0].photo_reference + '&key=' + myGoogleMapsAPIKey),
         //imageBackgroundColor: "#FFFFFF",
         title: title,
         text: text,

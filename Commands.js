@@ -443,12 +443,14 @@ function methodPlace(event, userName, cmd, cb) {
     }
 
     if (cmd.indexOf(' ') > 0) {
-        placeText = cmd.substr(1, cmd.indexOf(' ')).trim().toLowerCase();
+        placeText = cmd.substr(1, cmd.indexOf(' '));
         address = cmd.substr(cmd.indexOf(' ') + 1);
     } else {
-        placeText = cmd.substr(1).trim().toLowerCase();
+        placeText = cmd.substr(1);
         address = '新竹縣竹北市興隆路一段439號';
     }
+
+    placeText = placeText.trim().toLowerCase();
 
     for (let t of placeTypes) {
         console.log('placeText=' + placeText +', key=' + t.key);

@@ -263,10 +263,13 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
                 if (Math.floor(mins % 60) > 0)
                     text += (Math.floor(mins / 60) > 0 ? '又' : '') + Math.floor(mins % 60) + '分鐘'
                 text += '啦～';
+                /*
                 global.config.botClient.pushMessage(global.config.channel3idiots, {
                     type: 'text',
                     text: text
                 });
+                */
+                console.log(text);
             }
         }
         modConfigs.set('hearbeat', now.toString());

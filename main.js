@@ -6,6 +6,8 @@ const JSONParseError = require('@line/bot-sdk').JSONParseError;
 const ReadError = require('@line/bot-sdk').ReadError;
 const RequestError = require('@line/bot-sdk').RequestError;
 
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const CronJob = require('cron').CronJob;
 const moment = require('moment');
@@ -39,6 +41,19 @@ global.config = {
 
 // create Express app
 const app = express();
+
+// certificate binding
+const privateKey = fs.readFileSync('./sslforfree/private.key', 'utf8');
+const certificate = fs.readFileSync('./sslforfree/certificate.crt', 'utf8');
+const ca = fs.readFileSync('./sslforfree/ca_bundle.crt', 'utf8');
+const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca,
+    secureProtocol: 'SSLv23_method',
+    secureOptions: require('constants').SSL_OP_NO_SSLv3
+};
+const httpsServer = https.createServer(credentials, app);
 
 // public data
 app.use('/static', express.static(__dirname + '/public'));
@@ -161,8 +176,8 @@ function composeReply(event, replyCbFunc) {
 
 // listen on port
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`hobot listening to port ${port}`);
+httpsServer.listen(port, () => {
+    console.log(`hobot listening to https port ${port}`);
 
     // init mongodb
     global.config.mongoose.connect(global.config.mongoURL);

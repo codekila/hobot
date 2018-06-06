@@ -292,7 +292,7 @@ const cronjob1 = new CronJob('0 */1 * * * *', function () {
         // hourly jobs
         if (cronTimestamps.cronTimestampHourly && (now - cronTimestamps.cronTimestampHourly) >= (60 * 60 * 1000 - 100)) {
             console.log("hourly housekeeping:" + now.toString());
-            jobs.checkWhoIsIdling(12);
+            jobs.checkWhoIsIdling(48);
             modConfigs.set('cronTimestampHourly', now.toString());
         }
         // daily jobs

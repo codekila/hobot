@@ -49,7 +49,7 @@ function set(key, value, cb) {
             if (cb) cb(err);
         } else {
             if (r) {
-                console.log('config set: ' + r.key + '=' + r.value + ' OK');
+                //console.log('config set: ' + r.key + '=' + r.value + ' OK');
                 if (cb) cb(null);
             }
             else {
